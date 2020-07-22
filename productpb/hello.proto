@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package pb;
+package pruductpb;
 
 message Payload {
     string data = 1;
