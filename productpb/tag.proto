@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package productpb;
+
+message Payload1 {
+    string data = 1;
+}
+
+service TagService {
+    rpc AddTag (AddTagRequest) returns (AddTagResponse) {}
+
+    rpc EditTag (EditTagRequest) returns (EditTagResponse) {}
+
+    rpc DelTag (DelTagRequest) returns (DelTagResponse) {}
+
+    rpc ReadTag (ReadTagRequest) returns (ReadTagResponse) {}
+
+    rpc ReadTags (ReadTagsRequest) returns (ReadTagsResponse) {}
+}
+
+message Tag {
+    uint64 tag_id = 1;
+    uint64 store_id = 2;
+    string name = 3;
+    uint64 admin_id = 4;
+}
+
+message TagInfo {
+    uint64 tag_id = 1;
+    string name = 3;
+}
+
+
+message AddTagRequest {
+    Tag tag = 1;
+}
+
+message AddTagResponse {
+    uint64 tag_id = 1;
+}
+
+message EditTagRequest {
+    Tag tag = 1;
+}
+
+message EditTagResponse {
+    // 在成功的情况下等于1
+    int32 updated = 1;
+}
+
+message DelTagRequest {
+    uint64 tag_id = 1;
+}
+
+message DelTagResponse {
+    // 在成功的情况下等于1
+    int32 deleted  = 1;
+}
+
+message ReadTagRequest {
+    uint64 tag_id = 1;
+}
+
+message ReadTagResponse {
+    TagInfo tag = 1;
+}
+
+message ReadTagsRequest {
+}
+
+message ReadTagsResponse {
+    repeated TagInfo tags = 1;
+}
