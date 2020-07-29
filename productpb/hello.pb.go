@@ -3,13 +3,14 @@
 
 package productpb
 
-import proto "github.com/golang/protobuf/proto"
-import fmt "fmt"
-import math "math"
-
 import (
-	context "golang.org/x/net/context"
+	context "context"
+	fmt "fmt"
+	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
+	math "math"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -21,7 +22,7 @@ var _ = math.Inf
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
+const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type Payload struct {
 	Data                 string   `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
@@ -34,16 +35,17 @@ func (m *Payload) Reset()         { *m = Payload{} }
 func (m *Payload) String() string { return proto.CompactTextString(m) }
 func (*Payload) ProtoMessage()    {}
 func (*Payload) Descriptor() ([]byte, []int) {
-	return fileDescriptor_hello_51d72e1531a10d3a, []int{0}
+	return fileDescriptor_61ef911816e0a8ce, []int{0}
 }
+
 func (m *Payload) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Payload.Unmarshal(m, b)
 }
 func (m *Payload) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_Payload.Marshal(b, m, deterministic)
 }
-func (dst *Payload) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Payload.Merge(dst, src)
+func (m *Payload) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Payload.Merge(m, src)
 }
 func (m *Payload) XXX_Size() int {
 	return xxx_messageInfo_Payload.Size(m)
@@ -65,13 +67,29 @@ func init() {
 	proto.RegisterType((*Payload)(nil), "productpb.Payload")
 }
 
+func init() {
+	proto.RegisterFile("hello.proto", fileDescriptor_61ef911816e0a8ce)
+}
+
+var fileDescriptor_61ef911816e0a8ce = []byte{
+	// 116 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0xce, 0x48, 0xcd, 0xc9,
+	0xc9, 0xd7, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x2c, 0x28, 0xca, 0x4f, 0x29, 0x4d, 0x2e,
+	0x29, 0x48, 0x52, 0x92, 0xe5, 0x62, 0x0f, 0x48, 0xac, 0xcc, 0xc9, 0x4f, 0x4c, 0x11, 0x12, 0xe2,
+	0x62, 0x49, 0x49, 0x2c, 0x49, 0x94, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0x02, 0xb3, 0x8d, 0x1c,
+	0xb8, 0x78, 0x3c, 0x40, 0x1a, 0x83, 0x53, 0x8b, 0xca, 0x32, 0x93, 0x53, 0x85, 0x0c, 0xb8, 0x58,
+	0x5c, 0x93, 0x33, 0xf2, 0x85, 0x84, 0xf4, 0xe0, 0x46, 0xe8, 0x41, 0xf5, 0x4b, 0x61, 0x11, 0x53,
+	0x62, 0x48, 0x62, 0x03, 0x5b, 0x69, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0xcd, 0x0e, 0x40, 0xa3,
+	0x81, 0x00, 0x00, 0x00,
+}
+
 // Reference imports to suppress errors if they are not otherwise used.
 var _ context.Context
-var _ grpc.ClientConn
+var _ grpc.ClientConnInterface
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion4
+const _ = grpc.SupportPackageIsVersion6
 
 // HelloServiceClient is the client API for HelloService service.
 //
@@ -81,10 +99,10 @@ type HelloServiceClient interface {
 }
 
 type helloServiceClient struct {
-	cc *grpc.ClientConn
+	cc grpc.ClientConnInterface
 }
 
-func NewHelloServiceClient(cc *grpc.ClientConn) HelloServiceClient {
+func NewHelloServiceClient(cc grpc.ClientConnInterface) HelloServiceClient {
 	return &helloServiceClient{cc}
 }
 
@@ -100,6 +118,14 @@ func (c *helloServiceClient) Echo(ctx context.Context, in *Payload, opts ...grpc
 // HelloServiceServer is the server API for HelloService service.
 type HelloServiceServer interface {
 	Echo(context.Context, *Payload) (*Payload, error)
+}
+
+// UnimplementedHelloServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedHelloServiceServer struct {
+}
+
+func (*UnimplementedHelloServiceServer) Echo(ctx context.Context, req *Payload) (*Payload, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Echo not implemented")
 }
 
 func RegisterHelloServiceServer(s *grpc.Server, srv HelloServiceServer) {
@@ -135,18 +161,4 @@ var _HelloService_serviceDesc = grpc.ServiceDesc{
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "hello.proto",
-}
-
-func init() { proto.RegisterFile("hello.proto", fileDescriptor_hello_51d72e1531a10d3a) }
-
-var fileDescriptor_hello_51d72e1531a10d3a = []byte{
-	// 116 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0xce, 0x48, 0xcd, 0xc9,
-	0xc9, 0xd7, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x2c, 0x28, 0xca, 0x4f, 0x29, 0x4d, 0x2e,
-	0x29, 0x48, 0x52, 0x92, 0xe5, 0x62, 0x0f, 0x48, 0xac, 0xcc, 0xc9, 0x4f, 0x4c, 0x11, 0x12, 0xe2,
-	0x62, 0x49, 0x49, 0x2c, 0x49, 0x94, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0x02, 0xb3, 0x8d, 0x1c,
-	0xb8, 0x78, 0x3c, 0x40, 0x1a, 0x83, 0x53, 0x8b, 0xca, 0x32, 0x93, 0x53, 0x85, 0x0c, 0xb8, 0x58,
-	0x5c, 0x93, 0x33, 0xf2, 0x85, 0x84, 0xf4, 0xe0, 0x46, 0xe8, 0x41, 0xf5, 0x4b, 0x61, 0x11, 0x53,
-	0x62, 0x48, 0x62, 0x03, 0x5b, 0x69, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0xcd, 0x0e, 0x40, 0xa3,
-	0x81, 0x00, 0x00, 0x00,
 }
