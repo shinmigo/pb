@@ -2,20 +2,16 @@ syntax = "proto3";
 
 package productpb;
 
-message Payload1 {
-    string data = 1;
-}
-
 service TagService {
-    rpc AddTag (AddTagRequest) returns (AddTagResponse) {}
+    rpc AddTag (AddTagReq) returns (AddTagRes);
 
-    rpc EditTag (EditTagRequest) returns (EditTagResponse) {}
+    rpc EditTag (EditTagReq) returns (EditTagRes);
 
-    rpc DelTag (DelTagRequest) returns (DelTagResponse) {}
+    rpc DelTag (DelTagReq) returns (DelTagRes);
 
-    rpc ReadTag (ReadTagRequest) returns (ReadTagResponse) {}
+    rpc ReadTag (ReadTagReq) returns (ReadTagRes);
 
-    rpc ReadTags (ReadTagsRequest) returns (ReadTagsResponse) {}
+    rpc ReadTags (ReadTagsReq) returns (ReadTagsRes);
 }
 
 message Tag {
@@ -27,47 +23,47 @@ message Tag {
 
 message TagInfo {
     uint64 tag_id = 1;
-    string name = 3;
+    string name = 2;
 }
 
 
-message AddTagRequest {
+message AddTagReq {
     Tag tag = 1;
 }
 
-message AddTagResponse {
+message AddTagRes {
     uint64 tag_id = 1;
 }
 
-message EditTagRequest {
+message EditTagReq {
     Tag tag = 1;
 }
 
-message EditTagResponse {
+message EditTagRes {
     // 在成功的情况下等于1
     int32 updated = 1;
 }
 
-message DelTagRequest {
+message DelTagReq {
     uint64 tag_id = 1;
 }
 
-message DelTagResponse {
+message DelTagRes {
     // 在成功的情况下等于1
     int32 deleted  = 1;
 }
 
-message ReadTagRequest {
+message ReadTagReq {
     uint64 tag_id = 1;
 }
 
-message ReadTagResponse {
+message ReadTagRes {
     TagInfo tag = 1;
 }
 
-message ReadTagsRequest {
+message ReadTagsReq {
 }
 
-message ReadTagsResponse {
+message ReadTagsRes {
     repeated TagInfo tags = 1;
 }
