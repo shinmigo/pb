@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package productpb;
+
+service SpecService {
+    rpc AddSpec (AddSpecReq) returns (AddSpecRes);
+
+    rpc EditSpec (EditSpecReq) returns (EditSpecRes);
+
+    rpc DelSpec (DelSpecReq) returns (DelSpecRes);
+
+    rpc ReadSpec (ReadSpecReq) returns (ReadSpecRes);
+
+    rpc ReadSpecs (ReadSpecsReq) returns (ReadSpecsRes);
+}
+
+message Spec {
+    uint64 spec_id = 1;
+    uint64 store_id = 2;
+    uint64 type_id = 3;
+    string name = 4;
+    uint64 sort = 5;
+    uint64 admin_id = 6;
+    repeated string contents = 7;
+}
+
+message SpecInfo {
+    uint64 spec_id = 1;
+    string name = 2;
+    uint64 sort = 3;
+    repeated string contents = 4;
+}
+
+message AddSpecReq {
+    Spec spec = 1;
+}
+
+message AddSpecRes {
+    uint64 spec_id = 1;
+}
+
+message EditSpecReq {
+    Spec spec = 1;
+}
+
+message EditSpecRes {
+    // 在成功的情况下等于1
+    int32 updated = 1;
+}
+
+message DelSpecReq {
+    Spec spec = 1;
+}
+
+message DelSpecRes {
+    // 在成功的情况下等于1
+    int32 deleted  = 1;
+}
+
+message ReadSpecReq {
+    uint64 spec_id = 1;
+}
+
+message ReadSpecRes {
+    SpecInfo spec = 1;
+}
+
+message ReadSpecsReq {
+
+}
+
+message ReadSpecsRes {
+    repeated SpecInfo spec = 1;
+}
