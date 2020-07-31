@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package productpb;
+
+service CategoryService {
+    rpc AddCategory (AddCategoryReq) returns (AddCategoryRes);
+
+    rpc EditCategory (EditCategoryReq) returns (EditCategoryRes);
+
+    rpc DelCategory (DelCategoryReq) returns (DelCategoryRes);
+
+    rpc ReadCategory (ReadCategoryReq) returns (ReadCategoryRes);
+
+    rpc ReadCategories (ReadCategoriesReq) returns (ReadCategoriesRes);
+}
+
+enum CategoryStatus {
+    InActive = 0;
+    Active = 1;
+}
+
+message Category {
+    uint64 category_id = 1;
+    uint64 store_id = 2;
+    uint64 parent_id = 3;
+    string name = 4;
+    string icon = 5;
+    CategoryStatus status = 6;
+    uint64 sort = 7;
+    uint64 admin_id = 8;
+}
+
+message AddCategoryReq {
+    Category category = 1;
+}
+
+message AddCategoryRes {
+    uint64 category_id = 1;
+}
+
+message EditCategoryReq {
+    Category category = 1;
+}
+
+message EditCategoryRes {
+    int32 updated = 1;
+}
+
+message DelCategoryReq {
+    uint64 category_id = 1;
+}
+
+message DelCategoryRes {
+    int32 deleted  = 1;
+}
+
+message CategoryInfo {
+    uint64 category_id = 1;
+    uint64 parent_id = 2;
+    string name = 3;
+    string icon = 4;
+    CategoryStatus status = 5;
+    uint64 sort = 6;
+}
+
+message ReadCategoryReq {
+    uint64 category_id = 1;
+}
+
+message ReadCategoryRes {
+    CategoryInfo category = 1;
+}
+
+message ReadCategoriesReq {
+}
+
+message ReadCategoriesRes {
+    repeated CategoryInfo categories = 1;
+}
