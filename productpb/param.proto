@@ -23,7 +23,7 @@ enum ParamType {
 message Param {
     uint64 param_id = 1;
     uint64 store_id = 2;
-    uint64 type_id = 3;
+    uint64 kind_id = 3;
     string name = 4;
     ParamType type = 5;
     uint64 sort = 6;
@@ -77,5 +77,5 @@ message ReadParamsReq {
 }
 
 message ReadParamsRes {
-    repeated ParamInfo param = 1;
+    repeated ParamInfo params = 1;
 }

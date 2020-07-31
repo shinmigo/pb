@@ -17,7 +17,7 @@ service SpecService {
 message Spec {
     uint64 spec_id = 1;
     uint64 store_id = 2;
-    uint64 type_id = 3;
+    uint64 kind_id = 3;
     string name = 4;
     uint64 sort = 5;
     uint64 admin_id = 6;
@@ -70,5 +70,5 @@ message ReadSpecsReq {
 }
 
 message ReadSpecsRes {
-    repeated SpecInfo spec = 1;
+    repeated SpecInfo specs = 1;
 }

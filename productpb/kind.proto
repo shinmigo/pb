@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package productpb;
+
+service KindService {
+    rpc AddKind (AddKindReq) returns (AddKindRes);
+
+    rpc EditKind (EditKindReq) returns (EditKindRes);
+
+    rpc DelKind (DelKindReq) returns (DelKindRes);
+
+    rpc ReadKind (ReadKindReq) returns (ReadKindRes);
+
+    rpc ReadKinds (ReadKindsReq) returns (ReadKindsRes);
+
+    rpc BindParam (BindParamReq) returns (BindParamRes);
+
+    rpc BindSpec (BindSpecReq) returns (BindSpecRes);
+}
+
+message Kind {
+    uint64 kind_id = 1;
+    uint64 store_id = 2;
+    string name = 3;
+    uint64 admin_id = 4;
+}
+
+message KindInfo {
+    uint64 kind_id = 1;
+    string name = 3;
+    uint64 param_qty = 4;
+    uint64 spec_qty = 5;
+}
+
+message AddKindReq {
+    Kind kind = 1;
+}
+
+message AddKindRes {
+    uint64 kind_id = 1;
+}
+
+message EditKindReq {
+    Kind kind = 1;
+}
+
+message EditKindRes {
+    // 在成功的情况下等于1
+    int32 updated = 1;
+}
+
+message DelKindReq {
+    uint64 kind_id = 1;
+}
+
+message DelKindRes {
+    // 在成功的情况下等于1
+    int32 deleted  = 1;
+}
+
+message ReadKindReq {
+    uint64 kind_id = 1;
+}
+
+message ReadKindRes {
+    KindInfo kind = 1;
+}
+
+message ReadKindsReq {
+}
+
+message ReadKindsRes {
+    repeated KindInfo kinds = 1;
+}
+
+message BindParamReq {
+    uint64 kind_id = 1;
+    repeated uint64 param_ids = 2;
+}
+
+message BindParamRes {
+    // 在成功的情况下等于1
+    int32 updated = 1;
+}
+
+message BindSpecReq {
+    uint64 kind_id = 1;
+    repeated uint64 spec_ids = 2;
+}
+
+message BindSpecRes {
+    // 在成功的情况下等于1
+    int32 updated = 1;
+}
