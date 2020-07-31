@@ -49,7 +49,7 @@ message EditSpecRes {
 }
 
 message DelSpecReq {
-    Spec spec = 1;
+     uint64 spec_id = 1;
 }
 
 message DelSpecRes {
