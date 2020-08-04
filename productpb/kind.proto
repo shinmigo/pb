@@ -67,6 +67,8 @@ message ReadKindRes {
 }
 
 message ReadKindsReq {
+    uint64 page = 1;
+    uint64 page_size = 2;
 }
 
 message ReadKindsRes {
