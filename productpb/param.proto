@@ -15,9 +15,10 @@ service ParamService {
 }
 
 enum ParamType {
-    Text = 0;
-    Radio = 1;
-    Checkbox = 2;
+    Placeholder = 0;
+    Text = 1;
+    Radio = 2;
+    Checkbox = 3;
 }
 
 message Param {
@@ -74,6 +75,8 @@ message ReadParamRes {
 }
 
 message ReadParamsReq {
+    uint64 page = 1;
+    uint64 page_size = 2;
 }
 
 message ReadParamsRes {
