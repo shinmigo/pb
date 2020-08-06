@@ -85,208 +85,91 @@ func (m *Tag) GetAdminId() uint64 {
 	return 0
 }
 
-type TagInfo struct {
+type TagDetail struct {
 	TagId                uint64   `protobuf:"varint,1,opt,name=tag_id,json=tagId,proto3" json:"tag_id,omitempty"`
-	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
+	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	CreatedBy            uint64   `protobuf:"varint,4,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
+	UpdatedBy            uint64   `protobuf:"varint,5,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by,omitempty"`
+	CreatedAt            string   `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt            string   `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *TagInfo) Reset()         { *m = TagInfo{} }
-func (m *TagInfo) String() string { return proto.CompactTextString(m) }
-func (*TagInfo) ProtoMessage()    {}
-func (*TagInfo) Descriptor() ([]byte, []int) {
+func (m *TagDetail) Reset()         { *m = TagDetail{} }
+func (m *TagDetail) String() string { return proto.CompactTextString(m) }
+func (*TagDetail) ProtoMessage()    {}
+func (*TagDetail) Descriptor() ([]byte, []int) {
 	return fileDescriptor_27f545bcde37ecb5, []int{1}
 }
 
-func (m *TagInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_TagInfo.Unmarshal(m, b)
+func (m *TagDetail) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TagDetail.Unmarshal(m, b)
 }
-func (m *TagInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_TagInfo.Marshal(b, m, deterministic)
+func (m *TagDetail) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TagDetail.Marshal(b, m, deterministic)
 }
-func (m *TagInfo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_TagInfo.Merge(m, src)
+func (m *TagDetail) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TagDetail.Merge(m, src)
 }
-func (m *TagInfo) XXX_Size() int {
-	return xxx_messageInfo_TagInfo.Size(m)
+func (m *TagDetail) XXX_Size() int {
+	return xxx_messageInfo_TagDetail.Size(m)
 }
-func (m *TagInfo) XXX_DiscardUnknown() {
-	xxx_messageInfo_TagInfo.DiscardUnknown(m)
+func (m *TagDetail) XXX_DiscardUnknown() {
+	xxx_messageInfo_TagDetail.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_TagInfo proto.InternalMessageInfo
+var xxx_messageInfo_TagDetail proto.InternalMessageInfo
 
-func (m *TagInfo) GetTagId() uint64 {
+func (m *TagDetail) GetTagId() uint64 {
 	if m != nil {
 		return m.TagId
 	}
 	return 0
 }
 
-func (m *TagInfo) GetName() string {
+func (m *TagDetail) GetStoreId() uint64 {
+	if m != nil {
+		return m.StoreId
+	}
+	return 0
+}
+
+func (m *TagDetail) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-type AddTagReq struct {
-	Tag                  *Tag     `protobuf:"bytes,1,opt,name=tag,proto3" json:"tag,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *AddTagReq) Reset()         { *m = AddTagReq{} }
-func (m *AddTagReq) String() string { return proto.CompactTextString(m) }
-func (*AddTagReq) ProtoMessage()    {}
-func (*AddTagReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_27f545bcde37ecb5, []int{2}
-}
-
-func (m *AddTagReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AddTagReq.Unmarshal(m, b)
-}
-func (m *AddTagReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AddTagReq.Marshal(b, m, deterministic)
-}
-func (m *AddTagReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AddTagReq.Merge(m, src)
-}
-func (m *AddTagReq) XXX_Size() int {
-	return xxx_messageInfo_AddTagReq.Size(m)
-}
-func (m *AddTagReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_AddTagReq.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AddTagReq proto.InternalMessageInfo
-
-func (m *AddTagReq) GetTag() *Tag {
+func (m *TagDetail) GetCreatedBy() uint64 {
 	if m != nil {
-		return m.Tag
-	}
-	return nil
-}
-
-type AddTagRes struct {
-	TagId                uint64   `protobuf:"varint,1,opt,name=tag_id,json=tagId,proto3" json:"tag_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *AddTagRes) Reset()         { *m = AddTagRes{} }
-func (m *AddTagRes) String() string { return proto.CompactTextString(m) }
-func (*AddTagRes) ProtoMessage()    {}
-func (*AddTagRes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_27f545bcde37ecb5, []int{3}
-}
-
-func (m *AddTagRes) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AddTagRes.Unmarshal(m, b)
-}
-func (m *AddTagRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AddTagRes.Marshal(b, m, deterministic)
-}
-func (m *AddTagRes) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AddTagRes.Merge(m, src)
-}
-func (m *AddTagRes) XXX_Size() int {
-	return xxx_messageInfo_AddTagRes.Size(m)
-}
-func (m *AddTagRes) XXX_DiscardUnknown() {
-	xxx_messageInfo_AddTagRes.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AddTagRes proto.InternalMessageInfo
-
-func (m *AddTagRes) GetTagId() uint64 {
-	if m != nil {
-		return m.TagId
+		return m.CreatedBy
 	}
 	return 0
 }
 
-type EditTagReq struct {
-	Tag                  *Tag     `protobuf:"bytes,1,opt,name=tag,proto3" json:"tag,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *EditTagReq) Reset()         { *m = EditTagReq{} }
-func (m *EditTagReq) String() string { return proto.CompactTextString(m) }
-func (*EditTagReq) ProtoMessage()    {}
-func (*EditTagReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_27f545bcde37ecb5, []int{4}
-}
-
-func (m *EditTagReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_EditTagReq.Unmarshal(m, b)
-}
-func (m *EditTagReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_EditTagReq.Marshal(b, m, deterministic)
-}
-func (m *EditTagReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EditTagReq.Merge(m, src)
-}
-func (m *EditTagReq) XXX_Size() int {
-	return xxx_messageInfo_EditTagReq.Size(m)
-}
-func (m *EditTagReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_EditTagReq.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_EditTagReq proto.InternalMessageInfo
-
-func (m *EditTagReq) GetTag() *Tag {
+func (m *TagDetail) GetUpdatedBy() uint64 {
 	if m != nil {
-		return m.Tag
-	}
-	return nil
-}
-
-type EditTagRes struct {
-	// 在成功的情况下等于1
-	Updated              int32    `protobuf:"varint,1,opt,name=updated,proto3" json:"updated,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *EditTagRes) Reset()         { *m = EditTagRes{} }
-func (m *EditTagRes) String() string { return proto.CompactTextString(m) }
-func (*EditTagRes) ProtoMessage()    {}
-func (*EditTagRes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_27f545bcde37ecb5, []int{5}
-}
-
-func (m *EditTagRes) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_EditTagRes.Unmarshal(m, b)
-}
-func (m *EditTagRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_EditTagRes.Marshal(b, m, deterministic)
-}
-func (m *EditTagRes) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EditTagRes.Merge(m, src)
-}
-func (m *EditTagRes) XXX_Size() int {
-	return xxx_messageInfo_EditTagRes.Size(m)
-}
-func (m *EditTagRes) XXX_DiscardUnknown() {
-	xxx_messageInfo_EditTagRes.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_EditTagRes proto.InternalMessageInfo
-
-func (m *EditTagRes) GetUpdated() int32 {
-	if m != nil {
-		return m.Updated
+		return m.UpdatedBy
 	}
 	return 0
+}
+
+func (m *TagDetail) GetCreatedAt() string {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return ""
+}
+
+func (m *TagDetail) GetUpdatedAt() string {
+	if m != nil {
+		return m.UpdatedAt
+	}
+	return ""
 }
 
 type DelTagReq struct {
@@ -300,7 +183,7 @@ func (m *DelTagReq) Reset()         { *m = DelTagReq{} }
 func (m *DelTagReq) String() string { return proto.CompactTextString(m) }
 func (*DelTagReq) ProtoMessage()    {}
 func (*DelTagReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_27f545bcde37ecb5, []int{6}
+	return fileDescriptor_27f545bcde37ecb5, []int{2}
 }
 
 func (m *DelTagReq) XXX_Unmarshal(b []byte) error {
@@ -328,204 +211,157 @@ func (m *DelTagReq) GetTagId() uint64 {
 	return 0
 }
 
-type DelTagRes struct {
-	// 在成功的情况下等于1
-	Deleted              int32    `protobuf:"varint,1,opt,name=deleted,proto3" json:"deleted,omitempty"`
+type AnyRes struct {
+	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	State                uint32   `protobuf:"varint,2,opt,name=state,proto3" json:"state,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *DelTagRes) Reset()         { *m = DelTagRes{} }
-func (m *DelTagRes) String() string { return proto.CompactTextString(m) }
-func (*DelTagRes) ProtoMessage()    {}
-func (*DelTagRes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_27f545bcde37ecb5, []int{7}
+func (m *AnyRes) Reset()         { *m = AnyRes{} }
+func (m *AnyRes) String() string { return proto.CompactTextString(m) }
+func (*AnyRes) ProtoMessage()    {}
+func (*AnyRes) Descriptor() ([]byte, []int) {
+	return fileDescriptor_27f545bcde37ecb5, []int{3}
 }
 
-func (m *DelTagRes) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DelTagRes.Unmarshal(m, b)
+func (m *AnyRes) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AnyRes.Unmarshal(m, b)
 }
-func (m *DelTagRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DelTagRes.Marshal(b, m, deterministic)
+func (m *AnyRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AnyRes.Marshal(b, m, deterministic)
 }
-func (m *DelTagRes) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DelTagRes.Merge(m, src)
+func (m *AnyRes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AnyRes.Merge(m, src)
 }
-func (m *DelTagRes) XXX_Size() int {
-	return xxx_messageInfo_DelTagRes.Size(m)
+func (m *AnyRes) XXX_Size() int {
+	return xxx_messageInfo_AnyRes.Size(m)
 }
-func (m *DelTagRes) XXX_DiscardUnknown() {
-	xxx_messageInfo_DelTagRes.DiscardUnknown(m)
+func (m *AnyRes) XXX_DiscardUnknown() {
+	xxx_messageInfo_AnyRes.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_DelTagRes proto.InternalMessageInfo
+var xxx_messageInfo_AnyRes proto.InternalMessageInfo
 
-func (m *DelTagRes) GetDeleted() int32 {
+func (m *AnyRes) GetId() uint64 {
 	if m != nil {
-		return m.Deleted
+		return m.Id
 	}
 	return 0
 }
 
-type ReadTagReq struct {
-	TagId                uint64   `protobuf:"varint,1,opt,name=tag_id,json=tagId,proto3" json:"tag_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ReadTagReq) Reset()         { *m = ReadTagReq{} }
-func (m *ReadTagReq) String() string { return proto.CompactTextString(m) }
-func (*ReadTagReq) ProtoMessage()    {}
-func (*ReadTagReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_27f545bcde37ecb5, []int{8}
-}
-
-func (m *ReadTagReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ReadTagReq.Unmarshal(m, b)
-}
-func (m *ReadTagReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ReadTagReq.Marshal(b, m, deterministic)
-}
-func (m *ReadTagReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReadTagReq.Merge(m, src)
-}
-func (m *ReadTagReq) XXX_Size() int {
-	return xxx_messageInfo_ReadTagReq.Size(m)
-}
-func (m *ReadTagReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReadTagReq.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ReadTagReq proto.InternalMessageInfo
-
-func (m *ReadTagReq) GetTagId() uint64 {
+func (m *AnyRes) GetState() uint32 {
 	if m != nil {
-		return m.TagId
+		return m.State
 	}
 	return 0
 }
 
-type ReadTagRes struct {
-	Tag                  *TagInfo `protobuf:"bytes,1,opt,name=tag,proto3" json:"tag,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ReadTagRes) Reset()         { *m = ReadTagRes{} }
-func (m *ReadTagRes) String() string { return proto.CompactTextString(m) }
-func (*ReadTagRes) ProtoMessage()    {}
-func (*ReadTagRes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_27f545bcde37ecb5, []int{9}
-}
-
-func (m *ReadTagRes) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ReadTagRes.Unmarshal(m, b)
-}
-func (m *ReadTagRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ReadTagRes.Marshal(b, m, deterministic)
-}
-func (m *ReadTagRes) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReadTagRes.Merge(m, src)
-}
-func (m *ReadTagRes) XXX_Size() int {
-	return xxx_messageInfo_ReadTagRes.Size(m)
-}
-func (m *ReadTagRes) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReadTagRes.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ReadTagRes proto.InternalMessageInfo
-
-func (m *ReadTagRes) GetTag() *TagInfo {
-	if m != nil {
-		return m.Tag
-	}
-	return nil
-}
-
-type ReadTagsReq struct {
+type ListTagReq struct {
 	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
 	PageSize             uint64   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	Id                   uint64   `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ReadTagsReq) Reset()         { *m = ReadTagsReq{} }
-func (m *ReadTagsReq) String() string { return proto.CompactTextString(m) }
-func (*ReadTagsReq) ProtoMessage()    {}
-func (*ReadTagsReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_27f545bcde37ecb5, []int{10}
+func (m *ListTagReq) Reset()         { *m = ListTagReq{} }
+func (m *ListTagReq) String() string { return proto.CompactTextString(m) }
+func (*ListTagReq) ProtoMessage()    {}
+func (*ListTagReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_27f545bcde37ecb5, []int{4}
 }
 
-func (m *ReadTagsReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ReadTagsReq.Unmarshal(m, b)
+func (m *ListTagReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListTagReq.Unmarshal(m, b)
 }
-func (m *ReadTagsReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ReadTagsReq.Marshal(b, m, deterministic)
+func (m *ListTagReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListTagReq.Marshal(b, m, deterministic)
 }
-func (m *ReadTagsReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReadTagsReq.Merge(m, src)
+func (m *ListTagReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListTagReq.Merge(m, src)
 }
-func (m *ReadTagsReq) XXX_Size() int {
-	return xxx_messageInfo_ReadTagsReq.Size(m)
+func (m *ListTagReq) XXX_Size() int {
+	return xxx_messageInfo_ListTagReq.Size(m)
 }
-func (m *ReadTagsReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReadTagsReq.DiscardUnknown(m)
+func (m *ListTagReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListTagReq.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ReadTagsReq proto.InternalMessageInfo
+var xxx_messageInfo_ListTagReq proto.InternalMessageInfo
 
-func (m *ReadTagsReq) GetPage() uint64 {
+func (m *ListTagReq) GetPage() uint64 {
 	if m != nil {
 		return m.Page
 	}
 	return 0
 }
 
-func (m *ReadTagsReq) GetPageSize() uint64 {
+func (m *ListTagReq) GetPageSize() uint64 {
 	if m != nil {
 		return m.PageSize
 	}
 	return 0
 }
 
-type ReadTagsRes struct {
-	Tags                 []*TagInfo `protobuf:"bytes,1,rep,name=tags,proto3" json:"tags,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+func (m *ListTagReq) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
 }
 
-func (m *ReadTagsRes) Reset()         { *m = ReadTagsRes{} }
-func (m *ReadTagsRes) String() string { return proto.CompactTextString(m) }
-func (*ReadTagsRes) ProtoMessage()    {}
-func (*ReadTagsRes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_27f545bcde37ecb5, []int{11}
+func (m *ListTagReq) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
 }
 
-func (m *ReadTagsRes) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ReadTagsRes.Unmarshal(m, b)
-}
-func (m *ReadTagsRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ReadTagsRes.Marshal(b, m, deterministic)
-}
-func (m *ReadTagsRes) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReadTagsRes.Merge(m, src)
-}
-func (m *ReadTagsRes) XXX_Size() int {
-	return xxx_messageInfo_ReadTagsRes.Size(m)
-}
-func (m *ReadTagsRes) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReadTagsRes.DiscardUnknown(m)
+type ListTagRes struct {
+	Total                uint64       `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Tags                 []*TagDetail `protobuf:"bytes,2,rep,name=tags,proto3" json:"tags,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
 }
 
-var xxx_messageInfo_ReadTagsRes proto.InternalMessageInfo
+func (m *ListTagRes) Reset()         { *m = ListTagRes{} }
+func (m *ListTagRes) String() string { return proto.CompactTextString(m) }
+func (*ListTagRes) ProtoMessage()    {}
+func (*ListTagRes) Descriptor() ([]byte, []int) {
+	return fileDescriptor_27f545bcde37ecb5, []int{5}
+}
 
-func (m *ReadTagsRes) GetTags() []*TagInfo {
+func (m *ListTagRes) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListTagRes.Unmarshal(m, b)
+}
+func (m *ListTagRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListTagRes.Marshal(b, m, deterministic)
+}
+func (m *ListTagRes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListTagRes.Merge(m, src)
+}
+func (m *ListTagRes) XXX_Size() int {
+	return xxx_messageInfo_ListTagRes.Size(m)
+}
+func (m *ListTagRes) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListTagRes.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListTagRes proto.InternalMessageInfo
+
+func (m *ListTagRes) GetTotal() uint64 {
+	if m != nil {
+		return m.Total
+	}
+	return 0
+}
+
+func (m *ListTagRes) GetTags() []*TagDetail {
 	if m != nil {
 		return m.Tags
 	}
@@ -534,48 +370,42 @@ func (m *ReadTagsRes) GetTags() []*TagInfo {
 
 func init() {
 	proto.RegisterType((*Tag)(nil), "productpb.Tag")
-	proto.RegisterType((*TagInfo)(nil), "productpb.TagInfo")
-	proto.RegisterType((*AddTagReq)(nil), "productpb.AddTagReq")
-	proto.RegisterType((*AddTagRes)(nil), "productpb.AddTagRes")
-	proto.RegisterType((*EditTagReq)(nil), "productpb.EditTagReq")
-	proto.RegisterType((*EditTagRes)(nil), "productpb.EditTagRes")
+	proto.RegisterType((*TagDetail)(nil), "productpb.TagDetail")
 	proto.RegisterType((*DelTagReq)(nil), "productpb.DelTagReq")
-	proto.RegisterType((*DelTagRes)(nil), "productpb.DelTagRes")
-	proto.RegisterType((*ReadTagReq)(nil), "productpb.ReadTagReq")
-	proto.RegisterType((*ReadTagRes)(nil), "productpb.ReadTagRes")
-	proto.RegisterType((*ReadTagsReq)(nil), "productpb.ReadTagsReq")
-	proto.RegisterType((*ReadTagsRes)(nil), "productpb.ReadTagsRes")
+	proto.RegisterType((*AnyRes)(nil), "productpb.AnyRes")
+	proto.RegisterType((*ListTagReq)(nil), "productpb.ListTagReq")
+	proto.RegisterType((*ListTagRes)(nil), "productpb.ListTagRes")
 }
 
 func init() { proto.RegisterFile("tag.proto", fileDescriptor_27f545bcde37ecb5) }
 
 var fileDescriptor_27f545bcde37ecb5 = []byte{
-	// 392 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x53, 0xc1, 0x6e, 0x9b, 0x40,
-	0x10, 0x15, 0x06, 0x1b, 0x33, 0x96, 0x7a, 0x18, 0xd5, 0x15, 0xa5, 0x17, 0xb4, 0x6d, 0x2d, 0x5f,
-	0xca, 0xc1, 0x75, 0x55, 0x29, 0x87, 0x48, 0x91, 0x92, 0x03, 0x57, 0xcc, 0xdd, 0x5a, 0x7b, 0xd7,
-	0x2b, 0x24, 0xdb, 0x10, 0x76, 0x9d, 0x83, 0x3f, 0x28, 0xdf, 0x19, 0xed, 0x82, 0x0d, 0x56, 0x20,
-	0xca, 0x89, 0x9d, 0x37, 0x6f, 0xde, 0xd3, 0xcc, 0x13, 0xe0, 0x29, 0x2a, 0xa2, 0xa2, 0xcc, 0x55,
-	0x8e, 0x5e, 0x51, 0xe6, 0xec, 0xb4, 0x55, 0xc5, 0x86, 0xec, 0xc0, 0x4e, 0xa9, 0xc0, 0x29, 0x8c,
-	0x14, 0x15, 0xeb, 0x8c, 0xf9, 0x56, 0x68, 0xcd, 0x9d, 0x64, 0xa8, 0xa8, 0x88, 0x19, 0x7e, 0x87,
-	0xb1, 0x54, 0x79, 0xc9, 0x75, 0x63, 0x60, 0x1a, 0xae, 0xa9, 0x63, 0x86, 0x08, 0xce, 0x91, 0x1e,
-	0xb8, 0x6f, 0x87, 0xd6, 0xdc, 0x4b, 0xcc, 0x5b, 0xd3, 0x29, 0x3b, 0x64, 0x47, 0x4d, 0x77, 0x2a,
-	0xba, 0xa9, 0x63, 0x46, 0x96, 0xe0, 0xa6, 0x54, 0xc4, 0xc7, 0x5d, 0xde, 0xe7, 0x75, 0x11, 0x1c,
-	0x34, 0x82, 0xe4, 0x0f, 0x78, 0x0f, 0x8c, 0xa5, 0x54, 0x24, 0xfc, 0x19, 0x43, 0xb0, 0x15, 0x15,
-	0x66, 0x68, 0xb2, 0xf8, 0x12, 0x5d, 0x77, 0x88, 0x74, 0x5f, 0xb7, 0x08, 0x69, 0xe8, 0xb2, 0xc7,
-	0x86, 0x44, 0x00, 0x4f, 0x2c, 0x53, 0x9f, 0xd6, 0x9c, 0xb5, 0xf8, 0x12, 0x7d, 0x70, 0x4f, 0x05,
-	0xa3, 0x8a, 0x57, 0xaa, 0xc3, 0xe4, 0x52, 0x6a, 0xef, 0x47, 0xbe, 0xaf, 0x65, 0x7b, 0xbc, 0x7f,
-	0x37, 0x1c, 0x23, 0xc5, 0xf8, 0x9e, 0xb7, 0xa4, 0xea, 0x92, 0xfc, 0x04, 0x48, 0x38, 0x65, 0x1f,
-	0x6b, 0x2d, 0x5a, 0x24, 0x89, 0xbf, 0xda, 0x7b, 0xe0, 0xed, 0x1e, 0xfa, 0xe8, 0xd5, 0x2e, 0xf7,
-	0x30, 0xa9, 0x67, 0xa4, 0x56, 0x46, 0x70, 0x0a, 0x2a, 0x78, 0xad, 0x6b, 0xde, 0xf8, 0x03, 0x3c,
-	0xfd, 0x5d, 0xcb, 0xec, 0xcc, 0xeb, 0xc8, 0xc7, 0x1a, 0x58, 0x65, 0x67, 0x4e, 0xfe, 0xb5, 0xe7,
-	0x25, 0xce, 0xc0, 0x51, 0x54, 0x48, 0xdf, 0x0a, 0xed, 0x1e, 0x57, 0xd3, 0x5f, 0xbc, 0x0e, 0x00,
-	0x52, 0x2a, 0x56, 0xbc, 0x7c, 0xc9, 0xb6, 0x1c, 0x97, 0x30, 0xaa, 0x52, 0xc2, 0xaf, 0xad, 0x91,
-	0x6b, 0xce, 0x41, 0x17, 0x2a, 0xf1, 0x3f, 0xb8, 0x75, 0x0e, 0x38, 0x6d, 0x11, 0x9a, 0x2c, 0x83,
-	0x4e, 0x58, 0x6a, 0xbb, 0xea, 0xe8, 0x37, 0x76, 0xd7, 0xac, 0x82, 0x2e, 0xd4, 0xd8, 0xd5, 0xab,
-	0xde, 0xd8, 0x35, 0xb9, 0x04, 0x9d, 0xb0, 0xc4, 0x3b, 0x18, 0x5f, 0x6e, 0x84, 0xdf, 0xde, 0x53,
-	0xf4, 0xe1, 0x83, 0x6e, 0x5c, 0x6e, 0x46, 0xe6, 0xf7, 0xfc, 0xfb, 0x16, 0x00, 0x00, 0xff, 0xff,
-	0x6f, 0xc8, 0x0b, 0xbe, 0xab, 0x03, 0x00, 0x00,
+	// 393 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x53, 0x4d, 0xab, 0xd3, 0x40,
+	0x14, 0x25, 0x1f, 0x4d, 0x5f, 0xae, 0xf8, 0xc0, 0xe1, 0x3d, 0x88, 0x15, 0xa1, 0x64, 0x15, 0x50,
+	0x02, 0xd6, 0x9d, 0xbb, 0x48, 0x45, 0x0a, 0x5d, 0xa5, 0xd9, 0x97, 0xdb, 0xce, 0x38, 0x0c, 0xb4,
+	0x4d, 0xcc, 0xdc, 0x0a, 0xed, 0x7f, 0x74, 0xeb, 0xef, 0x91, 0x99, 0x4c, 0xd2, 0x08, 0x15, 0x5c,
+	0xb8, 0xca, 0xdc, 0x7b, 0xce, 0xb9, 0x1f, 0x67, 0x26, 0x10, 0x13, 0xca, 0xbc, 0x69, 0x6b, 0xaa,
+	0x59, 0xdc, 0xb4, 0x35, 0x3f, 0xef, 0xa9, 0xd9, 0xa5, 0xdf, 0x20, 0xa8, 0x50, 0xb2, 0x67, 0x88,
+	0x08, 0xe5, 0x56, 0xf1, 0xc4, 0x9b, 0x7b, 0x59, 0x58, 0x4e, 0x08, 0xe5, 0x8a, 0xb3, 0xd7, 0xf0,
+	0xa0, 0xa9, 0x6e, 0x85, 0x01, 0x7c, 0x0b, 0x4c, 0x6d, 0xbc, 0xe2, 0x8c, 0x41, 0x78, 0xc2, 0xa3,
+	0x48, 0x82, 0xb9, 0x97, 0xc5, 0xa5, 0x3d, 0x1b, 0x3a, 0xf2, 0xa3, 0x3a, 0x19, 0x7a, 0xd8, 0xd1,
+	0x6d, 0xbc, 0xe2, 0xe9, 0x4f, 0x0f, 0xe2, 0x0a, 0xe5, 0x52, 0x10, 0xaa, 0xc3, 0x7f, 0x6a, 0xf7,
+	0x16, 0x60, 0xdf, 0x0a, 0x24, 0xc1, 0xb7, 0xbb, 0x8b, 0x6b, 0x18, 0xbb, 0xcc, 0xe7, 0x8b, 0x81,
+	0xcf, 0x0d, 0xef, 0xe1, 0x49, 0x07, 0xbb, 0x4c, 0x07, 0xf7, 0x6a, 0xa4, 0x24, 0xb2, 0x75, 0x7b,
+	0x75, 0x41, 0x63, 0x35, 0x52, 0x32, 0xed, 0x60, 0x97, 0x29, 0x28, 0x4d, 0x21, 0x5e, 0x8a, 0x43,
+	0x85, 0xb2, 0x14, 0xdf, 0xff, 0xb2, 0x4e, 0x9a, 0x43, 0x54, 0x9c, 0x2e, 0xa5, 0xd0, 0xec, 0x11,
+	0xfc, 0x01, 0xf4, 0x15, 0x67, 0x4f, 0x30, 0xd1, 0x84, 0x24, 0xec, 0x96, 0x2f, 0xcb, 0x2e, 0x48,
+	0x11, 0x60, 0xad, 0x34, 0xb9, 0xa2, 0x0c, 0xc2, 0x06, 0xa5, 0x70, 0x2a, 0x7b, 0x66, 0x6f, 0x20,
+	0x36, 0xdf, 0xad, 0x56, 0x57, 0xe1, 0x1c, 0x7a, 0x30, 0x89, 0x8d, 0xba, 0x0a, 0xd7, 0x24, 0x18,
+	0x9a, 0xf4, 0x96, 0x85, 0x37, 0xcb, 0xd2, 0xf5, 0xa8, 0x85, 0x36, 0x63, 0x50, 0x4d, 0x78, 0x18,
+	0xc6, 0x36, 0x01, 0xcb, 0x20, 0x24, 0x94, 0x3a, 0xf1, 0xe7, 0x41, 0xf6, 0x62, 0xf1, 0x94, 0x0f,
+	0x8f, 0x25, 0x1f, 0x2e, 0xb0, 0xb4, 0x8c, 0xc5, 0x2f, 0x0f, 0xa0, 0x42, 0xb9, 0x11, 0xed, 0x0f,
+	0xb5, 0x17, 0xec, 0x1d, 0x44, 0x05, 0xe7, 0xe6, 0x39, 0x3d, 0xfe, 0x29, 0x9a, 0xbd, 0x1a, 0xc5,
+	0xce, 0x92, 0xf7, 0x30, 0xfd, 0xc2, 0x15, 0xfd, 0x23, 0xfb, 0x03, 0x44, 0x9d, 0xdd, 0x6c, 0x3c,
+	0xcf, 0x70, 0x03, 0xf7, 0x24, 0x9f, 0x00, 0xbe, 0x0a, 0x53, 0xdf, 0x2c, 0xcc, 0x9e, 0x47, 0x84,
+	0x9b, 0xc9, 0xb3, 0xbb, 0x69, 0xbd, 0x8b, 0xec, 0x7f, 0xf2, 0xf1, 0x77, 0x00, 0x00, 0x00, 0xff,
+	0xff, 0xb2, 0x7f, 0x45, 0xcc, 0x34, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -590,11 +420,10 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type TagServiceClient interface {
-	AddTag(ctx context.Context, in *AddTagReq, opts ...grpc.CallOption) (*AddTagRes, error)
-	EditTag(ctx context.Context, in *EditTagReq, opts ...grpc.CallOption) (*EditTagRes, error)
-	DelTag(ctx context.Context, in *DelTagReq, opts ...grpc.CallOption) (*DelTagRes, error)
-	ReadTag(ctx context.Context, in *ReadTagReq, opts ...grpc.CallOption) (*ReadTagRes, error)
-	ReadTags(ctx context.Context, in *ReadTagsReq, opts ...grpc.CallOption) (*ReadTagsRes, error)
+	AddTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*AnyRes, error)
+	EditTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*AnyRes, error)
+	DelTag(ctx context.Context, in *DelTagReq, opts ...grpc.CallOption) (*AnyRes, error)
+	GetTagList(ctx context.Context, in *ListTagReq, opts ...grpc.CallOption) (*ListTagRes, error)
 }
 
 type tagServiceClient struct {
@@ -605,8 +434,8 @@ func NewTagServiceClient(cc *grpc.ClientConn) TagServiceClient {
 	return &tagServiceClient{cc}
 }
 
-func (c *tagServiceClient) AddTag(ctx context.Context, in *AddTagReq, opts ...grpc.CallOption) (*AddTagRes, error) {
-	out := new(AddTagRes)
+func (c *tagServiceClient) AddTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*AnyRes, error) {
+	out := new(AnyRes)
 	err := c.cc.Invoke(ctx, "/productpb.TagService/AddTag", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -614,8 +443,8 @@ func (c *tagServiceClient) AddTag(ctx context.Context, in *AddTagReq, opts ...gr
 	return out, nil
 }
 
-func (c *tagServiceClient) EditTag(ctx context.Context, in *EditTagReq, opts ...grpc.CallOption) (*EditTagRes, error) {
-	out := new(EditTagRes)
+func (c *tagServiceClient) EditTag(ctx context.Context, in *Tag, opts ...grpc.CallOption) (*AnyRes, error) {
+	out := new(AnyRes)
 	err := c.cc.Invoke(ctx, "/productpb.TagService/EditTag", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -623,8 +452,8 @@ func (c *tagServiceClient) EditTag(ctx context.Context, in *EditTagReq, opts ...
 	return out, nil
 }
 
-func (c *tagServiceClient) DelTag(ctx context.Context, in *DelTagReq, opts ...grpc.CallOption) (*DelTagRes, error) {
-	out := new(DelTagRes)
+func (c *tagServiceClient) DelTag(ctx context.Context, in *DelTagReq, opts ...grpc.CallOption) (*AnyRes, error) {
+	out := new(AnyRes)
 	err := c.cc.Invoke(ctx, "/productpb.TagService/DelTag", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -632,18 +461,9 @@ func (c *tagServiceClient) DelTag(ctx context.Context, in *DelTagReq, opts ...gr
 	return out, nil
 }
 
-func (c *tagServiceClient) ReadTag(ctx context.Context, in *ReadTagReq, opts ...grpc.CallOption) (*ReadTagRes, error) {
-	out := new(ReadTagRes)
-	err := c.cc.Invoke(ctx, "/productpb.TagService/ReadTag", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *tagServiceClient) ReadTags(ctx context.Context, in *ReadTagsReq, opts ...grpc.CallOption) (*ReadTagsRes, error) {
-	out := new(ReadTagsRes)
-	err := c.cc.Invoke(ctx, "/productpb.TagService/ReadTags", in, out, opts...)
+func (c *tagServiceClient) GetTagList(ctx context.Context, in *ListTagReq, opts ...grpc.CallOption) (*ListTagRes, error) {
+	out := new(ListTagRes)
+	err := c.cc.Invoke(ctx, "/productpb.TagService/GetTagList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -652,11 +472,10 @@ func (c *tagServiceClient) ReadTags(ctx context.Context, in *ReadTagsReq, opts .
 
 // TagServiceServer is the server API for TagService service.
 type TagServiceServer interface {
-	AddTag(context.Context, *AddTagReq) (*AddTagRes, error)
-	EditTag(context.Context, *EditTagReq) (*EditTagRes, error)
-	DelTag(context.Context, *DelTagReq) (*DelTagRes, error)
-	ReadTag(context.Context, *ReadTagReq) (*ReadTagRes, error)
-	ReadTags(context.Context, *ReadTagsReq) (*ReadTagsRes, error)
+	AddTag(context.Context, *Tag) (*AnyRes, error)
+	EditTag(context.Context, *Tag) (*AnyRes, error)
+	DelTag(context.Context, *DelTagReq) (*AnyRes, error)
+	GetTagList(context.Context, *ListTagReq) (*ListTagRes, error)
 }
 
 func RegisterTagServiceServer(s *grpc.Server, srv TagServiceServer) {
@@ -664,7 +483,7 @@ func RegisterTagServiceServer(s *grpc.Server, srv TagServiceServer) {
 }
 
 func _TagService_AddTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddTagReq)
+	in := new(Tag)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -676,13 +495,13 @@ func _TagService_AddTag_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: "/productpb.TagService/AddTag",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TagServiceServer).AddTag(ctx, req.(*AddTagReq))
+		return srv.(TagServiceServer).AddTag(ctx, req.(*Tag))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _TagService_EditTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EditTagReq)
+	in := new(Tag)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -694,7 +513,7 @@ func _TagService_EditTag_Handler(srv interface{}, ctx context.Context, dec func(
 		FullMethod: "/productpb.TagService/EditTag",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TagServiceServer).EditTag(ctx, req.(*EditTagReq))
+		return srv.(TagServiceServer).EditTag(ctx, req.(*Tag))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -717,38 +536,20 @@ func _TagService_DelTag_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TagService_ReadTag_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReadTagReq)
+func _TagService_GetTagList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListTagReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TagServiceServer).ReadTag(ctx, in)
+		return srv.(TagServiceServer).GetTagList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/productpb.TagService/ReadTag",
+		FullMethod: "/productpb.TagService/GetTagList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TagServiceServer).ReadTag(ctx, req.(*ReadTagReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _TagService_ReadTags_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReadTagsReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(TagServiceServer).ReadTags(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/productpb.TagService/ReadTags",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TagServiceServer).ReadTags(ctx, req.(*ReadTagsReq))
+		return srv.(TagServiceServer).GetTagList(ctx, req.(*ListTagReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -770,12 +571,8 @@ var _TagService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _TagService_DelTag_Handler,
 		},
 		{
-			MethodName: "ReadTag",
-			Handler:    _TagService_ReadTag_Handler,
-		},
-		{
-			MethodName: "ReadTags",
-			Handler:    _TagService_ReadTags_Handler,
+			MethodName: "GetTagList",
+			Handler:    _TagService_GetTagList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

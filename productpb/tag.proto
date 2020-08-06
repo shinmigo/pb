@@ -3,69 +3,50 @@ syntax = "proto3";
 package productpb;
 
 service TagService {
-    rpc AddTag (AddTagReq) returns (AddTagRes);
+  rpc AddTag (Tag) returns (AnyRes);
 
-    rpc EditTag (EditTagReq) returns (EditTagRes);
+  rpc EditTag (Tag) returns (AnyRes);
 
-    rpc DelTag (DelTagReq) returns (DelTagRes);
+  rpc DelTag (DelTagReq) returns (AnyRes);
 
-    rpc ReadTag (ReadTagReq) returns (ReadTagRes);
-
-    rpc ReadTags (ReadTagsReq) returns (ReadTagsRes);
+  rpc GetTagList (ListTagReq) returns (ListTagRes);
 }
 
 message Tag {
-    uint64 tag_id = 1;
-    uint64 store_id = 2;
-    string name = 3;
-    uint64 admin_id = 4;
+  uint64 tag_id = 1;
+  uint64 store_id = 2;
+  string name = 3;
+  uint64 admin_id = 4;
 }
 
-message TagInfo {
-    uint64 tag_id = 1;
-    string name = 2;
-}
-
-
-message AddTagReq {
-    Tag tag = 1;
-}
-
-message AddTagRes {
-    uint64 tag_id = 1;
-}
-
-message EditTagReq {
-    Tag tag = 1;
-}
-
-message EditTagRes {
-    // 在成功的情况下等于1
-    int32 updated = 1;
+message TagDetail {
+  uint64 tag_id = 1;
+  uint64 store_id = 2;
+  string name = 3;
+  uint64 created_by = 4;
+  uint64 updated_by = 5;
+  string created_at = 6;
+  string updated_at = 7;
 }
 
 message DelTagReq {
-    uint64 tag_id = 1;
+  uint64 tag_id = 1;
 }
 
-message DelTagRes {
-    // 在成功的情况下等于1
-    int32 deleted  = 1;
+message AnyRes {
+  uint64 id = 1;
+  uint32 state = 2;
 }
 
-message ReadTagReq {
-    uint64 tag_id = 1;
+message ListTagReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  uint64 id = 3;
+  string name = 4;
 }
 
-message ReadTagRes {
-    TagInfo tag = 1;
-}
+message ListTagRes {
+  uint64 total = 1;
+  repeated TagDetail tags = 2;
 
-message ReadTagsReq {
-    uint64 page = 1;
-    uint64 page_size = 2;
-}
-
-message ReadTagsRes {
-    repeated TagInfo tags = 1;
 }
