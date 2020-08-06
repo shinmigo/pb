@@ -6,9 +6,9 @@ package memberpb;
 service MemberService {
   rpc GetList(ListReq) returns (ListRes);   // 获取会员列表
   rpc GetDetail(DetailReq) returns (Member);    // 获取会员详情
-  rpc Create(CreateReq)  returns (Res);    // 添加会员
-  rpc Update(UpdateReq)  returns (Res);   // 编辑会员
-  rpc UpdateStatus(UpdateStatusReq)  returns (Res);    // 冻结和解冻（支持批量操作）
+  rpc Add(AddReq)  returns (Res);    // 添加会员
+  rpc Edit(EditReq)  returns (Res);   // 编辑会员
+  rpc EditStatus(EditStatusReq)  returns (Res);    // 冻结和解冻（支持批量操作）
 }
 
 // 通用Res
@@ -21,60 +21,61 @@ message Member {
   uint64 memberId = 1;    // 会员ID
   string nickname = 2;    // 昵称
   uint32 status = 3;  // 会员状态 正常 2冻结
-  string statusText = 4; // 状态说明
+  string status_text = 4; // 状态说明
   string mobile = 5;  // 手机号
-  string memberLevelId = 6;  // 会员等级
-  string memberLevelName = 7;  // 会员等级名称
-  string lastLoginTime = 8; // 最后登录时间
+  string member_level_id = 6;  // 会员等级
+  string member_level_name = 7;  // 会员等级名称
+  string last_login_time = 8; // 最后登录时间
   uint32 gender = 9;  // 性别
   string birthday = 10; // 生日
 }
 
 // 会员列表的参数
 message ListReq {
-  string mobile = 1;  // 手机号
-  uint32 status = 2; // 会员状态 1正常 2冻结
-  uint64 memberId = 3;    // 会员ID
-  uint32 pageSize = 4; // 每页显示的记录数
-  uint32 page = 5; // 当前页数
+  uint32 page_ize = 1; // 每页显示的记录数
+  uint32 page = 2; // 当前页数
+  string mobile = 3;  // 手机号
+  uint32 status = 4; // 会员状态 1正常 2冻结
+  uint64 member_id = 5;    // 会员ID
 }
 
 // 列表返回数据
 message ListRes {
-  repeated Member Members = 1;    // 会员的切片
+  uint64 total = 1; // 总记录数
+  repeated Member members = 2;    // 会员的切片
 }
 
 // 详情的请求参数
 message DetailReq{
-  uint64 memberId = 1;    // 会员ID
+  uint64 member_id = 1;    // 会员ID
 }
 
 // 新增会员的参数
-message CreateReq {
+message AddReq {
   string nickname = 1;     // 昵称
   string mobile = 2;  // 手机号
   uint32 status = 3;  // 会员状态  1正常 2冻结
   uint32 gender = 4;  // 性别
   string birthday = 5; // 生日
-  string memberLevelId = 6; // 会员等级
+  string member_level_id = 6; // 会员等级
   string password = 7; // 密码
   string operator = 8;    // 操作人
 }
 
 // 更新会员的参数
-message UpdateReq {
+message EditReq {
   string nickname = 1;     // 昵称
   string mobile = 2;  // 手机号
   uint32 gender = 3;  // 性别
   string birthday = 4; // 生日
-  string memberLevelId = 5; // 会员等级
-  uint64 memberId = 6;    // 会员ID
+  string member_level_id = 5; // 会员等级
+  uint64 member_id = 6;    // 会员ID
   string operator = 7;    // 操作人
 }
 
 // 更新会员状态
-message UpdateStatusReq {
-  uint64 memberId = 1;    // 会员ID
+message EditStatusReq {
+  uint64 member_id = 1;    // 会员ID
   uint32 status = 2;  // 会员状态 1正常 2冻结
   string operator = 3;    // 操作人
 }

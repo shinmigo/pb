@@ -69,11 +69,11 @@ type Member struct {
 	MemberId             uint64   `protobuf:"varint,1,opt,name=memberId,proto3" json:"memberId,omitempty"`
 	Nickname             string   `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
 	Status               uint32   `protobuf:"varint,3,opt,name=status,proto3" json:"status,omitempty"`
-	StatusText           string   `protobuf:"bytes,4,opt,name=statusText,proto3" json:"statusText,omitempty"`
+	StatusText           string   `protobuf:"bytes,4,opt,name=status_text,json=statusText,proto3" json:"status_text,omitempty"`
 	Mobile               string   `protobuf:"bytes,5,opt,name=mobile,proto3" json:"mobile,omitempty"`
-	MemberLevelId        string   `protobuf:"bytes,6,opt,name=memberLevelId,proto3" json:"memberLevelId,omitempty"`
-	MemberLevelName      string   `protobuf:"bytes,7,opt,name=memberLevelName,proto3" json:"memberLevelName,omitempty"`
-	LastLoginTime        string   `protobuf:"bytes,8,opt,name=lastLoginTime,proto3" json:"lastLoginTime,omitempty"`
+	MemberLevelId        string   `protobuf:"bytes,6,opt,name=member_level_id,json=memberLevelId,proto3" json:"member_level_id,omitempty"`
+	MemberLevelName      string   `protobuf:"bytes,7,opt,name=member_level_name,json=memberLevelName,proto3" json:"member_level_name,omitempty"`
+	LastLoginTime        string   `protobuf:"bytes,8,opt,name=last_login_time,json=lastLoginTime,proto3" json:"last_login_time,omitempty"`
 	Gender               uint32   `protobuf:"varint,9,opt,name=gender,proto3" json:"gender,omitempty"`
 	Birthday             string   `protobuf:"bytes,10,opt,name=birthday,proto3" json:"birthday,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -178,11 +178,11 @@ func (m *Member) GetBirthday() string {
 
 // 会员列表的参数
 type ListReq struct {
-	Mobile               string   `protobuf:"bytes,1,opt,name=mobile,proto3" json:"mobile,omitempty"`
-	Status               uint32   `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
-	MemberId             uint64   `protobuf:"varint,3,opt,name=memberId,proto3" json:"memberId,omitempty"`
-	PageSize             uint32   `protobuf:"varint,4,opt,name=pageSize,proto3" json:"pageSize,omitempty"`
-	Page                 uint32   `protobuf:"varint,5,opt,name=page,proto3" json:"page,omitempty"`
+	PageIze              uint32   `protobuf:"varint,1,opt,name=page_ize,json=pageIze,proto3" json:"page_ize,omitempty"`
+	Page                 uint32   `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	Mobile               string   `protobuf:"bytes,3,opt,name=mobile,proto3" json:"mobile,omitempty"`
+	Status               uint32   `protobuf:"varint,4,opt,name=status,proto3" json:"status,omitempty"`
+	MemberId             uint64   `protobuf:"varint,5,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -213,6 +213,20 @@ func (m *ListReq) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ListReq proto.InternalMessageInfo
 
+func (m *ListReq) GetPageIze() uint32 {
+	if m != nil {
+		return m.PageIze
+	}
+	return 0
+}
+
+func (m *ListReq) GetPage() uint32 {
+	if m != nil {
+		return m.Page
+	}
+	return 0
+}
+
 func (m *ListReq) GetMobile() string {
 	if m != nil {
 		return m.Mobile
@@ -234,23 +248,10 @@ func (m *ListReq) GetMemberId() uint64 {
 	return 0
 }
 
-func (m *ListReq) GetPageSize() uint32 {
-	if m != nil {
-		return m.PageSize
-	}
-	return 0
-}
-
-func (m *ListReq) GetPage() uint32 {
-	if m != nil {
-		return m.Page
-	}
-	return 0
-}
-
 // 列表返回数据
 type ListRes struct {
-	Members              []*Member `protobuf:"bytes,1,rep,name=Members,proto3" json:"Members,omitempty"`
+	Total                uint64    `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Members              []*Member `protobuf:"bytes,2,rep,name=members,proto3" json:"members,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
 	XXX_unrecognized     []byte    `json:"-"`
 	XXX_sizecache        int32     `json:"-"`
@@ -281,6 +282,13 @@ func (m *ListRes) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ListRes proto.InternalMessageInfo
 
+func (m *ListRes) GetTotal() uint64 {
+	if m != nil {
+		return m.Total
+	}
+	return 0
+}
+
 func (m *ListRes) GetMembers() []*Member {
 	if m != nil {
 		return m.Members
@@ -290,7 +298,7 @@ func (m *ListRes) GetMembers() []*Member {
 
 // 详情的请求参数
 type DetailReq struct {
-	MemberId             uint64   `protobuf:"varint,1,opt,name=memberId,proto3" json:"memberId,omitempty"`
+	MemberId             uint64   `protobuf:"varint,1,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -329,13 +337,13 @@ func (m *DetailReq) GetMemberId() uint64 {
 }
 
 // 新增会员的参数
-type CreateReq struct {
+type AddReq struct {
 	Nickname             string   `protobuf:"bytes,1,opt,name=nickname,proto3" json:"nickname,omitempty"`
 	Mobile               string   `protobuf:"bytes,2,opt,name=mobile,proto3" json:"mobile,omitempty"`
 	Status               uint32   `protobuf:"varint,3,opt,name=status,proto3" json:"status,omitempty"`
 	Gender               uint32   `protobuf:"varint,4,opt,name=gender,proto3" json:"gender,omitempty"`
 	Birthday             string   `protobuf:"bytes,5,opt,name=birthday,proto3" json:"birthday,omitempty"`
-	MemberLevelId        string   `protobuf:"bytes,6,opt,name=memberLevelId,proto3" json:"memberLevelId,omitempty"`
+	MemberLevelId        string   `protobuf:"bytes,6,opt,name=member_level_id,json=memberLevelId,proto3" json:"member_level_id,omitempty"`
 	Password             string   `protobuf:"bytes,7,opt,name=password,proto3" json:"password,omitempty"`
 	Operator             string   `protobuf:"bytes,8,opt,name=operator,proto3" json:"operator,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -343,81 +351,81 @@ type CreateReq struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *CreateReq) Reset()         { *m = CreateReq{} }
-func (m *CreateReq) String() string { return proto.CompactTextString(m) }
-func (*CreateReq) ProtoMessage()    {}
-func (*CreateReq) Descriptor() ([]byte, []int) {
+func (m *AddReq) Reset()         { *m = AddReq{} }
+func (m *AddReq) String() string { return proto.CompactTextString(m) }
+func (*AddReq) ProtoMessage()    {}
+func (*AddReq) Descriptor() ([]byte, []int) {
 	return fileDescriptor_9b9836b7e13de206, []int{5}
 }
 
-func (m *CreateReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateReq.Unmarshal(m, b)
+func (m *AddReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AddReq.Unmarshal(m, b)
 }
-func (m *CreateReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateReq.Marshal(b, m, deterministic)
+func (m *AddReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AddReq.Marshal(b, m, deterministic)
 }
-func (m *CreateReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateReq.Merge(m, src)
+func (m *AddReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AddReq.Merge(m, src)
 }
-func (m *CreateReq) XXX_Size() int {
-	return xxx_messageInfo_CreateReq.Size(m)
+func (m *AddReq) XXX_Size() int {
+	return xxx_messageInfo_AddReq.Size(m)
 }
-func (m *CreateReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateReq.DiscardUnknown(m)
+func (m *AddReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_AddReq.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_CreateReq proto.InternalMessageInfo
+var xxx_messageInfo_AddReq proto.InternalMessageInfo
 
-func (m *CreateReq) GetNickname() string {
+func (m *AddReq) GetNickname() string {
 	if m != nil {
 		return m.Nickname
 	}
 	return ""
 }
 
-func (m *CreateReq) GetMobile() string {
+func (m *AddReq) GetMobile() string {
 	if m != nil {
 		return m.Mobile
 	}
 	return ""
 }
 
-func (m *CreateReq) GetStatus() uint32 {
+func (m *AddReq) GetStatus() uint32 {
 	if m != nil {
 		return m.Status
 	}
 	return 0
 }
 
-func (m *CreateReq) GetGender() uint32 {
+func (m *AddReq) GetGender() uint32 {
 	if m != nil {
 		return m.Gender
 	}
 	return 0
 }
 
-func (m *CreateReq) GetBirthday() string {
+func (m *AddReq) GetBirthday() string {
 	if m != nil {
 		return m.Birthday
 	}
 	return ""
 }
 
-func (m *CreateReq) GetMemberLevelId() string {
+func (m *AddReq) GetMemberLevelId() string {
 	if m != nil {
 		return m.MemberLevelId
 	}
 	return ""
 }
 
-func (m *CreateReq) GetPassword() string {
+func (m *AddReq) GetPassword() string {
 	if m != nil {
 		return m.Password
 	}
 	return ""
 }
 
-func (m *CreateReq) GetOperator() string {
+func (m *AddReq) GetOperator() string {
 	if m != nil {
 		return m.Operator
 	}
@@ -425,87 +433,87 @@ func (m *CreateReq) GetOperator() string {
 }
 
 // 更新会员的参数
-type UpdateReq struct {
+type EditReq struct {
 	Nickname             string   `protobuf:"bytes,1,opt,name=nickname,proto3" json:"nickname,omitempty"`
 	Mobile               string   `protobuf:"bytes,2,opt,name=mobile,proto3" json:"mobile,omitempty"`
 	Gender               uint32   `protobuf:"varint,3,opt,name=gender,proto3" json:"gender,omitempty"`
 	Birthday             string   `protobuf:"bytes,4,opt,name=birthday,proto3" json:"birthday,omitempty"`
-	MemberLevelId        string   `protobuf:"bytes,5,opt,name=memberLevelId,proto3" json:"memberLevelId,omitempty"`
-	MemberId             uint64   `protobuf:"varint,6,opt,name=memberId,proto3" json:"memberId,omitempty"`
+	MemberLevelId        string   `protobuf:"bytes,5,opt,name=member_level_id,json=memberLevelId,proto3" json:"member_level_id,omitempty"`
+	MemberId             uint64   `protobuf:"varint,6,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
 	Operator             string   `protobuf:"bytes,7,opt,name=operator,proto3" json:"operator,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *UpdateReq) Reset()         { *m = UpdateReq{} }
-func (m *UpdateReq) String() string { return proto.CompactTextString(m) }
-func (*UpdateReq) ProtoMessage()    {}
-func (*UpdateReq) Descriptor() ([]byte, []int) {
+func (m *EditReq) Reset()         { *m = EditReq{} }
+func (m *EditReq) String() string { return proto.CompactTextString(m) }
+func (*EditReq) ProtoMessage()    {}
+func (*EditReq) Descriptor() ([]byte, []int) {
 	return fileDescriptor_9b9836b7e13de206, []int{6}
 }
 
-func (m *UpdateReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateReq.Unmarshal(m, b)
+func (m *EditReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_EditReq.Unmarshal(m, b)
 }
-func (m *UpdateReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateReq.Marshal(b, m, deterministic)
+func (m *EditReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_EditReq.Marshal(b, m, deterministic)
 }
-func (m *UpdateReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateReq.Merge(m, src)
+func (m *EditReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EditReq.Merge(m, src)
 }
-func (m *UpdateReq) XXX_Size() int {
-	return xxx_messageInfo_UpdateReq.Size(m)
+func (m *EditReq) XXX_Size() int {
+	return xxx_messageInfo_EditReq.Size(m)
 }
-func (m *UpdateReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateReq.DiscardUnknown(m)
+func (m *EditReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_EditReq.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_UpdateReq proto.InternalMessageInfo
+var xxx_messageInfo_EditReq proto.InternalMessageInfo
 
-func (m *UpdateReq) GetNickname() string {
+func (m *EditReq) GetNickname() string {
 	if m != nil {
 		return m.Nickname
 	}
 	return ""
 }
 
-func (m *UpdateReq) GetMobile() string {
+func (m *EditReq) GetMobile() string {
 	if m != nil {
 		return m.Mobile
 	}
 	return ""
 }
 
-func (m *UpdateReq) GetGender() uint32 {
+func (m *EditReq) GetGender() uint32 {
 	if m != nil {
 		return m.Gender
 	}
 	return 0
 }
 
-func (m *UpdateReq) GetBirthday() string {
+func (m *EditReq) GetBirthday() string {
 	if m != nil {
 		return m.Birthday
 	}
 	return ""
 }
 
-func (m *UpdateReq) GetMemberLevelId() string {
+func (m *EditReq) GetMemberLevelId() string {
 	if m != nil {
 		return m.MemberLevelId
 	}
 	return ""
 }
 
-func (m *UpdateReq) GetMemberId() uint64 {
+func (m *EditReq) GetMemberId() uint64 {
 	if m != nil {
 		return m.MemberId
 	}
 	return 0
 }
 
-func (m *UpdateReq) GetOperator() string {
+func (m *EditReq) GetOperator() string {
 	if m != nil {
 		return m.Operator
 	}
@@ -513,8 +521,8 @@ func (m *UpdateReq) GetOperator() string {
 }
 
 // 更新会员状态
-type UpdateStatusReq struct {
-	MemberId             uint64   `protobuf:"varint,1,opt,name=memberId,proto3" json:"memberId,omitempty"`
+type EditStatusReq struct {
+	MemberId             uint64   `protobuf:"varint,1,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
 	Status               uint32   `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
 	Operator             string   `protobuf:"bytes,3,opt,name=operator,proto3" json:"operator,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -522,46 +530,46 @@ type UpdateStatusReq struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *UpdateStatusReq) Reset()         { *m = UpdateStatusReq{} }
-func (m *UpdateStatusReq) String() string { return proto.CompactTextString(m) }
-func (*UpdateStatusReq) ProtoMessage()    {}
-func (*UpdateStatusReq) Descriptor() ([]byte, []int) {
+func (m *EditStatusReq) Reset()         { *m = EditStatusReq{} }
+func (m *EditStatusReq) String() string { return proto.CompactTextString(m) }
+func (*EditStatusReq) ProtoMessage()    {}
+func (*EditStatusReq) Descriptor() ([]byte, []int) {
 	return fileDescriptor_9b9836b7e13de206, []int{7}
 }
 
-func (m *UpdateStatusReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateStatusReq.Unmarshal(m, b)
+func (m *EditStatusReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_EditStatusReq.Unmarshal(m, b)
 }
-func (m *UpdateStatusReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateStatusReq.Marshal(b, m, deterministic)
+func (m *EditStatusReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_EditStatusReq.Marshal(b, m, deterministic)
 }
-func (m *UpdateStatusReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateStatusReq.Merge(m, src)
+func (m *EditStatusReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EditStatusReq.Merge(m, src)
 }
-func (m *UpdateStatusReq) XXX_Size() int {
-	return xxx_messageInfo_UpdateStatusReq.Size(m)
+func (m *EditStatusReq) XXX_Size() int {
+	return xxx_messageInfo_EditStatusReq.Size(m)
 }
-func (m *UpdateStatusReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateStatusReq.DiscardUnknown(m)
+func (m *EditStatusReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_EditStatusReq.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_UpdateStatusReq proto.InternalMessageInfo
+var xxx_messageInfo_EditStatusReq proto.InternalMessageInfo
 
-func (m *UpdateStatusReq) GetMemberId() uint64 {
+func (m *EditStatusReq) GetMemberId() uint64 {
 	if m != nil {
 		return m.MemberId
 	}
 	return 0
 }
 
-func (m *UpdateStatusReq) GetStatus() uint32 {
+func (m *EditStatusReq) GetStatus() uint32 {
 	if m != nil {
 		return m.Status
 	}
 	return 0
 }
 
-func (m *UpdateStatusReq) GetOperator() string {
+func (m *EditStatusReq) GetOperator() string {
 	if m != nil {
 		return m.Operator
 	}
@@ -574,48 +582,51 @@ func init() {
 	proto.RegisterType((*ListReq)(nil), "memberpb.ListReq")
 	proto.RegisterType((*ListRes)(nil), "memberpb.ListRes")
 	proto.RegisterType((*DetailReq)(nil), "memberpb.DetailReq")
-	proto.RegisterType((*CreateReq)(nil), "memberpb.CreateReq")
-	proto.RegisterType((*UpdateReq)(nil), "memberpb.UpdateReq")
-	proto.RegisterType((*UpdateStatusReq)(nil), "memberpb.UpdateStatusReq")
+	proto.RegisterType((*AddReq)(nil), "memberpb.AddReq")
+	proto.RegisterType((*EditReq)(nil), "memberpb.EditReq")
+	proto.RegisterType((*EditStatusReq)(nil), "memberpb.EditStatusReq")
 }
 
 func init() { proto.RegisterFile("member.proto", fileDescriptor_9b9836b7e13de206) }
 
 var fileDescriptor_9b9836b7e13de206 = []byte{
-	// 517 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x54, 0x5b, 0x8a, 0xd4, 0x40,
-	0x14, 0x25, 0x8f, 0x4e, 0x3a, 0xd7, 0x09, 0xa3, 0x25, 0x48, 0x6c, 0x50, 0x9a, 0x20, 0x18, 0x64,
-	0x68, 0xa1, 0x45, 0xf0, 0x5f, 0x61, 0x18, 0x68, 0xfd, 0x48, 0x8f, 0x0b, 0x48, 0x26, 0x97, 0x36,
-	0xd8, 0xe9, 0xc4, 0xaa, 0x72, 0x7c, 0xfc, 0xfb, 0xe3, 0x92, 0xdc, 0x85, 0xcb, 0x70, 0x17, 0x52,
-	0x8f, 0x54, 0x5e, 0xf4, 0x8c, 0xe0, 0x5f, 0x9d, 0xfb, 0xa8, 0xba, 0xe7, 0xdc, 0x93, 0xc0, 0x49,
-	0x85, 0x55, 0x8e, 0x74, 0xd5, 0xd0, 0x9a, 0xd7, 0x64, 0xae, 0x50, 0x93, 0xc7, 0x8f, 0xc0, 0x49,
-	0x91, 0x91, 0x07, 0xe0, 0x31, 0x9e, 0xf1, 0xcf, 0x2c, 0xb2, 0x96, 0x56, 0x32, 0x4f, 0x35, 0x8a,
-	0x7f, 0xd9, 0xe0, 0xbd, 0x95, 0xb5, 0x64, 0x01, 0xba, 0xeb, 0xa2, 0x90, 0x45, 0x6e, 0x6a, 0xb0,
-	0xc8, 0x1d, 0xca, 0xab, 0x8f, 0x87, 0xac, 0xc2, 0xc8, 0x5e, 0x5a, 0x49, 0x90, 0x1a, 0xdc, 0xbb,
-	0xda, 0x59, 0x5a, 0x49, 0xd8, 0x5e, 0x4d, 0x1e, 0x03, 0xa8, 0xd3, 0x25, 0x7e, 0xe5, 0x91, 0x2b,
-	0xbb, 0x7a, 0x11, 0xd1, 0x57, 0xd5, 0x79, 0xb9, 0xc7, 0x68, 0x26, 0x73, 0x1a, 0x91, 0x27, 0x10,
-	0xaa, 0x77, 0x37, 0x78, 0x8d, 0xfb, 0x8b, 0x22, 0xf2, 0x64, 0x7a, 0x18, 0x24, 0x09, 0x9c, 0xf6,
-	0x02, 0xef, 0xc4, 0x60, 0xbe, 0xac, 0x1b, 0x87, 0xc5, 0x7d, 0xfb, 0x8c, 0xf1, 0x4d, 0xbd, 0x2b,
-	0x0f, 0x97, 0x65, 0x85, 0xd1, 0x5c, 0xdd, 0x37, 0x08, 0x8a, 0x69, 0x76, 0x78, 0x28, 0x90, 0x46,
-	0x81, 0x62, 0xa1, 0x90, 0x60, 0x9e, 0x97, 0x94, 0x7f, 0x28, 0xb2, 0x6f, 0x11, 0x28, 0xe6, 0x2d,
-	0x8e, 0x7f, 0x58, 0xe0, 0x6f, 0x4a, 0xc6, 0x53, 0xfc, 0xd4, 0x63, 0x63, 0x0d, 0xd8, 0x74, 0xea,
-	0xd8, 0x03, 0x75, 0xfa, 0x6a, 0x3b, 0x53, 0xb5, 0x9b, 0x6c, 0x87, 0xdb, 0xf2, 0x3b, 0x4a, 0xdd,
-	0xc2, 0xd4, 0x60, 0x42, 0xc0, 0x15, 0x67, 0xa9, 0x59, 0x98, 0xca, 0x73, 0xfc, 0xb2, 0x1d, 0x83,
-	0x91, 0x67, 0xe0, 0xab, 0x75, 0x8a, 0x45, 0x3b, 0xc9, 0x9d, 0xf5, 0xdd, 0x55, 0x6b, 0x85, 0x95,
-	0x4a, 0xa4, 0x6d, 0x41, 0xfc, 0x14, 0x82, 0x37, 0xc8, 0xb3, 0x72, 0x2f, 0xe6, 0xbf, 0x61, 0xfb,
-	0xf1, 0x1f, 0x0b, 0x82, 0xd7, 0x14, 0x33, 0x8e, 0xba, 0xd2, 0x78, 0xc1, 0x9a, 0x7a, 0x41, 0xab,
-	0x60, 0x1f, 0x51, 0x61, 0xe8, 0x91, 0x4e, 0x75, 0xf7, 0xa8, 0xea, 0xb3, 0xa1, 0xea, 0xff, 0xe8,
-	0x0f, 0xa9, 0x21, 0x63, 0x5f, 0x6a, 0x5a, 0x68, 0x63, 0x18, 0x2c, 0x72, 0x75, 0x83, 0x34, 0xe3,
-	0x35, 0xd5, 0x66, 0x30, 0x38, 0xfe, 0x6d, 0x41, 0xf0, 0xbe, 0x29, 0xfe, 0x8f, 0xab, 0xe6, 0xe4,
-	0x1c, 0xe5, 0xe4, 0xde, 0xc6, 0x69, 0x76, 0x84, 0x93, 0xd9, 0x91, 0x37, 0xf5, 0x8c, 0xe1, 0xe4,
-	0x8f, 0x38, 0x65, 0x70, 0xaa, 0x28, 0x6d, 0xa5, 0xea, 0xb7, 0xac, 0xfb, 0x26, 0xcb, 0x9a, 0x27,
-	0x9c, 0xe1, 0x13, 0xeb, 0x9f, 0x36, 0x84, 0xca, 0x57, 0x5b, 0xa4, 0xd7, 0xe5, 0x15, 0x92, 0xe7,
-	0xe0, 0x9f, 0x23, 0x17, 0xbe, 0x24, 0xf7, 0x3a, 0x0f, 0xea, 0xcf, 0x65, 0x31, 0x09, 0x31, 0xb2,
-	0x86, 0xe0, 0x1c, 0xb9, 0x72, 0x24, 0xb9, 0xdf, 0xe5, 0x8d, 0x47, 0x17, 0x13, 0x2f, 0x93, 0x33,
-	0xf0, 0x94, 0x31, 0xfb, 0x0d, 0xc6, 0xaa, 0x8b, 0xb0, 0x0b, 0x8a, 0x17, 0xce, 0xc0, 0x53, 0x3a,
-	0xf4, 0xab, 0xcd, 0xb2, 0xc7, 0xd5, 0xaf, 0xe0, 0xa4, 0xaf, 0x1a, 0x79, 0x38, 0xee, 0x31, 0x6a,
-	0x8e, 0x3a, 0x73, 0x4f, 0xfe, 0x84, 0x5f, 0xfc, 0x0d, 0x00, 0x00, 0xff, 0xff, 0x70, 0x17, 0xed,
-	0x9c, 0x94, 0x05, 0x00, 0x00,
+	// 564 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x54, 0xcb, 0x6e, 0xd3, 0x40,
+	0x14, 0x95, 0x63, 0xc7, 0x4e, 0x6e, 0xb1, 0x4a, 0x07, 0x04, 0x26, 0x08, 0x11, 0x79, 0x11, 0x59,
+	0x5d, 0x04, 0x29, 0xf0, 0x03, 0x95, 0x40, 0x55, 0x44, 0x60, 0xe1, 0x76, 0x6f, 0x9c, 0xce, 0x55,
+	0x18, 0xe1, 0xc4, 0xc1, 0x33, 0x94, 0xd2, 0x3d, 0x1f, 0xc6, 0x2f, 0xf0, 0x15, 0x7c, 0x04, 0x0b,
+	0x34, 0x0f, 0x3f, 0x26, 0x21, 0x2a, 0x12, 0x3b, 0x9f, 0x3b, 0x67, 0x1e, 0xe7, 0x91, 0xc0, 0xbd,
+	0x35, 0xae, 0x97, 0x58, 0x4d, 0xb7, 0x55, 0x29, 0x4a, 0x32, 0xd0, 0x68, 0xbb, 0x8c, 0x9f, 0x81,
+	0x9b, 0x22, 0x27, 0x8f, 0xc0, 0xe7, 0x22, 0x17, 0x5f, 0x78, 0xe4, 0x8c, 0x9d, 0x64, 0x90, 0x1a,
+	0x14, 0xff, 0xe8, 0x81, 0xff, 0x4e, 0x71, 0xc9, 0x08, 0xcc, 0xae, 0x39, 0x55, 0x24, 0x2f, 0x6d,
+	0xb0, 0x5c, 0xdb, 0xb0, 0xab, 0x4f, 0x9b, 0x7c, 0x8d, 0x51, 0x6f, 0xec, 0x24, 0xc3, 0xb4, 0xc1,
+	0x9d, 0xa3, 0xdd, 0xb1, 0x93, 0x84, 0xf5, 0xd1, 0xe4, 0x39, 0x1c, 0xe9, 0xaf, 0x4c, 0xe0, 0x8d,
+	0x88, 0x3c, 0xb5, 0x0d, 0xf4, 0xe8, 0x12, 0x6f, 0x84, 0xdc, 0xb8, 0x2e, 0x97, 0xac, 0xc0, 0xa8,
+	0xaf, 0xd6, 0x0c, 0x22, 0x13, 0x38, 0xd6, 0x17, 0x67, 0x05, 0x5e, 0x63, 0x91, 0x31, 0x1a, 0xf9,
+	0x8a, 0x10, 0xea, 0xf1, 0x42, 0x4e, 0xe7, 0x94, 0x9c, 0xc2, 0x89, 0xc5, 0x53, 0xaf, 0x0b, 0x14,
+	0xf3, 0xb8, 0xc3, 0x7c, 0x2f, 0x1f, 0x39, 0x81, 0xe3, 0x22, 0xe7, 0x22, 0x2b, 0xca, 0x15, 0xdb,
+	0x64, 0x82, 0xad, 0x31, 0x1a, 0xe8, 0x33, 0xe5, 0x78, 0x21, 0xa7, 0x97, 0x4c, 0x8b, 0x59, 0xe1,
+	0x86, 0x62, 0x15, 0x0d, 0xb5, 0x18, 0x8d, 0xa4, 0x01, 0x4b, 0x56, 0x89, 0x8f, 0x34, 0xff, 0x16,
+	0x81, 0x36, 0xa0, 0xc6, 0xf1, 0x77, 0x07, 0x82, 0x05, 0xe3, 0x22, 0xc5, 0xcf, 0xe4, 0x09, 0x0c,
+	0xb6, 0xf9, 0x0a, 0x33, 0x76, 0x8b, 0xca, 0xc4, 0x30, 0x0d, 0x24, 0x9e, 0xdf, 0x22, 0x21, 0xe0,
+	0xc9, 0x4f, 0xe5, 0x5f, 0x98, 0xaa, 0xef, 0x8e, 0x05, 0xae, 0x65, 0x41, 0xeb, 0xa9, 0x67, 0x79,
+	0xfa, 0x14, 0x86, 0x46, 0x32, 0xa3, 0xca, 0xb5, 0x4e, 0x48, 0xf1, 0xdb, 0xfa, 0x19, 0x9c, 0x3c,
+	0x84, 0xbe, 0x28, 0x45, 0x5e, 0x98, 0x20, 0x35, 0x20, 0xa7, 0x10, 0x68, 0x32, 0x8f, 0x7a, 0x63,
+	0x37, 0x39, 0x9a, 0xdd, 0x9f, 0xd6, 0x3d, 0x99, 0xea, 0x12, 0xa4, 0x35, 0x21, 0x4e, 0x60, 0xf8,
+	0x1a, 0x45, 0xce, 0x0a, 0xa9, 0xca, 0xba, 0x76, 0xa7, 0x1b, 0xf1, 0x2f, 0x07, 0xfc, 0x33, 0x4a,
+	0x25, 0xaf, 0x5b, 0x13, 0x67, 0xbf, 0x26, 0x46, 0x6a, 0xef, 0x80, 0x54, 0xbb, 0x3e, 0x6d, 0x12,
+	0xde, 0xc1, 0x24, 0xfa, 0x76, 0x12, 0xff, 0xdc, 0x9c, 0x91, 0x4c, 0x89, 0xf3, 0xaf, 0x65, 0x45,
+	0x4d, 0x61, 0x1a, 0x2c, 0xd7, 0xca, 0x2d, 0x56, 0xb9, 0x28, 0x2b, 0x53, 0x91, 0x06, 0xc7, 0x3f,
+	0x1d, 0x08, 0xde, 0x50, 0x26, 0xfe, 0x43, 0xab, 0xd1, 0xe4, 0x1e, 0xd4, 0xe4, 0xdd, 0xad, 0xa9,
+	0xff, 0x37, 0x4d, 0x56, 0x46, 0xfe, 0xfe, 0xef, 0xb7, 0x11, 0x15, 0xec, 0x88, 0xfa, 0x00, 0xa1,
+	0xd4, 0x74, 0xa1, 0x6c, 0xbf, 0x2b, 0xed, 0x4e, 0x5c, 0x3d, 0x2b, 0xae, 0xee, 0x0d, 0xae, 0x7d,
+	0xc3, 0xec, 0xb7, 0x03, 0xa1, 0xee, 0xd7, 0x05, 0x56, 0xd7, 0xec, 0x0a, 0xc9, 0x0b, 0x08, 0xce,
+	0x51, 0xc8, 0xb6, 0x92, 0x93, 0xb6, 0x83, 0xe6, 0x47, 0x34, 0xda, 0x1b, 0x71, 0x32, 0x83, 0xe1,
+	0x39, 0x0a, 0xdd, 0x48, 0xf2, 0xa0, 0x5d, 0x6f, 0x3a, 0x3a, 0xda, 0xeb, 0x32, 0x99, 0x80, 0x7b,
+	0x46, 0x29, 0xe9, 0x2c, 0xe8, 0x9a, 0x8e, 0xc2, 0x76, 0x22, 0xcf, 0x4e, 0xc0, 0x93, 0x06, 0x74,
+	0x5f, 0x62, 0x42, 0xde, 0x65, 0xbe, 0x02, 0x68, 0xad, 0x22, 0x8f, 0x6d, 0x7e, 0x63, 0xe0, 0xce,
+	0xae, 0xa5, 0xaf, 0xfe, 0x93, 0x5f, 0xfe, 0x09, 0x00, 0x00, 0xff, 0xff, 0x9a, 0xb3, 0x81, 0xb3,
+	0xa3, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -632,9 +643,9 @@ const _ = grpc.SupportPackageIsVersion4
 type MemberServiceClient interface {
 	GetList(ctx context.Context, in *ListReq, opts ...grpc.CallOption) (*ListRes, error)
 	GetDetail(ctx context.Context, in *DetailReq, opts ...grpc.CallOption) (*Member, error)
-	Create(ctx context.Context, in *CreateReq, opts ...grpc.CallOption) (*Res, error)
-	Update(ctx context.Context, in *UpdateReq, opts ...grpc.CallOption) (*Res, error)
-	UpdateStatus(ctx context.Context, in *UpdateStatusReq, opts ...grpc.CallOption) (*Res, error)
+	Add(ctx context.Context, in *AddReq, opts ...grpc.CallOption) (*Res, error)
+	Edit(ctx context.Context, in *EditReq, opts ...grpc.CallOption) (*Res, error)
+	EditStatus(ctx context.Context, in *EditStatusReq, opts ...grpc.CallOption) (*Res, error)
 }
 
 type memberServiceClient struct {
@@ -663,27 +674,27 @@ func (c *memberServiceClient) GetDetail(ctx context.Context, in *DetailReq, opts
 	return out, nil
 }
 
-func (c *memberServiceClient) Create(ctx context.Context, in *CreateReq, opts ...grpc.CallOption) (*Res, error) {
+func (c *memberServiceClient) Add(ctx context.Context, in *AddReq, opts ...grpc.CallOption) (*Res, error) {
 	out := new(Res)
-	err := c.cc.Invoke(ctx, "/memberpb.MemberService/Create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/memberpb.MemberService/Add", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *memberServiceClient) Update(ctx context.Context, in *UpdateReq, opts ...grpc.CallOption) (*Res, error) {
+func (c *memberServiceClient) Edit(ctx context.Context, in *EditReq, opts ...grpc.CallOption) (*Res, error) {
 	out := new(Res)
-	err := c.cc.Invoke(ctx, "/memberpb.MemberService/Update", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/memberpb.MemberService/Edit", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *memberServiceClient) UpdateStatus(ctx context.Context, in *UpdateStatusReq, opts ...grpc.CallOption) (*Res, error) {
+func (c *memberServiceClient) EditStatus(ctx context.Context, in *EditStatusReq, opts ...grpc.CallOption) (*Res, error) {
 	out := new(Res)
-	err := c.cc.Invoke(ctx, "/memberpb.MemberService/UpdateStatus", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/memberpb.MemberService/EditStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -694,9 +705,9 @@ func (c *memberServiceClient) UpdateStatus(ctx context.Context, in *UpdateStatus
 type MemberServiceServer interface {
 	GetList(context.Context, *ListReq) (*ListRes, error)
 	GetDetail(context.Context, *DetailReq) (*Member, error)
-	Create(context.Context, *CreateReq) (*Res, error)
-	Update(context.Context, *UpdateReq) (*Res, error)
-	UpdateStatus(context.Context, *UpdateStatusReq) (*Res, error)
+	Add(context.Context, *AddReq) (*Res, error)
+	Edit(context.Context, *EditReq) (*Res, error)
+	EditStatus(context.Context, *EditStatusReq) (*Res, error)
 }
 
 // UnimplementedMemberServiceServer can be embedded to have forward compatible implementations.
@@ -709,14 +720,14 @@ func (*UnimplementedMemberServiceServer) GetList(ctx context.Context, req *ListR
 func (*UnimplementedMemberServiceServer) GetDetail(ctx context.Context, req *DetailReq) (*Member, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDetail not implemented")
 }
-func (*UnimplementedMemberServiceServer) Create(ctx context.Context, req *CreateReq) (*Res, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
+func (*UnimplementedMemberServiceServer) Add(ctx context.Context, req *AddReq) (*Res, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Add not implemented")
 }
-func (*UnimplementedMemberServiceServer) Update(ctx context.Context, req *UpdateReq) (*Res, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+func (*UnimplementedMemberServiceServer) Edit(ctx context.Context, req *EditReq) (*Res, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Edit not implemented")
 }
-func (*UnimplementedMemberServiceServer) UpdateStatus(ctx context.Context, req *UpdateStatusReq) (*Res, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateStatus not implemented")
+func (*UnimplementedMemberServiceServer) EditStatus(ctx context.Context, req *EditStatusReq) (*Res, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditStatus not implemented")
 }
 
 func RegisterMemberServiceServer(s *grpc.Server, srv MemberServiceServer) {
@@ -759,56 +770,56 @@ func _MemberService_GetDetail_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MemberService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateReq)
+func _MemberService_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MemberServiceServer).Create(ctx, in)
+		return srv.(MemberServiceServer).Add(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/memberpb.MemberService/Create",
+		FullMethod: "/memberpb.MemberService/Add",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MemberServiceServer).Create(ctx, req.(*CreateReq))
+		return srv.(MemberServiceServer).Add(ctx, req.(*AddReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MemberService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateReq)
+func _MemberService_Edit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MemberServiceServer).Update(ctx, in)
+		return srv.(MemberServiceServer).Edit(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/memberpb.MemberService/Update",
+		FullMethod: "/memberpb.MemberService/Edit",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MemberServiceServer).Update(ctx, req.(*UpdateReq))
+		return srv.(MemberServiceServer).Edit(ctx, req.(*EditReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MemberService_UpdateStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateStatusReq)
+func _MemberService_EditStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditStatusReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MemberServiceServer).UpdateStatus(ctx, in)
+		return srv.(MemberServiceServer).EditStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/memberpb.MemberService/UpdateStatus",
+		FullMethod: "/memberpb.MemberService/EditStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MemberServiceServer).UpdateStatus(ctx, req.(*UpdateStatusReq))
+		return srv.(MemberServiceServer).EditStatus(ctx, req.(*EditStatusReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -826,16 +837,16 @@ var _MemberService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _MemberService_GetDetail_Handler,
 		},
 		{
-			MethodName: "Create",
-			Handler:    _MemberService_Create_Handler,
+			MethodName: "Add",
+			Handler:    _MemberService_Add_Handler,
 		},
 		{
-			MethodName: "Update",
-			Handler:    _MemberService_Update_Handler,
+			MethodName: "Edit",
+			Handler:    _MemberService_Edit_Handler,
 		},
 		{
-			MethodName: "UpdateStatus",
-			Handler:    _MemberService_UpdateStatus_Handler,
+			MethodName: "EditStatus",
+			Handler:    _MemberService_EditStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
