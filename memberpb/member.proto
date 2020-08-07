@@ -2,18 +2,17 @@ syntax = "proto3";
 
 package memberpb;
 
+option go_package = "github.com/shinmigo/pb/memberpb";
+
+import "basepb/basepb.proto";
+
 // 会员服务
 service MemberService {
   rpc GetList(ListReq) returns (ListRes);   // 获取会员列表
-  rpc GetDetail(DetailReq) returns (Member);    // 获取会员详情
-  rpc Add(AddReq)  returns (Res);    // 添加会员
-  rpc Edit(EditReq)  returns (Res);   // 编辑会员
-  rpc EditStatus(EditStatusReq)  returns (Res);    // 冻结和解冻（支持批量操作）
-}
-
-// 通用Res
-message Res {
-  bool status = 1;
+  rpc GetInfo(InfoReq) returns (Member);    // 获取会员详情
+  rpc Add(AddReq)  returns (basepb.AnyRes);    // 添加会员
+  rpc Edit(EditReq)  returns (basepb.AnyRes);   // 编辑会员
+  rpc EditStatus(EditStatusReq)  returns (basepb.AnyRes);    // 冻结和解冻（支持批量操作）
 }
 
 // 会员信息
@@ -32,7 +31,7 @@ message Member {
 
 // 会员列表的参数
 message ListReq {
-  uint32 page_ize = 1; // 每页显示的记录数
+  uint32 page_size = 1; // 每页显示的记录数
   uint32 page = 2; // 当前页数
   string mobile = 3;  // 手机号
   uint32 status = 4; // 会员状态 1正常 2冻结
@@ -46,7 +45,7 @@ message ListRes {
 }
 
 // 详情的请求参数
-message DetailReq{
+message InfoReq{
   uint64 member_id = 1;    // 会员ID
 }
 

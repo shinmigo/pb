@@ -4,6 +4,6 @@
 ```shell
 
 # 生成会员服务
-protoc -I memberpb/ memberpb/member.proto --go_out=plugins=grpc:memberpb
+protoc --go_out=plugins=grpc,paths=source_relative:. ./memberpb/member.proto
 
 ```
