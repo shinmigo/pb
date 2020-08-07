@@ -1,8 +1,9 @@
 syntax = "proto3";
 
-import "github.com/shinmigo/pb/basepb/basepb.proto";
-
 package productpb;
+option go_package = "github.com/shinmigo/pb/productpb";
+
+import "basepb/basepb.proto";
 
 service TagService {
   rpc AddTag (Tag) returns (basepb.AnyRes);

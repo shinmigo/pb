@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package basepb;
+option go_package = "github.com/shinmigo/pb/basepb";
 
 message AnyRes {
   uint64 id = 1;
