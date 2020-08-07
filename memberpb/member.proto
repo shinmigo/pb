@@ -31,8 +31,8 @@ message Member {
 
 // 会员列表的参数
 message ListReq {
-  uint32 page_size = 1; // 每页显示的记录数
-  uint32 page = 2; // 当前页数
+  uint64 page_size = 1; // 每页显示的记录数
+  uint64 page = 2; // 当前页数
   string mobile = 3;  // 手机号
   uint32 status = 4; // 会员状态 1正常 2冻结
   uint64 member_id = 5;    // 会员ID
