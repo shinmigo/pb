@@ -1,17 +1,20 @@
 syntax = "proto3";
 
 package productpb;
+option go_package = "github.com/shinmigo/pb/productpb";
+
+import "basepb/basepb.proto";
 
 service CategoryService {
-    rpc AddCategory (AddCategoryReq) returns (AddCategoryRes);
+    rpc AddCategory (Category) returns (basepb.AnyRes);
 
-    rpc EditCategory (EditCategoryReq) returns (EditCategoryRes);
+    rpc EditCategory (Category) returns (basepb.AnyRes);
 
-    rpc DelCategory (DelCategoryReq) returns (DelCategoryRes);
+    rpc EditCategoryStatus (EditCategoryStatusReq) returns (basepb.AnyRes);
 
-    rpc ReadCategory (ReadCategoryReq) returns (ReadCategoryRes);
+    rpc DelCategory (DelCategoryReq) returns (basepb.AnyRes);
 
-    rpc ReadCategories (ReadCategoriesReq) returns (ReadCategoriesRes);
+    rpc GetCategoryList (ListCategoryReq) returns (ListCategoryRes);
 }
 
 enum CategoryStatus {
@@ -30,31 +33,7 @@ message Category {
     uint64 admin_id = 8;
 }
 
-message AddCategoryReq {
-    Category category = 1;
-}
-
-message AddCategoryRes {
-    uint64 category_id = 1;
-}
-
-message EditCategoryReq {
-    Category category = 1;
-}
-
-message EditCategoryRes {
-    int32 updated = 1;
-}
-
-message DelCategoryReq {
-    uint64 category_id = 1;
-}
-
-message DelCategoryRes {
-    int32 deleted  = 1;
-}
-
-message CategoryInfo {
+message CategoryDetail {
     uint64 category_id = 1;
     uint64 parent_id = 2;
     string name = 3;
@@ -63,17 +42,23 @@ message CategoryInfo {
     uint64 sort = 6;
 }
 
-message ReadCategoryReq {
-    uint64 category_id = 1;
+message EditCategoryStatusReq {
+    repeated uint64 category_id = 1;
+    CategoryStatus status = 2;
 }
 
-message ReadCategoryRes {
-    CategoryInfo category = 1;
+message DelCategoryReq {
+    repeated uint64 category_id = 1;
 }
 
-message ReadCategoriesReq {
+message ListCategoryReq {
+    int64 page = 1;
+    int64 page_size = 2;
+    uint64 id = 3;
+    string name = 4;
 }
 
-message ReadCategoriesRes {
-    repeated CategoryInfo categories = 1;
+message ListCategoryRes {
+    uint64 total = 1;
+    repeated CategoryDetail categories = 2;
 }
