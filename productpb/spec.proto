@@ -1,75 +1,55 @@
 syntax = "proto3";
 
 package productpb;
+option go_package = "github.com/shinmigo/pb/productpb";
+
+import "basepb/basepb.proto";
 
 service SpecService {
-    rpc AddSpec (AddSpecReq) returns (AddSpecRes);
+  rpc AddSpec (Spec) returns (basepb.AnyRes);
 
-    rpc EditSpec (EditSpecReq) returns (EditSpecRes);
+  rpc EditSpec (Spec) returns (basepb.AnyRes);
 
-    rpc DelSpec (DelSpecReq) returns (DelSpecRes);
+  rpc DelSpec (DelSpecReq) returns (basepb.AnyRes);
 
-    rpc ReadSpec (ReadSpecReq) returns (ReadSpecRes);
-
-    rpc ReadSpecs (ReadSpecsReq) returns (ReadSpecsRes);
+  rpc GetSpecList (ListSpecReq) returns (ListSpecRes);
 }
 
 message Spec {
-    uint64 spec_id = 1;
-    uint64 store_id = 2;
-    uint64 kind_id = 3;
-    string name = 4;
-    uint64 sort = 5;
-    uint64 admin_id = 6;
-    repeated string contents = 7;
+  uint64 spec_id = 1;
+  uint64 store_id = 2;
+  uint64 kind_id = 3;
+  string name = 4;
+  uint64 sort = 5;
+  uint64 admin_id = 6;
+  repeated string contents = 7;
 }
 
-message SpecInfo {
-    uint64 spec_id = 1;
-    string name = 2;
-    uint64 sort = 3;
-    repeated string contents = 4;
-}
-
-message AddSpecReq {
-    Spec spec = 1;
-}
-
-message AddSpecRes {
-    uint64 spec_id = 1;
-}
-
-message EditSpecReq {
-    Spec spec = 1;
-}
-
-message EditSpecRes {
-    // 在成功的情况下等于1
-    int32 updated = 1;
+message SpecDetail {
+  uint64 spec_id = 1;
+  uint64 store_id = 2;
+  uint64 kind_id = 3;
+  string name = 4;
+  uint64 sort = 5;
+  uint64 created_by = 6;
+  uint64 updated_by = 7;
+  string created_at = 8;
+  string updated_at = 9;
+  repeated string contents = 10;
 }
 
 message DelSpecReq {
-     uint64 spec_id = 1;
+  uint64 spec_id = 1;
 }
 
-message DelSpecRes {
-    // 在成功的情况下等于1
-    int32 deleted  = 1;
+message ListSpecReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  uint64 id = 3;
+  string name = 4;
 }
 
-message ReadSpecReq {
-    uint64 spec_id = 1;
-}
-
-message ReadSpecRes {
-    SpecInfo spec = 1;
-}
-
-message ReadSpecsReq {
-    uint64 page = 1;
-    uint64 page_size = 2;
-}
-
-message ReadSpecsRes {
-    repeated SpecInfo specs = 1;
+message ListSpecRes {
+  uint64 total = 1;
+  repeated SpecDetail specs = 2;
 }
