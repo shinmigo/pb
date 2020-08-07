@@ -1,84 +1,64 @@
 syntax = "proto3";
 
 package productpb;
+option go_package = "github.com/shinmigo/pb/productpb";
+
+import "basepb/basepb.proto";
 
 service ParamService {
-    rpc AddParam (AddParamReq) returns (AddParamRes);
+  rpc AddParam (Param) returns (basepb.AnyRes);
 
-    rpc EditParam (EditParamReq) returns (EditParamRes);
+  rpc EditParam (Param) returns (basepb.AnyRes);
 
-    rpc DelParam (DelParamReq) returns (DelParamRes);
+  rpc DelParam (DelParamReq) returns (basepb.AnyRes);
 
-    rpc ReadParam (ReadParamReq) returns (ReadParamRes);
-
-    rpc ReadParams (ReadParamsReq) returns (ReadParamsRes);
+  rpc GetParamList (ListParamReq) returns (ListParamRes);
 }
 
 enum ParamType {
-    Placeholder = 0;
-    Text = 1;
-    Radio = 2;
-    Checkbox = 3;
+  Placeholder = 0;
+  Text = 1;
+  Radio = 2;
+  Checkbox = 3;
 }
 
 message Param {
-    uint64 param_id = 1;
-    uint64 store_id = 2;
-    uint64 kind_id = 3;
-    string name = 4;
-    ParamType type = 5;
-    uint64 sort = 6;
-    uint64 admin_id = 7;
-    repeated string contents = 8;
+  uint64 param_id = 1;
+  uint64 store_id = 2;
+  uint64 kind_id = 3;
+  string name = 4;
+  ParamType type = 5;
+  uint64 sort = 6;
+  uint64 admin_id = 7;
+  repeated string contents = 8;
 }
 
-message ParamInfo {
-    uint64 param_id = 1;
-    string name = 2;
-    ParamType type = 3;
-    uint64 sort = 4;
-    repeated string contents = 5;
-}
-
-message AddParamReq {
-    Param param = 1;
-}
-
-message AddParamRes {
-    uint64 param_id = 1;
-}
-
-message EditParamReq {
-    Param param = 1;
-}
-
-message EditParamRes {
-    // 在成功的情况下等于1
-    int32 updated = 1;
+message ParamDetail {
+  uint64 param_id = 1;
+  uint64 store_id = 2;
+  uint64 kind_id = 3;
+  string name = 4;
+  ParamType type = 5;
+  uint64 sort = 6;
+  uint64 created_by = 7;
+  uint64 updated_by = 8;
+  string created_at = 9;
+  string updated_at = 10;
+  repeated string contents = 11;
 }
 
 message DelParamReq {
-    uint64 param_id = 1;
+  uint64 param_id = 1;
 }
 
-message DelParamRes {
-    // 在成功的情况下等于1
-    int32 deleted  = 1;
+message ListParamReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  uint64 id = 3;
+  string name = 4;
 }
 
-message ReadParamReq {
-    uint64 param_id = 1;
-}
-
-message ReadParamRes {
-    ParamInfo param = 1;
-}
-
-message ReadParamsReq {
-    uint64 page = 1;
-    uint64 page_size = 2;
-}
-
-message ReadParamsRes {
-    repeated ParamInfo params = 1;
+message ListParamRes {
+  uint64 total = 1;
+  repeated ParamDetail params = 2;
 }
