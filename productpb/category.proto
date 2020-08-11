@@ -56,6 +56,9 @@ message ListCategoryReq {
     int64 page_size = 2;
     uint64 id = 3;
     string name = 4;
+    oneof status_present {
+        CategoryStatus status = 5;
+    }
 }
 
 message ListCategoryRes {
