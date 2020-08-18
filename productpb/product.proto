@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package productpb;
+option go_package = "github.com/shinmigo/pb/productpb";
+
+import "basepb/basepb.proto";
+
+service ProductService {
+    rpc AddProduct (Product) returns (basepb.AnyRes);
+}
+
+enum ProductSpecType {
+    SpecTypePlaceholder = 0;
+    Single = 1;     //单规格
+    Multiple = 2;   //多规格
+}
+
+enum ProductStatus {
+    ProductStatusPlaceholder = 0;
+    Disabled = 1;   //下架
+    Enabled = 2;    //上架
+}
+
+message ProductSpec {
+    string image = 1;
+    double price = 2;
+    double old_price = 3;
+    double cost_price = 4;
+    uint64 stock = 5;
+    string sku = 6;
+    double weight = 7;
+    double volume = 8;
+    string spec = 9;
+}
+
+message ProductParam {
+    uint64 param_id = 1;
+    string value = 2;
+}
+
+message Product {
+    uint64 product_id = 1;
+    uint64 category_id = 2;
+    uint64 store_id = 3;
+    uint64 kind_id = 4;
+    string name = 5;
+    string short_description = 6;
+    string unit = 7;
+    repeated string images = 8;
+    ProductSpecType spec_type = 9;
+    ProductStatus status = 10;
+    repeated uint64 tags = 11;
+    uint64 admin_id = 12;
+    repeated ProductSpec spec = 13;
+    repeated ProductParam param = 14;
+    string description = 15;
+}
