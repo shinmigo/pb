@@ -30,7 +30,7 @@ message ProductSpec {
     string sku = 6;
     double weight = 7;
     double volume = 8;
-    string spec = 9;
+    repeated uint64 spec_value_id = 9;
 }
 
 message ProductParam {
