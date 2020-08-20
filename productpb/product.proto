@@ -7,6 +7,7 @@ import "basepb/basepb.proto";
 
 service ProductService {
     rpc AddProduct (Product) returns (basepb.AnyRes);
+    rpc EditProduct (Product) returns (basepb.AnyRes);
 }
 
 enum ProductSpecType {
@@ -31,6 +32,7 @@ message ProductSpec {
     double weight = 7;
     double volume = 8;
     repeated uint64 spec_value_id = 9;
+    uint64 product_spec_id = 10;
 }
 
 message ProductParam {
