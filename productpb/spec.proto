@@ -40,6 +40,7 @@ message SpecDetail {
 
 message DelSpecReq {
   uint64 spec_id = 1;
+  uint64 store_id = 2;
 }
 
 message ListSpecReq {
@@ -47,6 +48,7 @@ message ListSpecReq {
   uint64 page_size = 2;
   uint64 id = 3;
   string name = 4;
+  uint64 store_id = 5;
 }
 
 message ListSpecRes {
