@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -25,21 +23,82 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-// 会员信息
+type MemberGender int32
+
+const (
+	MemberGender_Unknown MemberGender = 0
+	MemberGender_Woman   MemberGender = 1
+	MemberGender_Man     MemberGender = 2
+)
+
+var MemberGender_name = map[int32]string{
+	0: "Unknown",
+	1: "Woman",
+	2: "Man",
+}
+
+var MemberGender_value = map[string]int32{
+	"Unknown": 0,
+	"Woman":   1,
+	"Man":     2,
+}
+
+func (x MemberGender) String() string {
+	return proto.EnumName(MemberGender_name, int32(x))
+}
+
+func (MemberGender) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_8652353e99042959, []int{0}
+}
+
+type MemberStatus int32
+
+const (
+	MemberStatus_Placeholder MemberStatus = 0
+	MemberStatus_Normal      MemberStatus = 1
+	MemberStatus_Freeze      MemberStatus = 2
+)
+
+var MemberStatus_name = map[int32]string{
+	0: "Placeholder",
+	1: "Normal",
+	2: "Freeze",
+}
+
+var MemberStatus_value = map[string]int32{
+	"Placeholder": 0,
+	"Normal":      1,
+	"Freeze":      2,
+}
+
+func (x MemberStatus) String() string {
+	return proto.EnumName(MemberStatus_name, int32(x))
+}
+
+func (MemberStatus) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_8652353e99042959, []int{1}
+}
+
 type Member struct {
-	MemberId             uint64   `protobuf:"varint,1,opt,name=memberId,proto3" json:"memberId,omitempty"`
-	Nickname             string   `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	Status               uint32   `protobuf:"varint,3,opt,name=status,proto3" json:"status,omitempty"`
-	StatusText           string   `protobuf:"bytes,4,opt,name=status_text,json=statusText,proto3" json:"status_text,omitempty"`
-	Mobile               string   `protobuf:"bytes,5,opt,name=mobile,proto3" json:"mobile,omitempty"`
-	MemberLevelId        string   `protobuf:"bytes,6,opt,name=member_level_id,json=memberLevelId,proto3" json:"member_level_id,omitempty"`
-	MemberLevelName      string   `protobuf:"bytes,7,opt,name=member_level_name,json=memberLevelName,proto3" json:"member_level_name,omitempty"`
-	LastLoginTime        string   `protobuf:"bytes,8,opt,name=last_login_time,json=lastLoginTime,proto3" json:"last_login_time,omitempty"`
-	Gender               uint32   `protobuf:"varint,9,opt,name=gender,proto3" json:"gender,omitempty"`
-	Birthday             string   `protobuf:"bytes,10,opt,name=birthday,proto3" json:"birthday,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	MemberId             uint64       `protobuf:"varint,1,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
+	Nickname             string       `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	Mobile               string       `protobuf:"bytes,3,opt,name=mobile,proto3" json:"mobile,omitempty"`
+	RegisterIp           string       `protobuf:"bytes,4,opt,name=register_ip,json=registerIp,proto3" json:"register_ip,omitempty"`
+	Name                 string       `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
+	Gender               MemberGender `protobuf:"varint,6,opt,name=gender,proto3,enum=memberpb.MemberGender" json:"gender,omitempty"`
+	IdCard               string       `protobuf:"bytes,7,opt,name=id_card,json=idCard,proto3" json:"id_card,omitempty"`
+	Birthday             string       `protobuf:"bytes,8,opt,name=birthday,proto3" json:"birthday,omitempty"`
+	Avatar               string       `protobuf:"bytes,9,opt,name=avatar,proto3" json:"avatar,omitempty"`
+	Email                string       `protobuf:"bytes,10,opt,name=email,proto3" json:"email,omitempty"`
+	Status               MemberStatus `protobuf:"varint,11,opt,name=status,proto3,enum=memberpb.MemberStatus" json:"status,omitempty"`
+	Remark               string       `protobuf:"bytes,12,opt,name=remark,proto3" json:"remark,omitempty"`
+	MemberLevelId        uint64       `protobuf:"varint,13,opt,name=member_level_id,json=memberLevelId,proto3" json:"member_level_id,omitempty"`
+	Point                int64        `protobuf:"varint,14,opt,name=point,proto3" json:"point,omitempty"`
+	Balance              float64      `protobuf:"fixed64,15,opt,name=balance,proto3" json:"balance,omitempty"`
+	AdminId              uint64       `protobuf:"varint,16,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
 }
 
 func (m *Member) Reset()         { *m = Member{} }
@@ -81,20 +140,6 @@ func (m *Member) GetNickname() string {
 	return ""
 }
 
-func (m *Member) GetStatus() uint32 {
-	if m != nil {
-		return m.Status
-	}
-	return 0
-}
-
-func (m *Member) GetStatusText() string {
-	if m != nil {
-		return m.StatusText
-	}
-	return ""
-}
-
 func (m *Member) GetMobile() string {
 	if m != nil {
 		return m.Mobile
@@ -102,32 +147,32 @@ func (m *Member) GetMobile() string {
 	return ""
 }
 
-func (m *Member) GetMemberLevelId() string {
+func (m *Member) GetRegisterIp() string {
 	if m != nil {
-		return m.MemberLevelId
+		return m.RegisterIp
 	}
 	return ""
 }
 
-func (m *Member) GetMemberLevelName() string {
+func (m *Member) GetName() string {
 	if m != nil {
-		return m.MemberLevelName
+		return m.Name
 	}
 	return ""
 }
 
-func (m *Member) GetLastLoginTime() string {
-	if m != nil {
-		return m.LastLoginTime
-	}
-	return ""
-}
-
-func (m *Member) GetGender() uint32 {
+func (m *Member) GetGender() MemberGender {
 	if m != nil {
 		return m.Gender
 	}
-	return 0
+	return MemberGender_Unknown
+}
+
+func (m *Member) GetIdCard() string {
+	if m != nil {
+		return m.IdCard
+	}
+	return ""
 }
 
 func (m *Member) GetBirthday() string {
@@ -137,458 +182,419 @@ func (m *Member) GetBirthday() string {
 	return ""
 }
 
-// 会员列表的参数
-type ListReq struct {
-	PageSize             uint64   `protobuf:"varint,1,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	Page                 uint64   `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
-	Mobile               string   `protobuf:"bytes,3,opt,name=mobile,proto3" json:"mobile,omitempty"`
-	Status               uint32   `protobuf:"varint,4,opt,name=status,proto3" json:"status,omitempty"`
-	MemberId             uint64   `protobuf:"varint,5,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
+func (m *Member) GetAvatar() string {
+	if m != nil {
+		return m.Avatar
+	}
+	return ""
+}
+
+func (m *Member) GetEmail() string {
+	if m != nil {
+		return m.Email
+	}
+	return ""
+}
+
+func (m *Member) GetStatus() MemberStatus {
+	if m != nil {
+		return m.Status
+	}
+	return MemberStatus_Placeholder
+}
+
+func (m *Member) GetRemark() string {
+	if m != nil {
+		return m.Remark
+	}
+	return ""
+}
+
+func (m *Member) GetMemberLevelId() uint64 {
+	if m != nil {
+		return m.MemberLevelId
+	}
+	return 0
+}
+
+func (m *Member) GetPoint() int64 {
+	if m != nil {
+		return m.Point
+	}
+	return 0
+}
+
+func (m *Member) GetBalance() float64 {
+	if m != nil {
+		return m.Balance
+	}
+	return 0
+}
+
+func (m *Member) GetAdminId() uint64 {
+	if m != nil {
+		return m.AdminId
+	}
+	return 0
+}
+
+type MemberDetail struct {
+	MemberId             uint64       `protobuf:"varint,1,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
+	Nickname             string       `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
+	Mobile               string       `protobuf:"bytes,3,opt,name=mobile,proto3" json:"mobile,omitempty"`
+	RegisterIp           string       `protobuf:"bytes,4,opt,name=register_ip,json=registerIp,proto3" json:"register_ip,omitempty"`
+	Name                 string       `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
+	Gender               MemberGender `protobuf:"varint,6,opt,name=gender,proto3,enum=memberpb.MemberGender" json:"gender,omitempty"`
+	IdCard               string       `protobuf:"bytes,7,opt,name=id_card,json=idCard,proto3" json:"id_card,omitempty"`
+	Birthday             string       `protobuf:"bytes,8,opt,name=birthday,proto3" json:"birthday,omitempty"`
+	Avatar               string       `protobuf:"bytes,9,opt,name=avatar,proto3" json:"avatar,omitempty"`
+	Email                string       `protobuf:"bytes,10,opt,name=email,proto3" json:"email,omitempty"`
+	Status               MemberStatus `protobuf:"varint,11,opt,name=status,proto3,enum=memberpb.MemberStatus" json:"status,omitempty"`
+	Remark               string       `protobuf:"bytes,12,opt,name=remark,proto3" json:"remark,omitempty"`
+	MemberLevelId        uint64       `protobuf:"varint,13,opt,name=member_level_id,json=memberLevelId,proto3" json:"member_level_id,omitempty"`
+	Point                int64        `protobuf:"varint,14,opt,name=point,proto3" json:"point,omitempty"`
+	Balance              float64      `protobuf:"fixed64,15,opt,name=balance,proto3" json:"balance,omitempty"`
+	CreatedBy            uint64       `protobuf:"varint,16,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
+	UpdatedBy            uint64       `protobuf:"varint,17,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by,omitempty"`
+	CreatedAt            string       `protobuf:"bytes,18,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt            string       `protobuf:"bytes,19,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
+}
+
+func (m *MemberDetail) Reset()         { *m = MemberDetail{} }
+func (m *MemberDetail) String() string { return proto.CompactTextString(m) }
+func (*MemberDetail) ProtoMessage()    {}
+func (*MemberDetail) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8652353e99042959, []int{1}
+}
+
+func (m *MemberDetail) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_MemberDetail.Unmarshal(m, b)
+}
+func (m *MemberDetail) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_MemberDetail.Marshal(b, m, deterministic)
+}
+func (m *MemberDetail) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MemberDetail.Merge(m, src)
+}
+func (m *MemberDetail) XXX_Size() int {
+	return xxx_messageInfo_MemberDetail.Size(m)
+}
+func (m *MemberDetail) XXX_DiscardUnknown() {
+	xxx_messageInfo_MemberDetail.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MemberDetail proto.InternalMessageInfo
+
+func (m *MemberDetail) GetMemberId() uint64 {
+	if m != nil {
+		return m.MemberId
+	}
+	return 0
+}
+
+func (m *MemberDetail) GetNickname() string {
+	if m != nil {
+		return m.Nickname
+	}
+	return ""
+}
+
+func (m *MemberDetail) GetMobile() string {
+	if m != nil {
+		return m.Mobile
+	}
+	return ""
+}
+
+func (m *MemberDetail) GetRegisterIp() string {
+	if m != nil {
+		return m.RegisterIp
+	}
+	return ""
+}
+
+func (m *MemberDetail) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *MemberDetail) GetGender() MemberGender {
+	if m != nil {
+		return m.Gender
+	}
+	return MemberGender_Unknown
+}
+
+func (m *MemberDetail) GetIdCard() string {
+	if m != nil {
+		return m.IdCard
+	}
+	return ""
+}
+
+func (m *MemberDetail) GetBirthday() string {
+	if m != nil {
+		return m.Birthday
+	}
+	return ""
+}
+
+func (m *MemberDetail) GetAvatar() string {
+	if m != nil {
+		return m.Avatar
+	}
+	return ""
+}
+
+func (m *MemberDetail) GetEmail() string {
+	if m != nil {
+		return m.Email
+	}
+	return ""
+}
+
+func (m *MemberDetail) GetStatus() MemberStatus {
+	if m != nil {
+		return m.Status
+	}
+	return MemberStatus_Placeholder
+}
+
+func (m *MemberDetail) GetRemark() string {
+	if m != nil {
+		return m.Remark
+	}
+	return ""
+}
+
+func (m *MemberDetail) GetMemberLevelId() uint64 {
+	if m != nil {
+		return m.MemberLevelId
+	}
+	return 0
+}
+
+func (m *MemberDetail) GetPoint() int64 {
+	if m != nil {
+		return m.Point
+	}
+	return 0
+}
+
+func (m *MemberDetail) GetBalance() float64 {
+	if m != nil {
+		return m.Balance
+	}
+	return 0
+}
+
+func (m *MemberDetail) GetCreatedBy() uint64 {
+	if m != nil {
+		return m.CreatedBy
+	}
+	return 0
+}
+
+func (m *MemberDetail) GetUpdatedBy() uint64 {
+	if m != nil {
+		return m.UpdatedBy
+	}
+	return 0
+}
+
+func (m *MemberDetail) GetCreatedAt() string {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return ""
+}
+
+func (m *MemberDetail) GetUpdatedAt() string {
+	if m != nil {
+		return m.UpdatedAt
+	}
+	return ""
+}
+
+type GetMemberReq struct {
+	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize             uint64   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	MemberId             uint64   `protobuf:"varint,3,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
+	Status               int32    `protobuf:"varint,4,opt,name=status,proto3" json:"status,omitempty"`
+	Mobile               string   `protobuf:"bytes,5,opt,name=mobile,proto3" json:"mobile,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ListReq) Reset()         { *m = ListReq{} }
-func (m *ListReq) String() string { return proto.CompactTextString(m) }
-func (*ListReq) ProtoMessage()    {}
-func (*ListReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8652353e99042959, []int{1}
+func (m *GetMemberReq) Reset()         { *m = GetMemberReq{} }
+func (m *GetMemberReq) String() string { return proto.CompactTextString(m) }
+func (*GetMemberReq) ProtoMessage()    {}
+func (*GetMemberReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8652353e99042959, []int{2}
 }
 
-func (m *ListReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListReq.Unmarshal(m, b)
+func (m *GetMemberReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetMemberReq.Unmarshal(m, b)
 }
-func (m *ListReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListReq.Marshal(b, m, deterministic)
+func (m *GetMemberReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetMemberReq.Marshal(b, m, deterministic)
 }
-func (m *ListReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListReq.Merge(m, src)
+func (m *GetMemberReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetMemberReq.Merge(m, src)
 }
-func (m *ListReq) XXX_Size() int {
-	return xxx_messageInfo_ListReq.Size(m)
+func (m *GetMemberReq) XXX_Size() int {
+	return xxx_messageInfo_GetMemberReq.Size(m)
 }
-func (m *ListReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListReq.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListReq proto.InternalMessageInfo
-
-func (m *ListReq) GetPageSize() uint64 {
-	if m != nil {
-		return m.PageSize
-	}
-	return 0
+func (m *GetMemberReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetMemberReq.DiscardUnknown(m)
 }
 
-func (m *ListReq) GetPage() uint64 {
+var xxx_messageInfo_GetMemberReq proto.InternalMessageInfo
+
+func (m *GetMemberReq) GetPage() uint64 {
 	if m != nil {
 		return m.Page
 	}
 	return 0
 }
 
-func (m *ListReq) GetMobile() string {
+func (m *GetMemberReq) GetPageSize() uint64 {
 	if m != nil {
-		return m.Mobile
-	}
-	return ""
-}
-
-func (m *ListReq) GetStatus() uint32 {
-	if m != nil {
-		return m.Status
+		return m.PageSize
 	}
 	return 0
 }
 
-func (m *ListReq) GetMemberId() uint64 {
+func (m *GetMemberReq) GetMemberId() uint64 {
 	if m != nil {
 		return m.MemberId
 	}
 	return 0
 }
 
-// 列表返回数据
-type ListRes struct {
-	Total                uint64    `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Members              []*Member `protobuf:"bytes,2,rep,name=members,proto3" json:"members,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
-	XXX_unrecognized     []byte    `json:"-"`
-	XXX_sizecache        int32     `json:"-"`
+func (m *GetMemberReq) GetStatus() int32 {
+	if m != nil {
+		return m.Status
+	}
+	return 0
 }
 
-func (m *ListRes) Reset()         { *m = ListRes{} }
-func (m *ListRes) String() string { return proto.CompactTextString(m) }
-func (*ListRes) ProtoMessage()    {}
-func (*ListRes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8652353e99042959, []int{2}
+func (m *GetMemberReq) GetMobile() string {
+	if m != nil {
+		return m.Mobile
+	}
+	return ""
 }
 
-func (m *ListRes) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListRes.Unmarshal(m, b)
-}
-func (m *ListRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListRes.Marshal(b, m, deterministic)
-}
-func (m *ListRes) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListRes.Merge(m, src)
-}
-func (m *ListRes) XXX_Size() int {
-	return xxx_messageInfo_ListRes.Size(m)
-}
-func (m *ListRes) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListRes.DiscardUnknown(m)
+type ListMemberRes struct {
+	Total                uint64          `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Members              []*MemberDetail `protobuf:"bytes,2,rep,name=members,proto3" json:"members,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
+	XXX_unrecognized     []byte          `json:"-"`
+	XXX_sizecache        int32           `json:"-"`
 }
 
-var xxx_messageInfo_ListRes proto.InternalMessageInfo
+func (m *ListMemberRes) Reset()         { *m = ListMemberRes{} }
+func (m *ListMemberRes) String() string { return proto.CompactTextString(m) }
+func (*ListMemberRes) ProtoMessage()    {}
+func (*ListMemberRes) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8652353e99042959, []int{3}
+}
 
-func (m *ListRes) GetTotal() uint64 {
+func (m *ListMemberRes) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListMemberRes.Unmarshal(m, b)
+}
+func (m *ListMemberRes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListMemberRes.Marshal(b, m, deterministic)
+}
+func (m *ListMemberRes) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListMemberRes.Merge(m, src)
+}
+func (m *ListMemberRes) XXX_Size() int {
+	return xxx_messageInfo_ListMemberRes.Size(m)
+}
+func (m *ListMemberRes) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListMemberRes.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListMemberRes proto.InternalMessageInfo
+
+func (m *ListMemberRes) GetTotal() uint64 {
 	if m != nil {
 		return m.Total
 	}
 	return 0
 }
 
-func (m *ListRes) GetMembers() []*Member {
+func (m *ListMemberRes) GetMembers() []*MemberDetail {
 	if m != nil {
 		return m.Members
 	}
 	return nil
 }
 
-// 详情的请求参数
-type InfoReq struct {
-	MemberId             uint64   `protobuf:"varint,1,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *InfoReq) Reset()         { *m = InfoReq{} }
-func (m *InfoReq) String() string { return proto.CompactTextString(m) }
-func (*InfoReq) ProtoMessage()    {}
-func (*InfoReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8652353e99042959, []int{3}
-}
-
-func (m *InfoReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_InfoReq.Unmarshal(m, b)
-}
-func (m *InfoReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_InfoReq.Marshal(b, m, deterministic)
-}
-func (m *InfoReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_InfoReq.Merge(m, src)
-}
-func (m *InfoReq) XXX_Size() int {
-	return xxx_messageInfo_InfoReq.Size(m)
-}
-func (m *InfoReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_InfoReq.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_InfoReq proto.InternalMessageInfo
-
-func (m *InfoReq) GetMemberId() uint64 {
-	if m != nil {
-		return m.MemberId
-	}
-	return 0
-}
-
-// 新增会员的参数
-type AddReq struct {
-	Nickname             string   `protobuf:"bytes,1,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	Mobile               string   `protobuf:"bytes,2,opt,name=mobile,proto3" json:"mobile,omitempty"`
-	Status               uint32   `protobuf:"varint,3,opt,name=status,proto3" json:"status,omitempty"`
-	Gender               uint32   `protobuf:"varint,4,opt,name=gender,proto3" json:"gender,omitempty"`
-	Birthday             string   `protobuf:"bytes,5,opt,name=birthday,proto3" json:"birthday,omitempty"`
-	MemberLevelId        string   `protobuf:"bytes,6,opt,name=member_level_id,json=memberLevelId,proto3" json:"member_level_id,omitempty"`
-	Password             string   `protobuf:"bytes,7,opt,name=password,proto3" json:"password,omitempty"`
-	Operator             string   `protobuf:"bytes,8,opt,name=operator,proto3" json:"operator,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *AddReq) Reset()         { *m = AddReq{} }
-func (m *AddReq) String() string { return proto.CompactTextString(m) }
-func (*AddReq) ProtoMessage()    {}
-func (*AddReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8652353e99042959, []int{4}
-}
-
-func (m *AddReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AddReq.Unmarshal(m, b)
-}
-func (m *AddReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AddReq.Marshal(b, m, deterministic)
-}
-func (m *AddReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AddReq.Merge(m, src)
-}
-func (m *AddReq) XXX_Size() int {
-	return xxx_messageInfo_AddReq.Size(m)
-}
-func (m *AddReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_AddReq.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AddReq proto.InternalMessageInfo
-
-func (m *AddReq) GetNickname() string {
-	if m != nil {
-		return m.Nickname
-	}
-	return ""
-}
-
-func (m *AddReq) GetMobile() string {
-	if m != nil {
-		return m.Mobile
-	}
-	return ""
-}
-
-func (m *AddReq) GetStatus() uint32 {
-	if m != nil {
-		return m.Status
-	}
-	return 0
-}
-
-func (m *AddReq) GetGender() uint32 {
-	if m != nil {
-		return m.Gender
-	}
-	return 0
-}
-
-func (m *AddReq) GetBirthday() string {
-	if m != nil {
-		return m.Birthday
-	}
-	return ""
-}
-
-func (m *AddReq) GetMemberLevelId() string {
-	if m != nil {
-		return m.MemberLevelId
-	}
-	return ""
-}
-
-func (m *AddReq) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *AddReq) GetOperator() string {
-	if m != nil {
-		return m.Operator
-	}
-	return ""
-}
-
-// 更新会员的参数
-type EditReq struct {
-	Nickname             string   `protobuf:"bytes,1,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	Mobile               string   `protobuf:"bytes,2,opt,name=mobile,proto3" json:"mobile,omitempty"`
-	Gender               uint32   `protobuf:"varint,3,opt,name=gender,proto3" json:"gender,omitempty"`
-	Birthday             string   `protobuf:"bytes,4,opt,name=birthday,proto3" json:"birthday,omitempty"`
-	MemberLevelId        string   `protobuf:"bytes,5,opt,name=member_level_id,json=memberLevelId,proto3" json:"member_level_id,omitempty"`
-	MemberId             uint64   `protobuf:"varint,6,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
-	Operator             string   `protobuf:"bytes,7,opt,name=operator,proto3" json:"operator,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *EditReq) Reset()         { *m = EditReq{} }
-func (m *EditReq) String() string { return proto.CompactTextString(m) }
-func (*EditReq) ProtoMessage()    {}
-func (*EditReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8652353e99042959, []int{5}
-}
-
-func (m *EditReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_EditReq.Unmarshal(m, b)
-}
-func (m *EditReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_EditReq.Marshal(b, m, deterministic)
-}
-func (m *EditReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EditReq.Merge(m, src)
-}
-func (m *EditReq) XXX_Size() int {
-	return xxx_messageInfo_EditReq.Size(m)
-}
-func (m *EditReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_EditReq.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_EditReq proto.InternalMessageInfo
-
-func (m *EditReq) GetNickname() string {
-	if m != nil {
-		return m.Nickname
-	}
-	return ""
-}
-
-func (m *EditReq) GetMobile() string {
-	if m != nil {
-		return m.Mobile
-	}
-	return ""
-}
-
-func (m *EditReq) GetGender() uint32 {
-	if m != nil {
-		return m.Gender
-	}
-	return 0
-}
-
-func (m *EditReq) GetBirthday() string {
-	if m != nil {
-		return m.Birthday
-	}
-	return ""
-}
-
-func (m *EditReq) GetMemberLevelId() string {
-	if m != nil {
-		return m.MemberLevelId
-	}
-	return ""
-}
-
-func (m *EditReq) GetMemberId() uint64 {
-	if m != nil {
-		return m.MemberId
-	}
-	return 0
-}
-
-func (m *EditReq) GetOperator() string {
-	if m != nil {
-		return m.Operator
-	}
-	return ""
-}
-
-// 更新会员状态
-type EditStatusReq struct {
-	MemberId             uint64   `protobuf:"varint,1,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
-	Status               uint32   `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
-	Operator             string   `protobuf:"bytes,3,opt,name=operator,proto3" json:"operator,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *EditStatusReq) Reset()         { *m = EditStatusReq{} }
-func (m *EditStatusReq) String() string { return proto.CompactTextString(m) }
-func (*EditStatusReq) ProtoMessage()    {}
-func (*EditStatusReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8652353e99042959, []int{6}
-}
-
-func (m *EditStatusReq) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_EditStatusReq.Unmarshal(m, b)
-}
-func (m *EditStatusReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_EditStatusReq.Marshal(b, m, deterministic)
-}
-func (m *EditStatusReq) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_EditStatusReq.Merge(m, src)
-}
-func (m *EditStatusReq) XXX_Size() int {
-	return xxx_messageInfo_EditStatusReq.Size(m)
-}
-func (m *EditStatusReq) XXX_DiscardUnknown() {
-	xxx_messageInfo_EditStatusReq.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_EditStatusReq proto.InternalMessageInfo
-
-func (m *EditStatusReq) GetMemberId() uint64 {
-	if m != nil {
-		return m.MemberId
-	}
-	return 0
-}
-
-func (m *EditStatusReq) GetStatus() uint32 {
-	if m != nil {
-		return m.Status
-	}
-	return 0
-}
-
-func (m *EditStatusReq) GetOperator() string {
-	if m != nil {
-		return m.Operator
-	}
-	return ""
-}
-
 func init() {
+	proto.RegisterEnum("memberpb.MemberGender", MemberGender_name, MemberGender_value)
+	proto.RegisterEnum("memberpb.MemberStatus", MemberStatus_name, MemberStatus_value)
 	proto.RegisterType((*Member)(nil), "memberpb.Member")
-	proto.RegisterType((*ListReq)(nil), "memberpb.ListReq")
-	proto.RegisterType((*ListRes)(nil), "memberpb.ListRes")
-	proto.RegisterType((*InfoReq)(nil), "memberpb.InfoReq")
-	proto.RegisterType((*AddReq)(nil), "memberpb.AddReq")
-	proto.RegisterType((*EditReq)(nil), "memberpb.EditReq")
-	proto.RegisterType((*EditStatusReq)(nil), "memberpb.EditStatusReq")
+	proto.RegisterType((*MemberDetail)(nil), "memberpb.MemberDetail")
+	proto.RegisterType((*GetMemberReq)(nil), "memberpb.GetMemberReq")
+	proto.RegisterType((*ListMemberRes)(nil), "memberpb.ListMemberRes")
 }
 
 func init() { proto.RegisterFile("memberpb/member.proto", fileDescriptor_8652353e99042959) }
 
 var fileDescriptor_8652353e99042959 = []byte{
-	// 598 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x54, 0xcd, 0x6e, 0xd3, 0x4c,
-	0x14, 0x95, 0x63, 0xc7, 0x6e, 0x6e, 0x95, 0xaf, 0x5f, 0x87, 0x3f, 0xcb, 0x5d, 0x34, 0x78, 0x51,
-	0x42, 0x17, 0x8e, 0x54, 0xc4, 0x03, 0x04, 0x09, 0xa1, 0x88, 0xc0, 0xc2, 0xe9, 0x8a, 0x8d, 0xb1,
-	0x33, 0x43, 0x32, 0xc2, 0x7f, 0x78, 0xa6, 0xa5, 0xed, 0x0b, 0xf0, 0x5c, 0xbc, 0x02, 0x4f, 0xc1,
-	0x3b, 0xb0, 0x41, 0xf3, 0x63, 0xc7, 0x4e, 0x88, 0x8a, 0xc4, 0xca, 0x73, 0xef, 0x3d, 0x77, 0x66,
-	0xce, 0xb9, 0xc7, 0x03, 0x8f, 0x32, 0x92, 0x25, 0xa4, 0x2a, 0x93, 0x89, 0x5a, 0x04, 0x65, 0x55,
-	0xf0, 0x02, 0x1d, 0xd4, 0x69, 0xef, 0x41, 0x12, 0x33, 0x52, 0x26, 0x13, 0xf5, 0x51, 0x65, 0xff,
-	0x7b, 0x0f, 0xec, 0x77, 0x12, 0x81, 0x3c, 0xd0, 0xd8, 0x19, 0x76, 0x8d, 0x91, 0x31, 0xb6, 0xc2,
-	0x26, 0x16, 0xb5, 0x9c, 0x2e, 0x3f, 0xe7, 0x71, 0x46, 0xdc, 0xde, 0xc8, 0x18, 0x0f, 0xc2, 0x26,
-	0x46, 0x8f, 0xc1, 0x66, 0x3c, 0xe6, 0x57, 0xcc, 0x35, 0x47, 0xc6, 0x78, 0x18, 0xea, 0x08, 0x9d,
-	0xc2, 0xa1, 0x5a, 0x45, 0x9c, 0xdc, 0x70, 0xd7, 0x92, 0x6d, 0xa0, 0x52, 0x97, 0xe4, 0x86, 0x8b,
-	0xc6, 0xac, 0x48, 0x68, 0x4a, 0xdc, 0xbe, 0xac, 0xe9, 0x08, 0x9d, 0xc1, 0x91, 0x3a, 0x38, 0x4a,
-	0xc9, 0x35, 0x49, 0x23, 0x8a, 0x5d, 0x5b, 0x02, 0x86, 0x2a, 0x3d, 0x17, 0xd9, 0x19, 0x46, 0xe7,
-	0x70, 0xdc, 0xc1, 0xc9, 0xdb, 0x39, 0x12, 0x79, 0xd4, 0x42, 0xbe, 0x17, 0x97, 0x3c, 0x83, 0xa3,
-	0x34, 0x66, 0x3c, 0x4a, 0x8b, 0x15, 0xcd, 0x23, 0x4e, 0x33, 0xe2, 0x1e, 0xa8, 0x3d, 0x45, 0x7a,
-	0x2e, 0xb2, 0x97, 0x54, 0x91, 0x59, 0x91, 0x1c, 0x93, 0xca, 0x1d, 0x28, 0x32, 0x2a, 0x12, 0x02,
-	0x24, 0xb4, 0xe2, 0x6b, 0x1c, 0xdf, 0xba, 0xa0, 0x04, 0xa8, 0x63, 0xff, 0x9b, 0x01, 0xce, 0x9c,
-	0x32, 0x1e, 0x92, 0x2f, 0xe8, 0x04, 0x06, 0x65, 0xbc, 0x22, 0x11, 0xa3, 0x77, 0xa4, 0x56, 0x51,
-	0x24, 0x16, 0xf4, 0x8e, 0x20, 0x04, 0x96, 0x58, 0x4b, 0x05, 0xad, 0x50, 0xae, 0x5b, 0x22, 0x98,
-	0x1d, 0x11, 0x36, 0xaa, 0x5a, 0x1d, 0x55, 0x4f, 0x60, 0xa0, 0x49, 0x53, 0x2c, 0x75, 0x6b, 0x8d,
-	0xc9, 0x7f, 0x5b, 0x5f, 0x84, 0xa1, 0x87, 0xd0, 0xe7, 0x05, 0x8f, 0x53, 0x7d, 0x09, 0x15, 0xa0,
-	0x73, 0x70, 0x14, 0x98, 0xb9, 0xbd, 0x91, 0x39, 0x3e, 0xbc, 0xf8, 0x3f, 0xa8, 0xfd, 0x11, 0x28,
-	0x1b, 0x84, 0x35, 0xc0, 0x3f, 0x03, 0x67, 0x96, 0x7f, 0x2a, 0x34, 0xab, 0xcd, 0xa1, 0x5b, 0xde,
-	0xf0, 0x7f, 0x1a, 0x60, 0x4f, 0x31, 0x16, 0xb8, 0xb6, 0x4d, 0x8c, 0x5d, 0x9b, 0x68, 0xa2, 0xbd,
-	0x3d, 0x44, 0xbb, 0xf6, 0xd9, 0x4c, 0xc2, 0xda, 0x3b, 0x89, 0x7e, 0x77, 0x12, 0x7f, 0xed, 0x1c,
-	0x0f, 0x0e, 0xca, 0x98, 0xb1, 0xaf, 0x45, 0x85, 0xb5, 0x61, 0x9a, 0x58, 0xd4, 0x8a, 0x92, 0x54,
-	0x31, 0x2f, 0x2a, 0x6d, 0x91, 0x26, 0xf6, 0x7f, 0x18, 0xe0, 0xbc, 0xc6, 0x94, 0xff, 0x03, 0x57,
-	0xcd, 0xc9, 0xdc, 0xcb, 0xc9, 0xba, 0x9f, 0x53, 0xff, 0x4f, 0x9c, 0x3a, 0x33, 0xb2, 0x77, 0xff,
-	0xdf, 0x86, 0x94, 0xb3, 0x45, 0xea, 0x23, 0x0c, 0x05, 0xa7, 0x85, 0x94, 0xfd, 0xbe, 0x69, 0xb7,
-	0xc6, 0xd5, 0xeb, 0x8c, 0xab, 0x7d, 0x82, 0xd9, 0x3d, 0xe1, 0xe2, 0x97, 0x01, 0x43, 0xe5, 0xae,
-	0x05, 0xa9, 0xae, 0xe9, 0x92, 0xa0, 0x09, 0x38, 0x6f, 0x08, 0x17, 0x5e, 0x45, 0xc7, 0x1b, 0x07,
-	0xea, 0x9f, 0xc8, 0xdb, 0x49, 0x31, 0x14, 0xc8, 0x06, 0xe1, 0xc7, 0x76, 0x83, 0xf6, 0xa7, 0xb7,
-	0xe3, 0x62, 0xf4, 0x0c, 0xcc, 0x29, 0xc6, 0xa8, 0x55, 0x50, 0x16, 0xf5, 0xfe, 0x0b, 0xf4, 0xfb,
-	0x37, 0xcd, 0x6f, 0xc5, 0xc6, 0xcf, 0xc1, 0x12, 0xec, 0xdb, 0xbb, 0xea, 0x09, 0xef, 0x40, 0x5f,
-	0x02, 0x6c, 0x84, 0x42, 0x4f, 0xba, 0x0d, 0x8d, 0x7c, 0xdb, 0x6d, 0xaf, 0x9e, 0x7e, 0x38, 0x5d,
-	0x51, 0xbe, 0xbe, 0x4a, 0x82, 0x65, 0x91, 0x4d, 0xd8, 0x9a, 0xe6, 0x19, 0x5d, 0x15, 0x93, 0xe6,
-	0xa1, 0x2e, 0x93, 0xc4, 0x96, 0x8f, 0xf1, 0x8b, 0xdf, 0x01, 0x00, 0x00, 0xff, 0xff, 0x37, 0x43,
-	0xbc, 0xb6, 0xc4, 0x05, 0x00, 0x00,
+	// 678 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x55, 0xcb, 0x4e, 0x1b, 0x4b,
+	0x10, 0x65, 0xfc, 0x76, 0x19, 0xc3, 0xdc, 0xe6, 0x02, 0x7d, 0x7d, 0x75, 0x85, 0xaf, 0x17, 0x91,
+	0x85, 0x14, 0x3b, 0x22, 0x8b, 0x28, 0xbb, 0x98, 0x3c, 0x90, 0x25, 0x88, 0xa2, 0x41, 0x11, 0x52,
+	0x36, 0x56, 0xcf, 0x74, 0xc9, 0x6e, 0x31, 0x2f, 0x7a, 0x1a, 0x22, 0xf3, 0x0d, 0xf9, 0xab, 0xfc,
+	0x46, 0xfe, 0x20, 0x3f, 0x11, 0xf5, 0x63, 0x8c, 0x81, 0x2c, 0xb2, 0x8d, 0x94, 0xd5, 0x74, 0x9d,
+	0x53, 0x55, 0x73, 0xa6, 0xea, 0xcc, 0x0c, 0xec, 0x26, 0x98, 0x84, 0x28, 0xf3, 0x70, 0x6c, 0x0f,
+	0xa3, 0x5c, 0x66, 0x2a, 0x23, 0xad, 0x12, 0xee, 0xed, 0x84, 0xac, 0xc0, 0x3c, 0x1c, 0xdb, 0x8b,
+	0xa5, 0x07, 0xdf, 0xaa, 0xd0, 0x38, 0x33, 0x19, 0xe4, 0x5f, 0x68, 0xdb, 0xdc, 0x99, 0xe0, 0xd4,
+	0xeb, 0x7b, 0xc3, 0x5a, 0xe0, 0x8a, 0xa7, 0x9c, 0xf4, 0xa0, 0x95, 0x8a, 0xe8, 0x32, 0x65, 0x09,
+	0xd2, 0x4a, 0xdf, 0x1b, 0xb6, 0x83, 0x55, 0x4c, 0xf6, 0xa0, 0x91, 0x64, 0xa1, 0x88, 0x91, 0x56,
+	0x0d, 0xe3, 0x22, 0x72, 0x00, 0x1d, 0x89, 0x73, 0x51, 0x28, 0xdd, 0x32, 0xa7, 0x35, 0x43, 0x42,
+	0x09, 0x4d, 0x73, 0x42, 0xa0, 0x66, 0x1a, 0xd6, 0x0d, 0x63, 0xce, 0x64, 0x04, 0x8d, 0x39, 0xa6,
+	0x1c, 0x25, 0x6d, 0xf4, 0xbd, 0xe1, 0xd6, 0xd1, 0xde, 0xa8, 0x7c, 0x80, 0x91, 0xd5, 0x79, 0x62,
+	0xd8, 0xc0, 0x65, 0x91, 0x7d, 0x68, 0x0a, 0x3e, 0x8b, 0x98, 0xe4, 0xb4, 0x69, 0xef, 0x2e, 0xf8,
+	0x6b, 0x26, 0x8d, 0xe2, 0x50, 0x48, 0xb5, 0xe0, 0x6c, 0x49, 0x5b, 0x56, 0x71, 0x19, 0x6b, 0xc5,
+	0xec, 0x86, 0x29, 0x26, 0x69, 0xdb, 0xd6, 0xd8, 0x88, 0xfc, 0x0d, 0x75, 0x4c, 0x98, 0x88, 0x29,
+	0x18, 0xd8, 0x06, 0x5a, 0x52, 0xa1, 0x98, 0xba, 0x2e, 0x68, 0xe7, 0xe7, 0x92, 0xce, 0x0d, 0x1b,
+	0xb8, 0x2c, 0xdd, 0x5d, 0x62, 0xc2, 0xe4, 0x25, 0xdd, 0xb4, 0xdd, 0x6d, 0x44, 0x9e, 0xc0, 0xb6,
+	0x1b, 0x70, 0x8c, 0x37, 0x18, 0xeb, 0x31, 0x77, 0xcd, 0x98, 0xbb, 0x16, 0x3e, 0xd5, 0xe8, 0x94,
+	0x6b, 0x15, 0x79, 0x26, 0x52, 0x45, 0xb7, 0xfa, 0xde, 0xb0, 0x1a, 0xd8, 0x80, 0x50, 0x68, 0x86,
+	0x2c, 0x66, 0x69, 0x84, 0x74, 0xbb, 0xef, 0x0d, 0xbd, 0xa0, 0x0c, 0xc9, 0x3f, 0xd0, 0x62, 0x3c,
+	0x11, 0xa9, 0x6e, 0xe8, 0x9b, 0x86, 0x4d, 0x13, 0x4f, 0xf9, 0xe0, 0x6b, 0x0d, 0x36, 0xad, 0xc6,
+	0x37, 0xa8, 0xf4, 0xb3, 0xfc, 0x59, 0xf2, 0x6f, 0xba, 0xe4, 0xff, 0x00, 0x22, 0x89, 0x4c, 0x21,
+	0x9f, 0x85, 0x4b, 0xb7, 0xe6, 0xb6, 0x43, 0x8e, 0x97, 0x9a, 0xbe, 0xce, 0x79, 0x49, 0xff, 0x65,
+	0x69, 0x87, 0x58, 0xba, 0xac, 0x66, 0x8a, 0x12, 0xa3, 0xb8, 0xac, 0x9e, 0xa8, 0xf5, 0x6a, 0xa6,
+	0xe8, 0x8e, 0xa5, 0x1d, 0x32, 0x51, 0x83, 0x2f, 0x1e, 0x6c, 0x9e, 0xa0, 0xb2, 0x73, 0x08, 0xf0,
+	0x4a, 0xef, 0x34, 0x67, 0x73, 0x74, 0x06, 0x32, 0x67, 0xed, 0x2c, 0x7d, 0x9d, 0x15, 0xe2, 0xd6,
+	0xba, 0xa7, 0x16, 0xb4, 0x34, 0x70, 0x2e, 0x6e, 0xf1, 0xbe, 0xed, 0xaa, 0x0f, 0x6c, 0xb7, 0xb7,
+	0x1a, 0xbd, 0x76, 0x4f, 0x7d, 0x7d, 0xc4, 0xce, 0x72, 0xf5, 0x75, 0xcb, 0x0d, 0x2e, 0xa0, 0x7b,
+	0x2a, 0x8a, 0x95, 0x9c, 0x42, 0xcf, 0x52, 0x65, 0x8a, 0xc5, 0x4e, 0x8f, 0x0d, 0xc8, 0x33, 0x68,
+	0xda, 0x5b, 0x14, 0xb4, 0xd2, 0xaf, 0x0e, 0x3b, 0x8f, 0x57, 0x6a, 0xdf, 0x89, 0xa0, 0x4c, 0x3b,
+	0x1c, 0x97, 0x2f, 0x8b, 0xb5, 0x1f, 0xe9, 0x40, 0xf3, 0x63, 0x7a, 0x99, 0x66, 0x9f, 0x53, 0x7f,
+	0x83, 0xb4, 0xa1, 0x7e, 0x91, 0x25, 0x2c, 0xf5, 0x3d, 0xd2, 0x84, 0xea, 0x19, 0x4b, 0xfd, 0xca,
+	0xe1, 0x8b, 0xb2, 0xc0, 0x9a, 0x83, 0x6c, 0x43, 0xe7, 0x43, 0xcc, 0x22, 0x5c, 0x64, 0x31, 0x47,
+	0xe9, 0x6f, 0x10, 0x80, 0xc6, 0xfb, 0x4c, 0x26, 0x2c, 0xf6, 0x3d, 0x7d, 0x7e, 0x27, 0x11, 0x6f,
+	0xd1, 0xaf, 0x1c, 0x7d, 0xf7, 0xa0, 0xeb, 0x2a, 0x51, 0xde, 0x88, 0x08, 0xc9, 0x53, 0x68, 0x4f,
+	0x38, 0x77, 0x9f, 0x62, 0xff, 0xa1, 0xd2, 0xde, 0xd6, 0xc8, 0x7d, 0xb6, 0x27, 0xe9, 0x52, 0x3f,
+	0xf2, 0x08, 0xe0, 0x2d, 0x17, 0xea, 0x97, 0xf3, 0x5f, 0x82, 0x7f, 0x97, 0xef, 0xd4, 0xee, 0x96,
+	0x39, 0x9a, 0x71, 0xf6, 0xc6, 0xab, 0x47, 0xa5, 0xaf, 0xa0, 0xbb, 0x5a, 0xbe, 0x9e, 0x3b, 0x59,
+	0x9b, 0xe3, 0xba, 0x2b, 0x7a, 0xfb, 0x77, 0xf8, 0xbd, 0xfd, 0x1c, 0xff, 0xff, 0xe9, 0x60, 0x2e,
+	0xd4, 0xe2, 0x3a, 0x1c, 0x45, 0x59, 0x32, 0x2e, 0x16, 0x22, 0x4d, 0xc4, 0x3c, 0x1b, 0xaf, 0x7e,
+	0x55, 0x79, 0x18, 0x36, 0xcc, 0xef, 0xe8, 0xf9, 0x8f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x1b, 0x19,
+	0x0d, 0xa9, 0xc6, 0x06, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -603,11 +609,10 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MemberServiceClient interface {
-	GetList(ctx context.Context, in *ListReq, opts ...grpc.CallOption) (*ListRes, error)
-	GetInfo(ctx context.Context, in *InfoReq, opts ...grpc.CallOption) (*Member, error)
-	Add(ctx context.Context, in *AddReq, opts ...grpc.CallOption) (*basepb.AnyRes, error)
-	Edit(ctx context.Context, in *EditReq, opts ...grpc.CallOption) (*basepb.AnyRes, error)
-	EditStatus(ctx context.Context, in *EditStatusReq, opts ...grpc.CallOption) (*basepb.AnyRes, error)
+	AddMember(ctx context.Context, in *Member, opts ...grpc.CallOption) (*basepb.AnyRes, error)
+	EditMember(ctx context.Context, in *Member, opts ...grpc.CallOption) (*basepb.AnyRes, error)
+	EditMemberStatus(ctx context.Context, in *basepb.EditStatusReq, opts ...grpc.CallOption) (*basepb.AnyRes, error)
+	GetMemberList(ctx context.Context, in *GetMemberReq, opts ...grpc.CallOption) (*ListMemberRes, error)
 }
 
 type memberServiceClient struct {
@@ -618,45 +623,36 @@ func NewMemberServiceClient(cc *grpc.ClientConn) MemberServiceClient {
 	return &memberServiceClient{cc}
 }
 
-func (c *memberServiceClient) GetList(ctx context.Context, in *ListReq, opts ...grpc.CallOption) (*ListRes, error) {
-	out := new(ListRes)
-	err := c.cc.Invoke(ctx, "/memberpb.MemberService/GetList", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *memberServiceClient) GetInfo(ctx context.Context, in *InfoReq, opts ...grpc.CallOption) (*Member, error) {
-	out := new(Member)
-	err := c.cc.Invoke(ctx, "/memberpb.MemberService/GetInfo", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *memberServiceClient) Add(ctx context.Context, in *AddReq, opts ...grpc.CallOption) (*basepb.AnyRes, error) {
+func (c *memberServiceClient) AddMember(ctx context.Context, in *Member, opts ...grpc.CallOption) (*basepb.AnyRes, error) {
 	out := new(basepb.AnyRes)
-	err := c.cc.Invoke(ctx, "/memberpb.MemberService/Add", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/memberpb.MemberService/AddMember", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *memberServiceClient) Edit(ctx context.Context, in *EditReq, opts ...grpc.CallOption) (*basepb.AnyRes, error) {
+func (c *memberServiceClient) EditMember(ctx context.Context, in *Member, opts ...grpc.CallOption) (*basepb.AnyRes, error) {
 	out := new(basepb.AnyRes)
-	err := c.cc.Invoke(ctx, "/memberpb.MemberService/Edit", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/memberpb.MemberService/EditMember", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *memberServiceClient) EditStatus(ctx context.Context, in *EditStatusReq, opts ...grpc.CallOption) (*basepb.AnyRes, error) {
+func (c *memberServiceClient) EditMemberStatus(ctx context.Context, in *basepb.EditStatusReq, opts ...grpc.CallOption) (*basepb.AnyRes, error) {
 	out := new(basepb.AnyRes)
-	err := c.cc.Invoke(ctx, "/memberpb.MemberService/EditStatus", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/memberpb.MemberService/EditMemberStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *memberServiceClient) GetMemberList(ctx context.Context, in *GetMemberReq, opts ...grpc.CallOption) (*ListMemberRes, error) {
+	out := new(ListMemberRes)
+	err := c.cc.Invoke(ctx, "/memberpb.MemberService/GetMemberList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -665,123 +661,84 @@ func (c *memberServiceClient) EditStatus(ctx context.Context, in *EditStatusReq,
 
 // MemberServiceServer is the server API for MemberService service.
 type MemberServiceServer interface {
-	GetList(context.Context, *ListReq) (*ListRes, error)
-	GetInfo(context.Context, *InfoReq) (*Member, error)
-	Add(context.Context, *AddReq) (*basepb.AnyRes, error)
-	Edit(context.Context, *EditReq) (*basepb.AnyRes, error)
-	EditStatus(context.Context, *EditStatusReq) (*basepb.AnyRes, error)
-}
-
-// UnimplementedMemberServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedMemberServiceServer struct {
-}
-
-func (*UnimplementedMemberServiceServer) GetList(ctx context.Context, req *ListReq) (*ListRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetList not implemented")
-}
-func (*UnimplementedMemberServiceServer) GetInfo(ctx context.Context, req *InfoReq) (*Member, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetInfo not implemented")
-}
-func (*UnimplementedMemberServiceServer) Add(ctx context.Context, req *AddReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Add not implemented")
-}
-func (*UnimplementedMemberServiceServer) Edit(ctx context.Context, req *EditReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Edit not implemented")
-}
-func (*UnimplementedMemberServiceServer) EditStatus(ctx context.Context, req *EditStatusReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditStatus not implemented")
+	AddMember(context.Context, *Member) (*basepb.AnyRes, error)
+	EditMember(context.Context, *Member) (*basepb.AnyRes, error)
+	EditMemberStatus(context.Context, *basepb.EditStatusReq) (*basepb.AnyRes, error)
+	GetMemberList(context.Context, *GetMemberReq) (*ListMemberRes, error)
 }
 
 func RegisterMemberServiceServer(s *grpc.Server, srv MemberServiceServer) {
 	s.RegisterService(&_MemberService_serviceDesc, srv)
 }
 
-func _MemberService_GetList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListReq)
+func _MemberService_AddMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Member)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MemberServiceServer).GetList(ctx, in)
+		return srv.(MemberServiceServer).AddMember(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/memberpb.MemberService/GetList",
+		FullMethod: "/memberpb.MemberService/AddMember",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MemberServiceServer).GetList(ctx, req.(*ListReq))
+		return srv.(MemberServiceServer).AddMember(ctx, req.(*Member))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MemberService_GetInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(InfoReq)
+func _MemberService_EditMember_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Member)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MemberServiceServer).GetInfo(ctx, in)
+		return srv.(MemberServiceServer).EditMember(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/memberpb.MemberService/GetInfo",
+		FullMethod: "/memberpb.MemberService/EditMember",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MemberServiceServer).GetInfo(ctx, req.(*InfoReq))
+		return srv.(MemberServiceServer).EditMember(ctx, req.(*Member))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MemberService_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddReq)
+func _MemberService_EditMemberStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(basepb.EditStatusReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MemberServiceServer).Add(ctx, in)
+		return srv.(MemberServiceServer).EditMemberStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/memberpb.MemberService/Add",
+		FullMethod: "/memberpb.MemberService/EditMemberStatus",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MemberServiceServer).Add(ctx, req.(*AddReq))
+		return srv.(MemberServiceServer).EditMemberStatus(ctx, req.(*basepb.EditStatusReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MemberService_Edit_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EditReq)
+func _MemberService_GetMemberList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetMemberReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MemberServiceServer).Edit(ctx, in)
+		return srv.(MemberServiceServer).GetMemberList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/memberpb.MemberService/Edit",
+		FullMethod: "/memberpb.MemberService/GetMemberList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MemberServiceServer).Edit(ctx, req.(*EditReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _MemberService_EditStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EditStatusReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MemberServiceServer).EditStatus(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/memberpb.MemberService/EditStatus",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MemberServiceServer).EditStatus(ctx, req.(*EditStatusReq))
+		return srv.(MemberServiceServer).GetMemberList(ctx, req.(*GetMemberReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -791,24 +748,20 @@ var _MemberService_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MemberServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetList",
-			Handler:    _MemberService_GetList_Handler,
+			MethodName: "AddMember",
+			Handler:    _MemberService_AddMember_Handler,
 		},
 		{
-			MethodName: "GetInfo",
-			Handler:    _MemberService_GetInfo_Handler,
+			MethodName: "EditMember",
+			Handler:    _MemberService_EditMember_Handler,
 		},
 		{
-			MethodName: "Add",
-			Handler:    _MemberService_Add_Handler,
+			MethodName: "EditMemberStatus",
+			Handler:    _MemberService_EditMemberStatus_Handler,
 		},
 		{
-			MethodName: "Edit",
-			Handler:    _MemberService_Edit_Handler,
-		},
-		{
-			MethodName: "EditStatus",
-			Handler:    _MemberService_EditStatus_Handler,
+			MethodName: "GetMemberList",
+			Handler:    _MemberService_GetMemberList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -6,75 +6,78 @@ option go_package = "github.com/shinmigo/pb/memberpb";
 
 import "basepb/basepb.proto";
 
-// 会员服务
 service MemberService {
-  rpc GetList(ListReq) returns (ListRes);   // 获取会员列表
-  rpc GetInfo(InfoReq) returns (Member);    // 获取会员详情
-  rpc Add(AddReq)  returns (basepb.AnyRes);    // 添加会员
-  rpc Edit(EditReq)  returns (basepb.AnyRes);   // 编辑会员
-  rpc EditStatus(EditStatusReq)  returns (basepb.AnyRes);    // 冻结和解冻（支持批量操作）
+  rpc AddMember (Member) returns (basepb.AnyRes);
+
+  rpc EditMember (Member) returns (basepb.AnyRes);
+
+  rpc EditMemberStatus (basepb.EditStatusReq) returns (basepb.AnyRes);
+
+  rpc GetMemberList (GetMemberReq) returns (ListMemberRes);
 }
 
-// 会员信息
+enum MemberGender {
+  Unknown = 0;
+  Woman = 1;
+  Man = 2;
+}
+
+enum MemberStatus {
+  Placeholder = 0;
+  Normal = 1;
+  Freeze = 2;
+}
+
 message Member {
-  uint64 memberId = 1;    // 会员ID
-  string nickname = 2;    // 昵称
-  uint32 status = 3;  // 会员状态 正常 2冻结
-  string status_text = 4; // 状态说明
-  string mobile = 5;  // 手机号
-  string member_level_id = 6;  // 会员等级
-  string member_level_name = 7;  // 会员等级名称
-  string last_login_time = 8; // 最后登录时间
-  uint32 gender = 9;  // 性别
-  string birthday = 10; // 生日
+  uint64 member_id = 1;
+  string nickname = 2;
+  string mobile = 3;
+  string register_ip = 4;
+  string name = 5;
+  MemberGender gender = 6;
+  string  id_card = 7;
+  string birthday = 8;
+  string avatar = 9;
+  string email = 10;
+  MemberStatus status = 11;
+  string remark = 12;
+  uint64 member_level_id = 13;
+  int64 point = 14;
+  double balance = 15;
+  uint64 admin_id = 16;
 }
 
-// 会员列表的参数
-message ListReq {
-  uint64 page_size = 1; // 每页显示的记录数
-  uint64 page = 2; // 当前页数
-  string mobile = 3;  // 手机号
-  uint32 status = 4; // 会员状态 1正常 2冻结
-  uint64 member_id = 5;    // 会员ID
+message MemberDetail {
+  uint64 member_id = 1;
+  string nickname = 2;
+  string mobile = 3;
+  string register_ip = 4;
+  string name = 5;
+  MemberGender gender = 6;
+  string  id_card = 7;
+  string birthday = 8;
+  string avatar = 9;
+  string email = 10;
+  MemberStatus status = 11;
+  string remark = 12;
+  uint64 member_level_id = 13;
+  int64 point = 14;
+  double balance = 15;
+  uint64 created_by = 16;
+  uint64 updated_by = 17;
+  string created_at = 18;
+  string updated_at = 19;
 }
 
-// 列表返回数据
-message ListRes {
-  uint64 total = 1; // 总记录数
-  repeated Member members = 2;    // 会员的切片
+message GetMemberReq {
+  uint64 page = 1;
+  uint64 page_size = 2;
+  uint64 member_id = 3;
+  int32 status = 4;
+  string mobile = 5;
 }
 
-// 详情的请求参数
-message InfoReq{
-  uint64 member_id = 1;    // 会员ID
-}
-
-// 新增会员的参数
-message AddReq {
-  string nickname = 1;     // 昵称
-  string mobile = 2;  // 手机号
-  uint32 status = 3;  // 会员状态  1正常 2冻结
-  uint32 gender = 4;  // 性别
-  string birthday = 5; // 生日
-  string member_level_id = 6; // 会员等级
-  string password = 7; // 密码
-  string operator = 8;    // 操作人
-}
-
-// 更新会员的参数
-message EditReq {
-  string nickname = 1;     // 昵称
-  string mobile = 2;  // 手机号
-  uint32 gender = 3;  // 性别
-  string birthday = 4; // 生日
-  string member_level_id = 5; // 会员等级
-  uint64 member_id = 6;    // 会员ID
-  string operator = 7;    // 操作人
-}
-
-// 更新会员状态
-message EditStatusReq {
-  uint64 member_id = 1;    // 会员ID
-  uint32 status = 2;  // 会员状态 1正常 2冻结
-  string operator = 3;    // 操作人
+message ListMemberRes {
+  uint64 total = 1;
+  repeated MemberDetail members = 2;
 }
