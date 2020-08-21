@@ -7,7 +7,12 @@ import "basepb/basepb.proto";
 
 service ProductService {
     rpc AddProduct (Product) returns (basepb.AnyRes);
+
     rpc EditProduct (Product) returns (basepb.AnyRes);
+
+    rpc DelProduct (DelProductReq) returns (basepb.AnyRes);
+
+    rpc GetProductList (ListProductReq) returns (ListProductRes);
 }
 
 enum ProductSpecType {
@@ -56,4 +61,34 @@ message Product {
     repeated ProductSpec spec = 13;
     repeated ProductParam param = 14;
     string description = 15;
+}
+
+message DelProductReq {
+    uint64 product_id = 1;
+    uint64 store_id = 2;
+    uint64 admin_id = 3;
+}
+
+message ListProductReq {
+    uint64 page = 1;
+    uint64 page_size = 2;
+    uint64 id = 3;
+    uint64 store_id = 4;
+    string name = 5;
+    ProductStatus status = 6;
+    uint64 category_id = 7;
+}
+
+message ProductDetail {
+    uint64 product_id = 1;
+    string product_name = 2;
+    string category_name = 3;
+    string kind_name = 4;
+    ProductStatus status = 5;
+    double price = 6;
+}
+
+message ListProductRes {
+    uint64 total = 1;
+    repeated ProductDetail products = 2;
 }
