@@ -81,11 +81,21 @@ message ListProductReq {
 
 message ProductDetail {
     uint64 product_id = 1;
-    string product_name = 2;
-    string category_name = 3;
-    string kind_name = 4;
-    ProductStatus status = 5;
-    double price = 6;
+    uint64 category_id = 2;
+    uint64 kind_id = 3;
+    string name = 4;
+    string short_description = 5;
+    string unit = 6;
+    repeated string images = 7;
+    ProductSpecType spec_type = 8;
+    ProductStatus status = 9;
+    repeated uint64 tags = 10;
+    repeated ProductSpec spec = 11;
+    repeated ProductParam param = 12;
+    string description = 13;
+    string category_name = 14;
+    string kind_name = 15;
+    double price = 16;
 }
 
 message ListProductRes {
