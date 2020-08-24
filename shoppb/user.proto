@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package shoppb;
+
+option go_package = "github.com/shinmigo/pb/shoppb";
+
+import "basepb/basepb.proto";
+
+
+service UserService {
+  rpc Login (LoginReq) returns (UserRes);
+
+  rpc EditUser (EditUserReq) returns (basepb.AnyRes);
+}
+
+message LoginReq {
+  string username = 1;
+  string password = 2;
+}
+
+message UserRes {
+  uint64 user_id = 1;
+  string username = 2;
+  string name = 3;
+}
+
+message EditUserReq {
+  uint64 user_id = 1;
+  string password = 2;
+  string name = 3;
+  uint64 admin_id = 4;
+}
+
