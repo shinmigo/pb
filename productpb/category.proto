@@ -45,6 +45,7 @@ message CategoryDetail {
 message EditCategoryStatusReq {
     repeated uint64 category_id = 1;
     CategoryStatus status = 2;
+    uint64 admin_id = 3;
 }
 
 message DelCategoryReq {
