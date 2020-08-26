@@ -14,3 +14,13 @@ message EditStatusReq {
   int32 status = 2;
   uint64 admin_id = 3;
 }
+
+// 根据主键id获取单例
+message GetOneReq {
+  uint64 id = 1;
+}
+
+// 根据主键id删除
+message DelReq {
+  uint64 id = 1;
+}

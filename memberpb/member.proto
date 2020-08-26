@@ -14,6 +14,8 @@ service MemberService {
   rpc EditMemberStatus (basepb.EditStatusReq) returns (basepb.AnyRes);
 
   rpc GetMemberList (GetMemberReq) returns (ListMemberRes);
+
+  rpc GetMemberDetail (basepb.GetOneReq) returns (MemberDetail);
 }
 
 enum MemberGender {
