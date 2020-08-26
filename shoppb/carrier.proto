@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package shoppb;
+option go_package = "github.com/shinmigo/pb/shoppb";
+
+import "basepb/basepb.proto";
+
+service CarrierService {
+    rpc AddCarrier (Carrier) returns (basepb.AnyRes);
+
+    rpc EditCarrier (Carrier) returns (basepb.AnyRes);
+
+    rpc DelCarrier (DelCarrierReq) returns (basepb.AnyRes);
+
+    rpc GetCarrierList (ListCarrierReq) returns (ListCarrierRes);
+}
+
+enum CarrierStatus {
+    CarrierStatusPlaceholder = 0;
+    Enabled = 1;    //启用
+    Disabled = 2;   //禁用
+}
+
+message Carrier {
+    uint64 carrier_id = 1;
+    string name = 2;
+    string code = 3;
+    uint32 sort = 4;
+    CarrierStatus status = 5;
+    uint64 admin_id = 6;
+}
+
+message DelCarrierReq {
+    uint64 carrier_id = 1;
+}
+
+message ListCarrierReq {
+    uint64 page = 1;
+    uint64 page_size = 2;
+    uint64 id = 3;
+    string name = 4;
+    CarrierStatus status = 5;
+}
+
+message CarrierDetail {
+    uint64 carrier_id = 1;
+    string name = 2;
+    string code = 3;
+    uint32 sort = 4;
+    CarrierStatus status = 5;
+    uint64 created_by = 6;
+    uint64 updated_by = 7;
+    string created_at = 8;
+    string updated_at = 9;
+}
+
+message ListCarrierRes {
+    uint64 total = 1;
+    repeated CarrierDetail carriers = 2;
+}
