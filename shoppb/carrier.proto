@@ -38,8 +38,9 @@ message ListCarrierReq {
     uint64 page = 1;
     uint64 page_size = 2;
     uint64 id = 3;
-    string name = 4;
-    CarrierStatus status = 5;
+    string code = 4;
+    string name = 5;
+    CarrierStatus status = 6;
 }
 
 message CarrierDetail {
