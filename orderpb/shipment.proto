@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package orderpb;
+
+option go_package = "github.com/shinmigo/pb/orderpb";
+
+import "basepb/basepb.proto";
+
+service ShipmentService {
+    rpc AddShipment (Shipment) returns (basepb.AnyRes);
+}
+
+message Shipment {
+    uint64 order_id = 1;
+    uint64 store_id = 2;
+    uint64 carrier_id = 3;
+    string tracking_number = 4;
+    uint64 admin_id = 5;
+}

@@ -1,0 +1,143 @@
+syntax = "proto3";
+
+package orderpb;
+
+option go_package = "github.com/shinmigo/pb/orderpb";
+
+import "basepb/basepb.proto";
+
+service OrderService {
+    rpc GetOrderList (ListOrderReq) returns (ListOrderRes);
+}
+
+enum OrderPaymentType {
+    PaymentTypePlaceholder = 0;
+    Online = 1;
+}
+
+enum OrderPaymentStatus {
+    PaymentStatusPlaceholder = 0;
+    Unpaid = 1;
+    PartPaid = 2;
+    AllPaid = 3;
+}
+
+enum OrderShippingStatus {
+    ShippingStatusPlaceholder = 0;
+    NotShipped = 1;
+    PartShipped = 2;
+    AllShipped = 3;
+}
+
+enum OrderConfirm {
+    ConfirmPlaceholder = 0;
+    ConfirmNo = 1;
+    ConfirmYes = 2;
+}
+
+enum OrderStatus {
+    StatusPlaceholder = 0;
+    PendingPayment = 1;     //待付款
+    PendingReview = 2;      //待审核
+    PendingShipment = 3;    //待发货
+    PendingReceiving = 4;   //待收货
+    Completed = 5;          //已完成
+    PendingComment = 6;     //待评论
+    Cancel = 7;             //取消
+}
+
+enum OrderType {
+    TypePlaceholder = 0;
+    Normal = 1;
+}
+
+enum OrderRefundStatus {
+    RefundStatusPlaceholder = 0;
+    NotRefund = 1;
+    PartRefund = 2;
+    AllRefund = 3;
+}
+
+enum OrderReturnStatus {
+    ReturnStatusPlaceholder = 0;
+    NotReturn = 1;
+    PartReturn = 2;
+    AllReturn = 3;
+}
+
+message ListOrderReq {
+    uint64 page = 1;
+    uint64 page_size = 2;
+    uint64 store_id = 3;
+    uint64 member_id = 4;
+    uint64 order_id = 5;
+    string start_created_at = 6;
+    string end_created_at = 7;
+    OrderStatus order_status = 8;
+}
+
+message OrderDetail {
+    message OrderItems {
+        uint64 order_item_id = 1;
+        uint64 product_id = 2;
+        string name = 3;
+        string sku = 4;
+        string image = 5;
+        double price = 6;
+        double old_price = 7;
+        double total_payable = 8;
+        double total_discount_amount = 9;
+        uint64 qty_ordered = 10;
+        double weight = 11;
+        double volume = 12;
+        string spec = 13;
+        uint64 qty_shipped = 14;
+    }
+    message OrderAddress {
+        uint64 order_address_id = 1;
+        string receiver = 2;
+        string telephone = 3;
+        string province = 4;
+        string city = 5;
+        string region = 6;
+        string street = 7;
+    }
+    message OrderPayment {
+        uint64 order_payment_id = 1;
+        string payment_code = 2;
+        string payment_name = 3;
+    }
+    message OrderShipment {
+        string carrier_name = 1;
+        string tracking_number = 2;
+    }
+    uint64 order_id = 1;
+    uint64 store_id = 2;
+    uint64 member_id = 3;
+    OrderType order_type = 4;
+    double subtotal = 5;
+    double grand_total = 6;
+    double total_paid = 7;
+    double shipping_amount = 8;
+    double discount_amount = 9;
+    OrderPaymentType payment_type = 10;
+    OrderPaymentStatus payment_status = 11;
+    string payment_time = 12;
+    OrderShippingStatus shipping_status = 13;
+    string shipping_time = 14;
+    OrderConfirm confirm = 15;
+    string config_time = 16;
+    OrderStatus order_status = 17;
+    OrderRefundStatus refund_status = 18;
+    OrderReturnStatus return_status = 19;
+    string user_note = 20;
+    repeated OrderItems order_items = 21;
+    OrderAddress order_address = 22;
+    OrderPayment order_payment = 23;
+    OrderShipment order_shipment = 24;
+}
+
+message ListOrderRes {
+    uint64 total = 1;
+    repeated OrderDetail orders = 2;
+}
