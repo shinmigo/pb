@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -26,13 +24,13 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type Spec struct {
-	SpecId               uint64   `protobuf:"varint,1,opt,name=spec_id,json=specId,proto3" json:"spec_id,omitempty"`
-	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	KindId               uint64   `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
-	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
-	Sort                 uint64   `protobuf:"varint,5,opt,name=sort,proto3" json:"sort,omitempty"`
-	AdminId              uint64   `protobuf:"varint,6,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
-	Contents             []string `protobuf:"bytes,7,rep,name=contents,proto3" json:"contents,omitempty"`
+	SpecId               uint64   `protobuf:"varint,1,opt,name=spec_id,json=specId,proto3" json:"spec_id"`
+	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	KindId               uint64   `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id"`
+	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name"`
+	Sort                 uint64   `protobuf:"varint,5,opt,name=sort,proto3" json:"sort"`
+	AdminId              uint64   `protobuf:"varint,6,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
+	Contents             []string `protobuf:"bytes,7,rep,name=contents,proto3" json:"contents"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -113,16 +111,16 @@ func (m *Spec) GetContents() []string {
 }
 
 type SpecDetail struct {
-	SpecId               uint64   `protobuf:"varint,1,opt,name=spec_id,json=specId,proto3" json:"spec_id,omitempty"`
-	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	KindId               uint64   `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
-	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
-	Sort                 uint64   `protobuf:"varint,5,opt,name=sort,proto3" json:"sort,omitempty"`
-	CreatedBy            uint64   `protobuf:"varint,6,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
-	UpdatedBy            uint64   `protobuf:"varint,7,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by,omitempty"`
-	CreatedAt            string   `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt            string   `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	Contents             []string `protobuf:"bytes,10,rep,name=contents,proto3" json:"contents,omitempty"`
+	SpecId               uint64   `protobuf:"varint,1,opt,name=spec_id,json=specId,proto3" json:"spec_id"`
+	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	KindId               uint64   `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id"`
+	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name"`
+	Sort                 uint64   `protobuf:"varint,5,opt,name=sort,proto3" json:"sort"`
+	CreatedBy            uint64   `protobuf:"varint,6,opt,name=created_by,json=createdBy,proto3" json:"created_by"`
+	UpdatedBy            uint64   `protobuf:"varint,7,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by"`
+	CreatedAt            string   `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
+	UpdatedAt            string   `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
+	Contents             []string `protobuf:"bytes,10,rep,name=contents,proto3" json:"contents"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -224,8 +222,8 @@ func (m *SpecDetail) GetContents() []string {
 }
 
 type DelSpecReq struct {
-	SpecId               uint64   `protobuf:"varint,1,opt,name=spec_id,json=specId,proto3" json:"spec_id,omitempty"`
-	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
+	SpecId               uint64   `protobuf:"varint,1,opt,name=spec_id,json=specId,proto3" json:"spec_id"`
+	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -271,11 +269,11 @@ func (m *DelSpecReq) GetStoreId() uint64 {
 }
 
 type ListSpecReq struct {
-	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize             uint64   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	Id                   uint64   `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
-	StoreId              uint64   `protobuf:"varint,5,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
+	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	PageSize             uint64   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size"`
+	Id                   uint64   `protobuf:"varint,3,opt,name=id,proto3" json:"id"`
+	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name"`
+	StoreId              uint64   `protobuf:"varint,5,opt,name=store_id,json=storeId,proto3" json:"store_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -342,8 +340,8 @@ func (m *ListSpecReq) GetStoreId() uint64 {
 }
 
 type ListSpecRes struct {
-	Total                uint64        `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Specs                []*SpecDetail `protobuf:"bytes,2,rep,name=specs,proto3" json:"specs,omitempty"`
+	Total                uint64        `protobuf:"varint,1,opt,name=total,proto3" json:"total"`
+	Specs                []*SpecDetail `protobuf:"bytes,2,rep,name=specs,proto3" json:"specs"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -499,23 +497,6 @@ type SpecServiceServer interface {
 	EditSpec(context.Context, *Spec) (*basepb.AnyRes, error)
 	DelSpec(context.Context, *DelSpecReq) (*basepb.AnyRes, error)
 	GetSpecList(context.Context, *ListSpecReq) (*ListSpecRes, error)
-}
-
-// UnimplementedSpecServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedSpecServiceServer struct {
-}
-
-func (*UnimplementedSpecServiceServer) AddSpec(ctx context.Context, req *Spec) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddSpec not implemented")
-}
-func (*UnimplementedSpecServiceServer) EditSpec(ctx context.Context, req *Spec) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditSpec not implemented")
-}
-func (*UnimplementedSpecServiceServer) DelSpec(ctx context.Context, req *DelSpecReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelSpec not implemented")
-}
-func (*UnimplementedSpecServiceServer) GetSpecList(ctx context.Context, req *ListSpecReq) (*ListSpecRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSpecList not implemented")
 }
 
 func RegisterSpecServiceServer(s *grpc.Server, srv SpecServiceServer) {

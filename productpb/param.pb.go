@@ -55,14 +55,14 @@ func (ParamType) EnumDescriptor() ([]byte, []int) {
 }
 
 type Param struct {
-	ParamId              uint64    `protobuf:"varint,1,opt,name=param_id,json=paramId,proto3" json:"param_id,omitempty"`
-	StoreId              uint64    `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	KindId               uint64    `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
-	Name                 string    `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
-	Type                 ParamType `protobuf:"varint,5,opt,name=type,proto3,enum=productpb.ParamType" json:"type,omitempty"`
-	Sort                 uint64    `protobuf:"varint,6,opt,name=sort,proto3" json:"sort,omitempty"`
-	AdminId              uint64    `protobuf:"varint,7,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
-	Contents             []string  `protobuf:"bytes,8,rep,name=contents,proto3" json:"contents,omitempty"`
+	ParamId              uint64    `protobuf:"varint,1,opt,name=param_id,json=paramId,proto3" json:"param_id"`
+	StoreId              uint64    `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	KindId               uint64    `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id"`
+	Name                 string    `protobuf:"bytes,4,opt,name=name,proto3" json:"name"`
+	Type                 ParamType `protobuf:"varint,5,opt,name=type,proto3,enum=productpb.ParamType" json:"type"`
+	Sort                 uint64    `protobuf:"varint,6,opt,name=sort,proto3" json:"sort"`
+	AdminId              uint64    `protobuf:"varint,7,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
+	Contents             []string  `protobuf:"bytes,8,rep,name=contents,proto3" json:"contents"`
 	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
 	XXX_unrecognized     []byte    `json:"-"`
 	XXX_sizecache        int32     `json:"-"`
@@ -150,17 +150,17 @@ func (m *Param) GetContents() []string {
 }
 
 type ParamDetail struct {
-	ParamId              uint64    `protobuf:"varint,1,opt,name=param_id,json=paramId,proto3" json:"param_id,omitempty"`
-	StoreId              uint64    `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	KindId               uint64    `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
-	Name                 string    `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
-	Type                 ParamType `protobuf:"varint,5,opt,name=type,proto3,enum=productpb.ParamType" json:"type,omitempty"`
-	Sort                 uint64    `protobuf:"varint,6,opt,name=sort,proto3" json:"sort,omitempty"`
-	CreatedBy            uint64    `protobuf:"varint,7,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
-	UpdatedBy            uint64    `protobuf:"varint,8,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by,omitempty"`
-	CreatedAt            string    `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt            string    `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	Contents             []string  `protobuf:"bytes,11,rep,name=contents,proto3" json:"contents,omitempty"`
+	ParamId              uint64    `protobuf:"varint,1,opt,name=param_id,json=paramId,proto3" json:"param_id"`
+	StoreId              uint64    `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	KindId               uint64    `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id"`
+	Name                 string    `protobuf:"bytes,4,opt,name=name,proto3" json:"name"`
+	Type                 ParamType `protobuf:"varint,5,opt,name=type,proto3,enum=productpb.ParamType" json:"type"`
+	Sort                 uint64    `protobuf:"varint,6,opt,name=sort,proto3" json:"sort"`
+	CreatedBy            uint64    `protobuf:"varint,7,opt,name=created_by,json=createdBy,proto3" json:"created_by"`
+	UpdatedBy            uint64    `protobuf:"varint,8,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by"`
+	CreatedAt            string    `protobuf:"bytes,9,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
+	UpdatedAt            string    `protobuf:"bytes,10,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
+	Contents             []string  `protobuf:"bytes,11,rep,name=contents,proto3" json:"contents"`
 	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
 	XXX_unrecognized     []byte    `json:"-"`
 	XXX_sizecache        int32     `json:"-"`
@@ -269,7 +269,7 @@ func (m *ParamDetail) GetContents() []string {
 }
 
 type DelParamReq struct {
-	ParamId              uint64   `protobuf:"varint,1,opt,name=param_id,json=paramId,proto3" json:"param_id,omitempty"`
+	ParamId              uint64   `protobuf:"varint,1,opt,name=param_id,json=paramId,proto3" json:"param_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -308,10 +308,10 @@ func (m *DelParamReq) GetParamId() uint64 {
 }
 
 type ListParamReq struct {
-	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize             uint64   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	Id                   uint64   `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	PageSize             uint64   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size"`
+	Id                   uint64   `protobuf:"varint,3,opt,name=id,proto3" json:"id"`
+	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -371,8 +371,8 @@ func (m *ListParamReq) GetName() string {
 }
 
 type ListParamRes struct {
-	Total                uint64         `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Params               []*ParamDetail `protobuf:"bytes,2,rep,name=params,proto3" json:"params,omitempty"`
+	Total                uint64         `protobuf:"varint,1,opt,name=total,proto3" json:"total"`
+	Params               []*ParamDetail `protobuf:"bytes,2,rep,name=params,proto3" json:"params"`
 	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
 	XXX_unrecognized     []byte         `json:"-"`
 	XXX_sizecache        int32          `json:"-"`

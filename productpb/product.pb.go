@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -82,16 +80,16 @@ func (ProductStatus) EnumDescriptor() ([]byte, []int) {
 }
 
 type ProductSpec struct {
-	Image                string   `protobuf:"bytes,1,opt,name=image,proto3" json:"image,omitempty"`
-	Price                float64  `protobuf:"fixed64,2,opt,name=price,proto3" json:"price,omitempty"`
-	OldPrice             float64  `protobuf:"fixed64,3,opt,name=old_price,json=oldPrice,proto3" json:"old_price,omitempty"`
-	CostPrice            float64  `protobuf:"fixed64,4,opt,name=cost_price,json=costPrice,proto3" json:"cost_price,omitempty"`
-	Stock                uint64   `protobuf:"varint,5,opt,name=stock,proto3" json:"stock,omitempty"`
-	Sku                  string   `protobuf:"bytes,6,opt,name=sku,proto3" json:"sku,omitempty"`
-	Weight               float64  `protobuf:"fixed64,7,opt,name=weight,proto3" json:"weight,omitempty"`
-	Volume               float64  `protobuf:"fixed64,8,opt,name=volume,proto3" json:"volume,omitempty"`
-	SpecValueId          []uint64 `protobuf:"varint,9,rep,packed,name=spec_value_id,json=specValueId,proto3" json:"spec_value_id,omitempty"`
-	ProductSpecId        uint64   `protobuf:"varint,10,opt,name=product_spec_id,json=productSpecId,proto3" json:"product_spec_id,omitempty"`
+	Image                string   `protobuf:"bytes,1,opt,name=image,proto3" json:"image"`
+	Price                float64  `protobuf:"fixed64,2,opt,name=price,proto3" json:"price"`
+	OldPrice             float64  `protobuf:"fixed64,3,opt,name=old_price,json=oldPrice,proto3" json:"old_price"`
+	CostPrice            float64  `protobuf:"fixed64,4,opt,name=cost_price,json=costPrice,proto3" json:"cost_price"`
+	Stock                uint64   `protobuf:"varint,5,opt,name=stock,proto3" json:"stock"`
+	Sku                  string   `protobuf:"bytes,6,opt,name=sku,proto3" json:"sku"`
+	Weight               float64  `protobuf:"fixed64,7,opt,name=weight,proto3" json:"weight"`
+	Volume               float64  `protobuf:"fixed64,8,opt,name=volume,proto3" json:"volume"`
+	SpecValueId          []uint64 `protobuf:"varint,9,rep,packed,name=spec_value_id,json=specValueId,proto3" json:"spec_value_id"`
+	ProductSpecId        uint64   `protobuf:"varint,10,opt,name=product_spec_id,json=productSpecId,proto3" json:"product_spec_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -193,8 +191,8 @@ func (m *ProductSpec) GetProductSpecId() uint64 {
 }
 
 type ProductParam struct {
-	ParamId              uint64   `protobuf:"varint,1,opt,name=param_id,json=paramId,proto3" json:"param_id,omitempty"`
-	Value                string   `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+	ParamId              uint64   `protobuf:"varint,1,opt,name=param_id,json=paramId,proto3" json:"param_id"`
+	Value                string   `protobuf:"bytes,2,opt,name=value,proto3" json:"value"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -240,21 +238,21 @@ func (m *ProductParam) GetValue() string {
 }
 
 type Product struct {
-	ProductId            uint64          `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	CategoryId           uint64          `protobuf:"varint,2,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	StoreId              uint64          `protobuf:"varint,3,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	KindId               uint64          `protobuf:"varint,4,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
-	Name                 string          `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
-	ShortDescription     string          `protobuf:"bytes,6,opt,name=short_description,json=shortDescription,proto3" json:"short_description,omitempty"`
-	Unit                 string          `protobuf:"bytes,7,opt,name=unit,proto3" json:"unit,omitempty"`
-	Images               []string        `protobuf:"bytes,8,rep,name=images,proto3" json:"images,omitempty"`
-	SpecType             ProductSpecType `protobuf:"varint,9,opt,name=spec_type,json=specType,proto3,enum=productpb.ProductSpecType" json:"spec_type,omitempty"`
-	Status               ProductStatus   `protobuf:"varint,10,opt,name=status,proto3,enum=productpb.ProductStatus" json:"status,omitempty"`
-	Tags                 []uint64        `protobuf:"varint,11,rep,packed,name=tags,proto3" json:"tags,omitempty"`
-	AdminId              uint64          `protobuf:"varint,12,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
-	Spec                 []*ProductSpec  `protobuf:"bytes,13,rep,name=spec,proto3" json:"spec,omitempty"`
-	Param                []*ProductParam `protobuf:"bytes,14,rep,name=param,proto3" json:"param,omitempty"`
-	Description          string          `protobuf:"bytes,15,opt,name=description,proto3" json:"description,omitempty"`
+	ProductId            uint64          `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id"`
+	CategoryId           uint64          `protobuf:"varint,2,opt,name=category_id,json=categoryId,proto3" json:"category_id"`
+	StoreId              uint64          `protobuf:"varint,3,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	KindId               uint64          `protobuf:"varint,4,opt,name=kind_id,json=kindId,proto3" json:"kind_id"`
+	Name                 string          `protobuf:"bytes,5,opt,name=name,proto3" json:"name"`
+	ShortDescription     string          `protobuf:"bytes,6,opt,name=short_description,json=shortDescription,proto3" json:"short_description"`
+	Unit                 string          `protobuf:"bytes,7,opt,name=unit,proto3" json:"unit"`
+	Images               []string        `protobuf:"bytes,8,rep,name=images,proto3" json:"images"`
+	SpecType             ProductSpecType `protobuf:"varint,9,opt,name=spec_type,json=specType,proto3,enum=productpb.ProductSpecType" json:"spec_type"`
+	Status               ProductStatus   `protobuf:"varint,10,opt,name=status,proto3,enum=productpb.ProductStatus" json:"status"`
+	Tags                 []uint64        `protobuf:"varint,11,rep,packed,name=tags,proto3" json:"tags"`
+	AdminId              uint64          `protobuf:"varint,12,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
+	Spec                 []*ProductSpec  `protobuf:"bytes,13,rep,name=spec,proto3" json:"spec"`
+	Param                []*ProductParam `protobuf:"bytes,14,rep,name=param,proto3" json:"param"`
+	Description          string          `protobuf:"bytes,15,opt,name=description,proto3" json:"description"`
 	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
@@ -391,9 +389,9 @@ func (m *Product) GetDescription() string {
 }
 
 type DelProductReq struct {
-	ProductId            uint64   `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	AdminId              uint64   `protobuf:"varint,3,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
+	ProductId            uint64   `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id"`
+	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	AdminId              uint64   `protobuf:"varint,3,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -446,13 +444,13 @@ func (m *DelProductReq) GetAdminId() uint64 {
 }
 
 type ListProductReq struct {
-	Page                 uint64        `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize             uint64        `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	Id                   uint64        `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
-	StoreId              uint64        `protobuf:"varint,4,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	Name                 string        `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
-	Status               ProductStatus `protobuf:"varint,6,opt,name=status,proto3,enum=productpb.ProductStatus" json:"status,omitempty"`
-	CategoryId           uint64        `protobuf:"varint,7,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	Page                 uint64        `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	PageSize             uint64        `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size"`
+	Id                   uint64        `protobuf:"varint,3,opt,name=id,proto3" json:"id"`
+	StoreId              uint64        `protobuf:"varint,4,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	Name                 string        `protobuf:"bytes,5,opt,name=name,proto3" json:"name"`
+	Status               ProductStatus `protobuf:"varint,6,opt,name=status,proto3,enum=productpb.ProductStatus" json:"status"`
+	CategoryId           uint64        `protobuf:"varint,7,opt,name=category_id,json=categoryId,proto3" json:"category_id"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -533,22 +531,22 @@ func (m *ListProductReq) GetCategoryId() uint64 {
 }
 
 type ProductDetail struct {
-	ProductId            uint64          `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	CategoryId           uint64          `protobuf:"varint,2,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	KindId               uint64          `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
-	Name                 string          `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
-	ShortDescription     string          `protobuf:"bytes,5,opt,name=short_description,json=shortDescription,proto3" json:"short_description,omitempty"`
-	Unit                 string          `protobuf:"bytes,6,opt,name=unit,proto3" json:"unit,omitempty"`
-	Images               []string        `protobuf:"bytes,7,rep,name=images,proto3" json:"images,omitempty"`
-	SpecType             ProductSpecType `protobuf:"varint,8,opt,name=spec_type,json=specType,proto3,enum=productpb.ProductSpecType" json:"spec_type,omitempty"`
-	Status               ProductStatus   `protobuf:"varint,9,opt,name=status,proto3,enum=productpb.ProductStatus" json:"status,omitempty"`
-	Tags                 []uint64        `protobuf:"varint,10,rep,packed,name=tags,proto3" json:"tags,omitempty"`
-	Spec                 []*ProductSpec  `protobuf:"bytes,11,rep,name=spec,proto3" json:"spec,omitempty"`
-	Param                []*ProductParam `protobuf:"bytes,12,rep,name=param,proto3" json:"param,omitempty"`
-	Description          string          `protobuf:"bytes,13,opt,name=description,proto3" json:"description,omitempty"`
-	CategoryName         string          `protobuf:"bytes,14,opt,name=category_name,json=categoryName,proto3" json:"category_name,omitempty"`
-	KindName             string          `protobuf:"bytes,15,opt,name=kind_name,json=kindName,proto3" json:"kind_name,omitempty"`
-	Price                float64         `protobuf:"fixed64,16,opt,name=price,proto3" json:"price,omitempty"`
+	ProductId            uint64          `protobuf:"varint,1,opt,name=product_id,json=productId,proto3" json:"product_id"`
+	CategoryId           uint64          `protobuf:"varint,2,opt,name=category_id,json=categoryId,proto3" json:"category_id"`
+	KindId               uint64          `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id"`
+	Name                 string          `protobuf:"bytes,4,opt,name=name,proto3" json:"name"`
+	ShortDescription     string          `protobuf:"bytes,5,opt,name=short_description,json=shortDescription,proto3" json:"short_description"`
+	Unit                 string          `protobuf:"bytes,6,opt,name=unit,proto3" json:"unit"`
+	Images               []string        `protobuf:"bytes,7,rep,name=images,proto3" json:"images"`
+	SpecType             ProductSpecType `protobuf:"varint,8,opt,name=spec_type,json=specType,proto3,enum=productpb.ProductSpecType" json:"spec_type"`
+	Status               ProductStatus   `protobuf:"varint,9,opt,name=status,proto3,enum=productpb.ProductStatus" json:"status"`
+	Tags                 []uint64        `protobuf:"varint,10,rep,packed,name=tags,proto3" json:"tags"`
+	Spec                 []*ProductSpec  `protobuf:"bytes,11,rep,name=spec,proto3" json:"spec"`
+	Param                []*ProductParam `protobuf:"bytes,12,rep,name=param,proto3" json:"param"`
+	Description          string          `protobuf:"bytes,13,opt,name=description,proto3" json:"description"`
+	CategoryName         string          `protobuf:"bytes,14,opt,name=category_name,json=categoryName,proto3" json:"category_name"`
+	KindName             string          `protobuf:"bytes,15,opt,name=kind_name,json=kindName,proto3" json:"kind_name"`
+	Price                float64         `protobuf:"fixed64,16,opt,name=price,proto3" json:"price"`
 	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`
@@ -692,8 +690,8 @@ func (m *ProductDetail) GetPrice() float64 {
 }
 
 type ListProductRes struct {
-	Total                uint64           `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Products             []*ProductDetail `protobuf:"bytes,2,rep,name=products,proto3" json:"products,omitempty"`
+	Total                uint64           `protobuf:"varint,1,opt,name=total,proto3" json:"total"`
+	Products             []*ProductDetail `protobuf:"bytes,2,rep,name=products,proto3" json:"products"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -881,23 +879,6 @@ type ProductServiceServer interface {
 	EditProduct(context.Context, *Product) (*basepb.AnyRes, error)
 	DelProduct(context.Context, *DelProductReq) (*basepb.AnyRes, error)
 	GetProductList(context.Context, *ListProductReq) (*ListProductRes, error)
-}
-
-// UnimplementedProductServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedProductServiceServer struct {
-}
-
-func (*UnimplementedProductServiceServer) AddProduct(ctx context.Context, req *Product) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddProduct not implemented")
-}
-func (*UnimplementedProductServiceServer) EditProduct(ctx context.Context, req *Product) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditProduct not implemented")
-}
-func (*UnimplementedProductServiceServer) DelProduct(ctx context.Context, req *DelProductReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelProduct not implemented")
-}
-func (*UnimplementedProductServiceServer) GetProductList(ctx context.Context, req *ListProductReq) (*ListProductRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetProductList not implemented")
 }
 
 func RegisterProductServiceServer(s *grpc.Server, srv ProductServiceServer) {

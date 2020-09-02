@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -26,10 +24,10 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type Tag struct {
-	TagId                uint64   `protobuf:"varint,1,opt,name=tag_id,json=tagId,proto3" json:"tag_id,omitempty"`
-	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	AdminId              uint64   `protobuf:"varint,4,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
+	TagId                uint64   `protobuf:"varint,1,opt,name=tag_id,json=tagId,proto3" json:"tag_id"`
+	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name"`
+	AdminId              uint64   `protobuf:"varint,4,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -89,13 +87,13 @@ func (m *Tag) GetAdminId() uint64 {
 }
 
 type TagDetail struct {
-	TagId                uint64   `protobuf:"varint,1,opt,name=tag_id,json=tagId,proto3" json:"tag_id,omitempty"`
-	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	CreatedBy            uint64   `protobuf:"varint,4,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
-	UpdatedBy            uint64   `protobuf:"varint,5,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by,omitempty"`
-	CreatedAt            string   `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt            string   `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	TagId                uint64   `protobuf:"varint,1,opt,name=tag_id,json=tagId,proto3" json:"tag_id"`
+	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name"`
+	CreatedBy            uint64   `protobuf:"varint,4,opt,name=created_by,json=createdBy,proto3" json:"created_by"`
+	UpdatedBy            uint64   `protobuf:"varint,5,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by"`
+	CreatedAt            string   `protobuf:"bytes,6,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
+	UpdatedAt            string   `protobuf:"bytes,7,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -176,7 +174,7 @@ func (m *TagDetail) GetUpdatedAt() string {
 }
 
 type DelTagReq struct {
-	TagId                uint64   `protobuf:"varint,1,opt,name=tag_id,json=tagId,proto3" json:"tag_id,omitempty"`
+	TagId                uint64   `protobuf:"varint,1,opt,name=tag_id,json=tagId,proto3" json:"tag_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -215,10 +213,10 @@ func (m *DelTagReq) GetTagId() uint64 {
 }
 
 type ListTagReq struct {
-	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize             uint64   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	Id                   uint64   `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	PageSize             uint64   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size"`
+	Id                   uint64   `protobuf:"varint,3,opt,name=id,proto3" json:"id"`
+	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -278,8 +276,8 @@ func (m *ListTagReq) GetName() string {
 }
 
 type ListTagRes struct {
-	Total                uint64       `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Tags                 []*TagDetail `protobuf:"bytes,2,rep,name=tags,proto3" json:"tags,omitempty"`
+	Total                uint64       `protobuf:"varint,1,opt,name=total,proto3" json:"total"`
+	Tags                 []*TagDetail `protobuf:"bytes,2,rep,name=tags,proto3" json:"tags"`
 	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
 	XXX_unrecognized     []byte       `json:"-"`
 	XXX_sizecache        int32        `json:"-"`
@@ -432,23 +430,6 @@ type TagServiceServer interface {
 	EditTag(context.Context, *Tag) (*basepb.AnyRes, error)
 	DelTag(context.Context, *DelTagReq) (*basepb.AnyRes, error)
 	GetTagList(context.Context, *ListTagReq) (*ListTagRes, error)
-}
-
-// UnimplementedTagServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedTagServiceServer struct {
-}
-
-func (*UnimplementedTagServiceServer) AddTag(ctx context.Context, req *Tag) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddTag not implemented")
-}
-func (*UnimplementedTagServiceServer) EditTag(ctx context.Context, req *Tag) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditTag not implemented")
-}
-func (*UnimplementedTagServiceServer) DelTag(ctx context.Context, req *DelTagReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelTag not implemented")
-}
-func (*UnimplementedTagServiceServer) GetTagList(ctx context.Context, req *ListTagReq) (*ListTagRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTagList not implemented")
 }
 
 func RegisterTagServiceServer(s *grpc.Server, srv TagServiceServer) {

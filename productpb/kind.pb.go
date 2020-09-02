@@ -24,10 +24,10 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type Kind struct {
-	KindId               uint64   `protobuf:"varint,1,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
-	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	AdminId              uint64   `protobuf:"varint,4,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
+	KindId               uint64   `protobuf:"varint,1,opt,name=kind_id,json=kindId,proto3" json:"kind_id"`
+	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name"`
+	AdminId              uint64   `protobuf:"varint,4,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -87,15 +87,15 @@ func (m *Kind) GetAdminId() uint64 {
 }
 
 type KindDetail struct {
-	KindId               uint64   `protobuf:"varint,1,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
-	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	ParamQty             uint64   `protobuf:"varint,4,opt,name=param_qty,json=paramQty,proto3" json:"param_qty,omitempty"`
-	SpecQty              uint64   `protobuf:"varint,5,opt,name=spec_qty,json=specQty,proto3" json:"spec_qty,omitempty"`
-	CreatedBy            uint64   `protobuf:"varint,6,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
-	UpdatedBy            uint64   `protobuf:"varint,7,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by,omitempty"`
-	CreatedAt            string   `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt            string   `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	KindId               uint64   `protobuf:"varint,1,opt,name=kind_id,json=kindId,proto3" json:"kind_id"`
+	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name"`
+	ParamQty             uint64   `protobuf:"varint,4,opt,name=param_qty,json=paramQty,proto3" json:"param_qty"`
+	SpecQty              uint64   `protobuf:"varint,5,opt,name=spec_qty,json=specQty,proto3" json:"spec_qty"`
+	CreatedBy            uint64   `protobuf:"varint,6,opt,name=created_by,json=createdBy,proto3" json:"created_by"`
+	UpdatedBy            uint64   `protobuf:"varint,7,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by"`
+	CreatedAt            string   `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
+	UpdatedAt            string   `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -190,7 +190,7 @@ func (m *KindDetail) GetUpdatedAt() string {
 }
 
 type DelKindReq struct {
-	KindId               uint64   `protobuf:"varint,1,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
+	KindId               uint64   `protobuf:"varint,1,opt,name=kind_id,json=kindId,proto3" json:"kind_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -229,10 +229,10 @@ func (m *DelKindReq) GetKindId() uint64 {
 }
 
 type ListKindReq struct {
-	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize             uint64   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	Id                   uint64   `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
+	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	PageSize             uint64   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size"`
+	Id                   uint64   `protobuf:"varint,3,opt,name=id,proto3" json:"id"`
+	Name                 string   `protobuf:"bytes,4,opt,name=name,proto3" json:"name"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -292,8 +292,8 @@ func (m *ListKindReq) GetName() string {
 }
 
 type ListKindRes struct {
-	Total                uint64        `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Kinds                []*KindDetail `protobuf:"bytes,2,rep,name=kinds,proto3" json:"kinds,omitempty"`
+	Total                uint64        `protobuf:"varint,1,opt,name=total,proto3" json:"total"`
+	Kinds                []*KindDetail `protobuf:"bytes,2,rep,name=kinds,proto3" json:"kinds"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -339,8 +339,8 @@ func (m *ListKindRes) GetKinds() []*KindDetail {
 }
 
 type BindParamReq struct {
-	KindId               uint64   `protobuf:"varint,1,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
-	ParamIds             []uint64 `protobuf:"varint,2,rep,packed,name=param_ids,json=paramIds,proto3" json:"param_ids,omitempty"`
+	KindId               uint64   `protobuf:"varint,1,opt,name=kind_id,json=kindId,proto3" json:"kind_id"`
+	ParamIds             []uint64 `protobuf:"varint,2,rep,packed,name=param_ids,json=paramIds,proto3" json:"param_ids"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -386,8 +386,8 @@ func (m *BindParamReq) GetParamIds() []uint64 {
 }
 
 type BindSpecReq struct {
-	KindId               uint64   `protobuf:"varint,1,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
-	SpecIds              []uint64 `protobuf:"varint,2,rep,packed,name=spec_ids,json=specIds,proto3" json:"spec_ids,omitempty"`
+	KindId               uint64   `protobuf:"varint,1,opt,name=kind_id,json=kindId,proto3" json:"kind_id"`
+	SpecIds              []uint64 `protobuf:"varint,2,rep,packed,name=spec_ids,json=specIds,proto3" json:"spec_ids"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`

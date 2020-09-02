@@ -80,22 +80,22 @@ func (MemberStatus) EnumDescriptor() ([]byte, []int) {
 }
 
 type Member struct {
-	MemberId             uint64       `protobuf:"varint,1,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
-	Nickname             string       `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	Mobile               string       `protobuf:"bytes,3,opt,name=mobile,proto3" json:"mobile,omitempty"`
-	RegisterIp           string       `protobuf:"bytes,4,opt,name=register_ip,json=registerIp,proto3" json:"register_ip,omitempty"`
-	Name                 string       `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
-	Gender               MemberGender `protobuf:"varint,6,opt,name=gender,proto3,enum=memberpb.MemberGender" json:"gender,omitempty"`
-	IdCard               string       `protobuf:"bytes,7,opt,name=id_card,json=idCard,proto3" json:"id_card,omitempty"`
-	Birthday             string       `protobuf:"bytes,8,opt,name=birthday,proto3" json:"birthday,omitempty"`
-	Avatar               string       `protobuf:"bytes,9,opt,name=avatar,proto3" json:"avatar,omitempty"`
-	Email                string       `protobuf:"bytes,10,opt,name=email,proto3" json:"email,omitempty"`
-	Status               MemberStatus `protobuf:"varint,11,opt,name=status,proto3,enum=memberpb.MemberStatus" json:"status,omitempty"`
-	Remark               string       `protobuf:"bytes,12,opt,name=remark,proto3" json:"remark,omitempty"`
-	MemberLevelId        uint64       `protobuf:"varint,13,opt,name=member_level_id,json=memberLevelId,proto3" json:"member_level_id,omitempty"`
-	Point                int64        `protobuf:"varint,14,opt,name=point,proto3" json:"point,omitempty"`
-	Balance              float64      `protobuf:"fixed64,15,opt,name=balance,proto3" json:"balance,omitempty"`
-	AdminId              uint64       `protobuf:"varint,16,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
+	MemberId             uint64       `protobuf:"varint,1,opt,name=member_id,json=memberId,proto3" json:"member_id"`
+	Nickname             string       `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname"`
+	Mobile               string       `protobuf:"bytes,3,opt,name=mobile,proto3" json:"mobile"`
+	RegisterIp           string       `protobuf:"bytes,4,opt,name=register_ip,json=registerIp,proto3" json:"register_ip"`
+	Name                 string       `protobuf:"bytes,5,opt,name=name,proto3" json:"name"`
+	Gender               MemberGender `protobuf:"varint,6,opt,name=gender,proto3,enum=memberpb.MemberGender" json:"gender"`
+	IdCard               string       `protobuf:"bytes,7,opt,name=id_card,json=idCard,proto3" json:"id_card"`
+	Birthday             string       `protobuf:"bytes,8,opt,name=birthday,proto3" json:"birthday"`
+	Avatar               string       `protobuf:"bytes,9,opt,name=avatar,proto3" json:"avatar"`
+	Email                string       `protobuf:"bytes,10,opt,name=email,proto3" json:"email"`
+	Status               MemberStatus `protobuf:"varint,11,opt,name=status,proto3,enum=memberpb.MemberStatus" json:"status"`
+	Remark               string       `protobuf:"bytes,12,opt,name=remark,proto3" json:"remark"`
+	MemberLevelId        uint64       `protobuf:"varint,13,opt,name=member_level_id,json=memberLevelId,proto3" json:"member_level_id"`
+	Point                int64        `protobuf:"varint,14,opt,name=point,proto3" json:"point"`
+	Balance              float64      `protobuf:"fixed64,15,opt,name=balance,proto3" json:"balance"`
+	AdminId              uint64       `protobuf:"varint,16,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
 	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
 	XXX_unrecognized     []byte       `json:"-"`
 	XXX_sizecache        int32        `json:"-"`
@@ -239,25 +239,25 @@ func (m *Member) GetAdminId() uint64 {
 }
 
 type MemberDetail struct {
-	MemberId             uint64       `protobuf:"varint,1,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
-	Nickname             string       `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname,omitempty"`
-	Mobile               string       `protobuf:"bytes,3,opt,name=mobile,proto3" json:"mobile,omitempty"`
-	RegisterIp           string       `protobuf:"bytes,4,opt,name=register_ip,json=registerIp,proto3" json:"register_ip,omitempty"`
-	Name                 string       `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
-	Gender               MemberGender `protobuf:"varint,6,opt,name=gender,proto3,enum=memberpb.MemberGender" json:"gender,omitempty"`
-	IdCard               string       `protobuf:"bytes,7,opt,name=id_card,json=idCard,proto3" json:"id_card,omitempty"`
-	Birthday             string       `protobuf:"bytes,8,opt,name=birthday,proto3" json:"birthday,omitempty"`
-	Avatar               string       `protobuf:"bytes,9,opt,name=avatar,proto3" json:"avatar,omitempty"`
-	Email                string       `protobuf:"bytes,10,opt,name=email,proto3" json:"email,omitempty"`
-	Status               MemberStatus `protobuf:"varint,11,opt,name=status,proto3,enum=memberpb.MemberStatus" json:"status,omitempty"`
-	Remark               string       `protobuf:"bytes,12,opt,name=remark,proto3" json:"remark,omitempty"`
-	MemberLevelId        uint64       `protobuf:"varint,13,opt,name=member_level_id,json=memberLevelId,proto3" json:"member_level_id,omitempty"`
-	Point                int64        `protobuf:"varint,14,opt,name=point,proto3" json:"point,omitempty"`
-	Balance              float64      `protobuf:"fixed64,15,opt,name=balance,proto3" json:"balance,omitempty"`
-	CreatedBy            uint64       `protobuf:"varint,16,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
-	UpdatedBy            uint64       `protobuf:"varint,17,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by,omitempty"`
-	CreatedAt            string       `protobuf:"bytes,18,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt            string       `protobuf:"bytes,19,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	MemberId             uint64       `protobuf:"varint,1,opt,name=member_id,json=memberId,proto3" json:"member_id"`
+	Nickname             string       `protobuf:"bytes,2,opt,name=nickname,proto3" json:"nickname"`
+	Mobile               string       `protobuf:"bytes,3,opt,name=mobile,proto3" json:"mobile"`
+	RegisterIp           string       `protobuf:"bytes,4,opt,name=register_ip,json=registerIp,proto3" json:"register_ip"`
+	Name                 string       `protobuf:"bytes,5,opt,name=name,proto3" json:"name"`
+	Gender               MemberGender `protobuf:"varint,6,opt,name=gender,proto3,enum=memberpb.MemberGender" json:"gender"`
+	IdCard               string       `protobuf:"bytes,7,opt,name=id_card,json=idCard,proto3" json:"id_card"`
+	Birthday             string       `protobuf:"bytes,8,opt,name=birthday,proto3" json:"birthday"`
+	Avatar               string       `protobuf:"bytes,9,opt,name=avatar,proto3" json:"avatar"`
+	Email                string       `protobuf:"bytes,10,opt,name=email,proto3" json:"email"`
+	Status               MemberStatus `protobuf:"varint,11,opt,name=status,proto3,enum=memberpb.MemberStatus" json:"status"`
+	Remark               string       `protobuf:"bytes,12,opt,name=remark,proto3" json:"remark"`
+	MemberLevelId        uint64       `protobuf:"varint,13,opt,name=member_level_id,json=memberLevelId,proto3" json:"member_level_id"`
+	Point                int64        `protobuf:"varint,14,opt,name=point,proto3" json:"point"`
+	Balance              float64      `protobuf:"fixed64,15,opt,name=balance,proto3" json:"balance"`
+	CreatedBy            uint64       `protobuf:"varint,16,opt,name=created_by,json=createdBy,proto3" json:"created_by"`
+	UpdatedBy            uint64       `protobuf:"varint,17,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by"`
+	CreatedAt            string       `protobuf:"bytes,18,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
+	UpdatedAt            string       `protobuf:"bytes,19,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
 	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
 	XXX_unrecognized     []byte       `json:"-"`
 	XXX_sizecache        int32        `json:"-"`
@@ -422,11 +422,11 @@ func (m *MemberDetail) GetUpdatedAt() string {
 }
 
 type GetMemberReq struct {
-	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize             uint64   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	MemberId             uint64   `protobuf:"varint,3,opt,name=member_id,json=memberId,proto3" json:"member_id,omitempty"`
-	Status               int32    `protobuf:"varint,4,opt,name=status,proto3" json:"status,omitempty"`
-	Mobile               string   `protobuf:"bytes,5,opt,name=mobile,proto3" json:"mobile,omitempty"`
+	Page                 uint64   `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	PageSize             uint64   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size"`
+	MemberId             uint64   `protobuf:"varint,3,opt,name=member_id,json=memberId,proto3" json:"member_id"`
+	Status               int32    `protobuf:"varint,4,opt,name=status,proto3" json:"status"`
+	Mobile               string   `protobuf:"bytes,5,opt,name=mobile,proto3" json:"mobile"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -493,8 +493,8 @@ func (m *GetMemberReq) GetMobile() string {
 }
 
 type ListMemberRes struct {
-	Total                uint64          `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Members              []*MemberDetail `protobuf:"bytes,2,rep,name=members,proto3" json:"members,omitempty"`
+	Total                uint64          `protobuf:"varint,1,opt,name=total,proto3" json:"total"`
+	Members              []*MemberDetail `protobuf:"bytes,2,rep,name=members,proto3" json:"members"`
 	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
 	XXX_unrecognized     []byte          `json:"-"`
 	XXX_sizecache        int32           `json:"-"`

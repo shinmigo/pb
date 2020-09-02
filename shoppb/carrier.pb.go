@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -54,12 +52,12 @@ func (CarrierStatus) EnumDescriptor() ([]byte, []int) {
 }
 
 type Carrier struct {
-	CarrierId            uint64        `protobuf:"varint,1,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id,omitempty"`
-	Name                 string        `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Code                 string        `protobuf:"bytes,3,opt,name=code,proto3" json:"code,omitempty"`
-	Sort                 uint32        `protobuf:"varint,4,opt,name=sort,proto3" json:"sort,omitempty"`
-	Status               CarrierStatus `protobuf:"varint,5,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status,omitempty"`
-	AdminId              uint64        `protobuf:"varint,6,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
+	CarrierId            uint64        `protobuf:"varint,1,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id"`
+	Name                 string        `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
+	Code                 string        `protobuf:"bytes,3,opt,name=code,proto3" json:"code"`
+	Sort                 uint32        `protobuf:"varint,4,opt,name=sort,proto3" json:"sort"`
+	Status               CarrierStatus `protobuf:"varint,5,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status"`
+	AdminId              uint64        `protobuf:"varint,6,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -133,7 +131,7 @@ func (m *Carrier) GetAdminId() uint64 {
 }
 
 type DelCarrierReq struct {
-	CarrierId            uint64   `protobuf:"varint,1,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id,omitempty"`
+	CarrierId            uint64   `protobuf:"varint,1,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -172,12 +170,12 @@ func (m *DelCarrierReq) GetCarrierId() uint64 {
 }
 
 type ListCarrierReq struct {
-	Page                 uint64        `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize             uint64        `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	Id                   uint64        `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
-	Code                 string        `protobuf:"bytes,4,opt,name=code,proto3" json:"code,omitempty"`
-	Name                 string        `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
-	Status               CarrierStatus `protobuf:"varint,6,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status,omitempty"`
+	Page                 uint64        `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	PageSize             uint64        `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size"`
+	Id                   uint64        `protobuf:"varint,3,opt,name=id,proto3" json:"id"`
+	Code                 string        `protobuf:"bytes,4,opt,name=code,proto3" json:"code"`
+	Name                 string        `protobuf:"bytes,5,opt,name=name,proto3" json:"name"`
+	Status               CarrierStatus `protobuf:"varint,6,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -251,15 +249,15 @@ func (m *ListCarrierReq) GetStatus() CarrierStatus {
 }
 
 type CarrierDetail struct {
-	CarrierId            uint64        `protobuf:"varint,1,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id,omitempty"`
-	Name                 string        `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Code                 string        `protobuf:"bytes,3,opt,name=code,proto3" json:"code,omitempty"`
-	Sort                 uint32        `protobuf:"varint,4,opt,name=sort,proto3" json:"sort,omitempty"`
-	Status               CarrierStatus `protobuf:"varint,5,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status,omitempty"`
-	CreatedBy            uint64        `protobuf:"varint,6,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
-	UpdatedBy            uint64        `protobuf:"varint,7,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by,omitempty"`
-	CreatedAt            string        `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt            string        `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	CarrierId            uint64        `protobuf:"varint,1,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id"`
+	Name                 string        `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
+	Code                 string        `protobuf:"bytes,3,opt,name=code,proto3" json:"code"`
+	Sort                 uint32        `protobuf:"varint,4,opt,name=sort,proto3" json:"sort"`
+	Status               CarrierStatus `protobuf:"varint,5,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status"`
+	CreatedBy            uint64        `protobuf:"varint,6,opt,name=created_by,json=createdBy,proto3" json:"created_by"`
+	UpdatedBy            uint64        `protobuf:"varint,7,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by"`
+	CreatedAt            string        `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
+	UpdatedAt            string        `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -354,8 +352,8 @@ func (m *CarrierDetail) GetUpdatedAt() string {
 }
 
 type ListCarrierRes struct {
-	Total                uint64           `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Carriers             []*CarrierDetail `protobuf:"bytes,2,rep,name=carriers,proto3" json:"carriers,omitempty"`
+	Total                uint64           `protobuf:"varint,1,opt,name=total,proto3" json:"total"`
+	Carriers             []*CarrierDetail `protobuf:"bytes,2,rep,name=carriers,proto3" json:"carriers"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -515,23 +513,6 @@ type CarrierServiceServer interface {
 	EditCarrier(context.Context, *Carrier) (*basepb.AnyRes, error)
 	DelCarrier(context.Context, *DelCarrierReq) (*basepb.AnyRes, error)
 	GetCarrierList(context.Context, *ListCarrierReq) (*ListCarrierRes, error)
-}
-
-// UnimplementedCarrierServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedCarrierServiceServer struct {
-}
-
-func (*UnimplementedCarrierServiceServer) AddCarrier(ctx context.Context, req *Carrier) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddCarrier not implemented")
-}
-func (*UnimplementedCarrierServiceServer) EditCarrier(ctx context.Context, req *Carrier) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditCarrier not implemented")
-}
-func (*UnimplementedCarrierServiceServer) DelCarrier(ctx context.Context, req *DelCarrierReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelCarrier not implemented")
-}
-func (*UnimplementedCarrierServiceServer) GetCarrierList(ctx context.Context, req *ListCarrierReq) (*ListCarrierRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCarrierList not implemented")
 }
 
 func RegisterCarrierServiceServer(s *grpc.Server, srv CarrierServiceServer) {

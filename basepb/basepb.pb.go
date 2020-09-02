@@ -21,8 +21,8 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type AnyRes struct {
-	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	State                uint32   `protobuf:"varint,2,opt,name=state,proto3" json:"state,omitempty"`
+	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
+	State                uint32   `protobuf:"varint,2,opt,name=state,proto3" json:"state"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -69,9 +69,9 @@ func (m *AnyRes) GetState() uint32 {
 
 // 根据主键id修改状态
 type EditStatusReq struct {
-	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Status               int32    `protobuf:"varint,2,opt,name=status,proto3" json:"status,omitempty"`
-	AdminId              uint64   `protobuf:"varint,3,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
+	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
+	Status               int32    `protobuf:"varint,2,opt,name=status,proto3" json:"status"`
+	AdminId              uint64   `protobuf:"varint,3,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -125,7 +125,7 @@ func (m *EditStatusReq) GetAdminId() uint64 {
 
 // 根据主键id获取单例
 type GetOneReq struct {
-	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -165,7 +165,7 @@ func (m *GetOneReq) GetId() uint64 {
 
 // 根据主键id删除
 type DelReq struct {
-	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`

@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -26,11 +24,11 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type Shipment struct {
-	OrderId              uint64   `protobuf:"varint,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
-	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	CarrierId            uint64   `protobuf:"varint,3,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id,omitempty"`
-	TrackingNumber       string   `protobuf:"bytes,4,opt,name=tracking_number,json=trackingNumber,proto3" json:"tracking_number,omitempty"`
-	AdminId              uint64   `protobuf:"varint,5,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
+	OrderId              uint64   `protobuf:"varint,1,opt,name=order_id,json=orderId,proto3" json:"order_id"`
+	StoreId              uint64   `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	CarrierId            uint64   `protobuf:"varint,3,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id"`
+	TrackingNumber       string   `protobuf:"bytes,4,opt,name=tracking_number,json=trackingNumber,proto3" json:"tracking_number"`
+	AdminId              uint64   `protobuf:"varint,5,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -157,14 +155,6 @@ func (c *shipmentServiceClient) AddShipment(ctx context.Context, in *Shipment, o
 // ShipmentServiceServer is the server API for ShipmentService service.
 type ShipmentServiceServer interface {
 	AddShipment(context.Context, *Shipment) (*basepb.AnyRes, error)
-}
-
-// UnimplementedShipmentServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedShipmentServiceServer struct {
-}
-
-func (*UnimplementedShipmentServiceServer) AddShipment(ctx context.Context, req *Shipment) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddShipment not implemented")
 }
 
 func RegisterShipmentServiceServer(s *grpc.Server, srv ShipmentServiceServer) {

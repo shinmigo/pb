@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -51,14 +49,14 @@ func (CategoryStatus) EnumDescriptor() ([]byte, []int) {
 }
 
 type Category struct {
-	CategoryId           uint64         `protobuf:"varint,1,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	StoreId              uint64         `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	ParentId             uint64         `protobuf:"varint,3,opt,name=parent_id,json=parentId,proto3" json:"parent_id,omitempty"`
-	Name                 string         `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
-	Icon                 string         `protobuf:"bytes,5,opt,name=icon,proto3" json:"icon,omitempty"`
-	Status               CategoryStatus `protobuf:"varint,6,opt,name=status,proto3,enum=productpb.CategoryStatus" json:"status,omitempty"`
-	Sort                 uint64         `protobuf:"varint,7,opt,name=sort,proto3" json:"sort,omitempty"`
-	AdminId              uint64         `protobuf:"varint,8,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
+	CategoryId           uint64         `protobuf:"varint,1,opt,name=category_id,json=categoryId,proto3" json:"category_id"`
+	StoreId              uint64         `protobuf:"varint,2,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	ParentId             uint64         `protobuf:"varint,3,opt,name=parent_id,json=parentId,proto3" json:"parent_id"`
+	Name                 string         `protobuf:"bytes,4,opt,name=name,proto3" json:"name"`
+	Icon                 string         `protobuf:"bytes,5,opt,name=icon,proto3" json:"icon"`
+	Status               CategoryStatus `protobuf:"varint,6,opt,name=status,proto3,enum=productpb.CategoryStatus" json:"status"`
+	Sort                 uint64         `protobuf:"varint,7,opt,name=sort,proto3" json:"sort"`
+	AdminId              uint64         `protobuf:"varint,8,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
 	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
 	XXX_unrecognized     []byte         `json:"-"`
 	XXX_sizecache        int32          `json:"-"`
@@ -146,12 +144,12 @@ func (m *Category) GetAdminId() uint64 {
 }
 
 type CategoryDetail struct {
-	CategoryId           uint64         `protobuf:"varint,1,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	ParentId             uint64         `protobuf:"varint,2,opt,name=parent_id,json=parentId,proto3" json:"parent_id,omitempty"`
-	Name                 string         `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Icon                 string         `protobuf:"bytes,4,opt,name=icon,proto3" json:"icon,omitempty"`
-	Status               CategoryStatus `protobuf:"varint,5,opt,name=status,proto3,enum=productpb.CategoryStatus" json:"status,omitempty"`
-	Sort                 uint64         `protobuf:"varint,6,opt,name=sort,proto3" json:"sort,omitempty"`
+	CategoryId           uint64         `protobuf:"varint,1,opt,name=category_id,json=categoryId,proto3" json:"category_id"`
+	ParentId             uint64         `protobuf:"varint,2,opt,name=parent_id,json=parentId,proto3" json:"parent_id"`
+	Name                 string         `protobuf:"bytes,3,opt,name=name,proto3" json:"name"`
+	Icon                 string         `protobuf:"bytes,4,opt,name=icon,proto3" json:"icon"`
+	Status               CategoryStatus `protobuf:"varint,5,opt,name=status,proto3,enum=productpb.CategoryStatus" json:"status"`
+	Sort                 uint64         `protobuf:"varint,6,opt,name=sort,proto3" json:"sort"`
 	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
 	XXX_unrecognized     []byte         `json:"-"`
 	XXX_sizecache        int32          `json:"-"`
@@ -225,9 +223,9 @@ func (m *CategoryDetail) GetSort() uint64 {
 }
 
 type EditCategoryStatusReq struct {
-	CategoryId           []uint64       `protobuf:"varint,1,rep,packed,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
-	Status               CategoryStatus `protobuf:"varint,2,opt,name=status,proto3,enum=productpb.CategoryStatus" json:"status,omitempty"`
-	AdminId              uint64         `protobuf:"varint,3,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
+	CategoryId           []uint64       `protobuf:"varint,1,rep,packed,name=category_id,json=categoryId,proto3" json:"category_id"`
+	Status               CategoryStatus `protobuf:"varint,2,opt,name=status,proto3,enum=productpb.CategoryStatus" json:"status"`
+	AdminId              uint64         `protobuf:"varint,3,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
 	XXX_NoUnkeyedLiteral struct{}       `json:"-"`
 	XXX_unrecognized     []byte         `json:"-"`
 	XXX_sizecache        int32          `json:"-"`
@@ -280,7 +278,7 @@ func (m *EditCategoryStatusReq) GetAdminId() uint64 {
 }
 
 type DelCategoryReq struct {
-	CategoryId           []uint64 `protobuf:"varint,1,rep,packed,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
+	CategoryId           []uint64 `protobuf:"varint,1,rep,packed,name=category_id,json=categoryId,proto3" json:"category_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -319,11 +317,11 @@ func (m *DelCategoryReq) GetCategoryId() []uint64 {
 }
 
 type ListCategoryReq struct {
-	Page     int64  `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
-	PageSize int64  `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	Id       uint64 `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
-	StoreId  uint64 `protobuf:"varint,4,opt,name=store_id,json=storeId,proto3" json:"store_id,omitempty"`
-	Name     string `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
+	Page     int64  `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
+	PageSize int64  `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size"`
+	Id       uint64 `protobuf:"varint,3,opt,name=id,proto3" json:"id"`
+	StoreId  uint64 `protobuf:"varint,4,opt,name=store_id,json=storeId,proto3" json:"store_id"`
+	Name     string `protobuf:"bytes,5,opt,name=name,proto3" json:"name"`
 	// Types that are valid to be assigned to StatusPresent:
 	//	*ListCategoryReq_Status
 	StatusPresent        isListCategoryReq_StatusPresent `protobuf_oneof:"status_present"`
@@ -424,8 +422,8 @@ func (*ListCategoryReq) XXX_OneofWrappers() []interface{} {
 }
 
 type ListCategoryRes struct {
-	Total                uint64            `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
-	Categories           []*CategoryDetail `protobuf:"bytes,2,rep,name=categories,proto3" json:"categories,omitempty"`
+	Total                uint64            `protobuf:"varint,1,opt,name=total,proto3" json:"total"`
+	Categories           []*CategoryDetail `protobuf:"bytes,2,rep,name=categories,proto3" json:"categories"`
 	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
 	XXX_unrecognized     []byte            `json:"-"`
 	XXX_sizecache        int32             `json:"-"`
@@ -599,26 +597,6 @@ type CategoryServiceServer interface {
 	EditCategoryStatus(context.Context, *EditCategoryStatusReq) (*basepb.AnyRes, error)
 	DelCategory(context.Context, *DelCategoryReq) (*basepb.AnyRes, error)
 	GetCategoryList(context.Context, *ListCategoryReq) (*ListCategoryRes, error)
-}
-
-// UnimplementedCategoryServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedCategoryServiceServer struct {
-}
-
-func (*UnimplementedCategoryServiceServer) AddCategory(ctx context.Context, req *Category) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddCategory not implemented")
-}
-func (*UnimplementedCategoryServiceServer) EditCategory(ctx context.Context, req *Category) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditCategory not implemented")
-}
-func (*UnimplementedCategoryServiceServer) EditCategoryStatus(ctx context.Context, req *EditCategoryStatusReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditCategoryStatus not implemented")
-}
-func (*UnimplementedCategoryServiceServer) DelCategory(ctx context.Context, req *DelCategoryReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelCategory not implemented")
-}
-func (*UnimplementedCategoryServiceServer) GetCategoryList(ctx context.Context, req *ListCategoryReq) (*ListCategoryRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCategoryList not implemented")
 }
 
 func RegisterCategoryServiceServer(s *grpc.Server, srv CategoryServiceServer) {

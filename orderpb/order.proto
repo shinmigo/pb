@@ -4,8 +4,6 @@ package orderpb;
 
 option go_package = "github.com/shinmigo/pb/orderpb";
 
-import "basepb/basepb.proto";
-
 service OrderService {
     rpc GetOrderList (ListOrderReq) returns (ListOrderRes);
 }

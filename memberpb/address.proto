@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package memberpb;
+
+option go_package = "github.com/shinmigo/pb/memberpb";
+
+import "basepb/basepb.proto";
+
+service AddressService {
+  rpc AddAddress (Address) returns (basepb.AnyRes);
+
+  rpc EditAddress (Address) returns (basepb.AnyRes);
+
+  rpc DelAddress (basepb.DelReq) returns (basepb.AnyRes);
+
+  // 根据会员id获取收货地址，会员id必传
+  rpc GetAddressListByMemberId (ListAddressReq) returns (ListAddressRes);
+
+  rpc GetAddressDetail (basepb.GetOneReq) returns (AddressDetail);
+}
+
+enum AddressCategory {
+  Placeholder = 0;
+  Home = 1;
+  Company = 2;
+}
+
+enum AddressIsDefault {
+  None = 0;
+  Used = 1;
+}
+
+message Address {
+  uint64 address_id = 1;
+  uint64 member_id = 2;
+  AddressCategory category = 3;
+  string name = 4;
+  string mobile = 5;
+  string tel = 6;
+  string postcode = 7;
+  string address = 8;
+  uint64 code_prov = 9;
+  uint64 code_city = 10;
+  uint64 code_coun = 11;
+  uint64 code_town = 12;
+  AddressIsDefault is_default = 13;
+  string longitude = 14;
+  string latitude = 15;
+  uint64 admin_id = 16;
+}
+
+message AddressDetail {
+  uint64 address_id = 1;
+  uint64 member_id = 2;
+  AddressCategory category = 3;
+  string name = 4;
+  string mobile = 5;
+  string tel = 6;
+  string postcode = 7;
+  string address = 8;
+  uint64 code_prov = 9;
+  uint64 code_city = 10;
+  uint64 code_coun = 11;
+  uint64 code_town = 12;
+  AddressIsDefault is_default = 13;
+  string longitude = 14;
+  string latitude = 15;
+  uint64 created_by = 16;
+  uint64 updated_by = 17;
+  string created_at = 18;
+  string updated_at = 19;
+}
+
+message ListAddressReq {
+  uint64 member_id = 1;
+  uint64 page = 2;
+  uint64 page_size = 3;
+}
+
+message ListAddressRes {
+  uint64 total = 1;
+  repeated AddressDetail addresses = 2;
+}
