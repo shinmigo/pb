@@ -37,13 +37,13 @@ enum OrderConfirm {
 
 enum OrderStatus {
     StatusPlaceholder = 0;
-    PendingPayment = 1;     //待付款
-    PendingReview = 2;      //待审核
-    PendingShipment = 3;    //待发货
-    PendingReceiving = 4;   //待收货
-    Completed = 5;          //已完成
-    PendingComment = 6;     //待评论
-    Cancel = 7;             //取消
+    PendingPayment = 1;     //新建订单，待付款
+    PendingReview = 2;      //已付款，待审核
+    PendingShipment = 3;    //已审核，待发货
+    PendingReceiving = 4;   //已发货，待收货
+    PendingComment = 5;     //已收货，待评论
+    Completed = 6;          //已完成
+    Canceled = 7;           //已取消
 }
 
 enum OrderType {
