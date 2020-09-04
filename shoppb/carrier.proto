@@ -13,12 +13,20 @@ service CarrierService {
     rpc DelCarrier (DelCarrierReq) returns (basepb.AnyRes);
 
     rpc GetCarrierList (ListCarrierReq) returns (ListCarrierRes);
+
+    rpc EditCarrierStatus(EditCarrierStatusReq) returns (basepb.AnyRes);
 }
 
 enum CarrierStatus {
     CarrierStatusPlaceholder = 0;
     Enabled = 1;    //启用
     Disabled = 2;   //禁用
+}
+
+message EditCarrierStatusReq {
+    repeated uint64 carrier_id = 1;
+    CarrierStatus status = 2;
+    uint64 admin_id = 3;
 }
 
 message Carrier {

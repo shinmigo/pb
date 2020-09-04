@@ -9,6 +9,8 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -51,13 +53,68 @@ func (CarrierStatus) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_d24829979d9c7c59, []int{0}
 }
 
+type EditCarrierStatusReq struct {
+	CarrierId            []uint64      `protobuf:"varint,1,rep,packed,name=carrier_id,json=carrierId,proto3" json:"carrier_id,omitempty"`
+	Status               CarrierStatus `protobuf:"varint,2,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status,omitempty"`
+	AdminId              uint64        `protobuf:"varint,3,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
+}
+
+func (m *EditCarrierStatusReq) Reset()         { *m = EditCarrierStatusReq{} }
+func (m *EditCarrierStatusReq) String() string { return proto.CompactTextString(m) }
+func (*EditCarrierStatusReq) ProtoMessage()    {}
+func (*EditCarrierStatusReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_d24829979d9c7c59, []int{0}
+}
+
+func (m *EditCarrierStatusReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_EditCarrierStatusReq.Unmarshal(m, b)
+}
+func (m *EditCarrierStatusReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_EditCarrierStatusReq.Marshal(b, m, deterministic)
+}
+func (m *EditCarrierStatusReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EditCarrierStatusReq.Merge(m, src)
+}
+func (m *EditCarrierStatusReq) XXX_Size() int {
+	return xxx_messageInfo_EditCarrierStatusReq.Size(m)
+}
+func (m *EditCarrierStatusReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_EditCarrierStatusReq.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_EditCarrierStatusReq proto.InternalMessageInfo
+
+func (m *EditCarrierStatusReq) GetCarrierId() []uint64 {
+	if m != nil {
+		return m.CarrierId
+	}
+	return nil
+}
+
+func (m *EditCarrierStatusReq) GetStatus() CarrierStatus {
+	if m != nil {
+		return m.Status
+	}
+	return CarrierStatus_CarrierStatusPlaceholder
+}
+
+func (m *EditCarrierStatusReq) GetAdminId() uint64 {
+	if m != nil {
+		return m.AdminId
+	}
+	return 0
+}
+
 type Carrier struct {
-	CarrierId            uint64        `protobuf:"varint,1,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id"`
-	Name                 string        `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
-	Code                 string        `protobuf:"bytes,3,opt,name=code,proto3" json:"code"`
-	Sort                 uint32        `protobuf:"varint,4,opt,name=sort,proto3" json:"sort"`
-	Status               CarrierStatus `protobuf:"varint,5,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status"`
-	AdminId              uint64        `protobuf:"varint,6,opt,name=admin_id,json=adminId,proto3" json:"admin_id"`
+	CarrierId            uint64        `protobuf:"varint,1,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id,omitempty"`
+	Name                 string        `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Code                 string        `protobuf:"bytes,3,opt,name=code,proto3" json:"code,omitempty"`
+	Sort                 uint32        `protobuf:"varint,4,opt,name=sort,proto3" json:"sort,omitempty"`
+	Status               CarrierStatus `protobuf:"varint,5,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status,omitempty"`
+	AdminId              uint64        `protobuf:"varint,6,opt,name=admin_id,json=adminId,proto3" json:"admin_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -67,7 +124,7 @@ func (m *Carrier) Reset()         { *m = Carrier{} }
 func (m *Carrier) String() string { return proto.CompactTextString(m) }
 func (*Carrier) ProtoMessage()    {}
 func (*Carrier) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d24829979d9c7c59, []int{0}
+	return fileDescriptor_d24829979d9c7c59, []int{1}
 }
 
 func (m *Carrier) XXX_Unmarshal(b []byte) error {
@@ -131,7 +188,7 @@ func (m *Carrier) GetAdminId() uint64 {
 }
 
 type DelCarrierReq struct {
-	CarrierId            uint64   `protobuf:"varint,1,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id"`
+	CarrierId            uint64   `protobuf:"varint,1,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -141,7 +198,7 @@ func (m *DelCarrierReq) Reset()         { *m = DelCarrierReq{} }
 func (m *DelCarrierReq) String() string { return proto.CompactTextString(m) }
 func (*DelCarrierReq) ProtoMessage()    {}
 func (*DelCarrierReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d24829979d9c7c59, []int{1}
+	return fileDescriptor_d24829979d9c7c59, []int{2}
 }
 
 func (m *DelCarrierReq) XXX_Unmarshal(b []byte) error {
@@ -170,12 +227,12 @@ func (m *DelCarrierReq) GetCarrierId() uint64 {
 }
 
 type ListCarrierReq struct {
-	Page                 uint64        `protobuf:"varint,1,opt,name=page,proto3" json:"page"`
-	PageSize             uint64        `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size"`
-	Id                   uint64        `protobuf:"varint,3,opt,name=id,proto3" json:"id"`
-	Code                 string        `protobuf:"bytes,4,opt,name=code,proto3" json:"code"`
-	Name                 string        `protobuf:"bytes,5,opt,name=name,proto3" json:"name"`
-	Status               CarrierStatus `protobuf:"varint,6,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status"`
+	Page                 uint64        `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize             uint64        `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	Id                   uint64        `protobuf:"varint,3,opt,name=id,proto3" json:"id,omitempty"`
+	Code                 string        `protobuf:"bytes,4,opt,name=code,proto3" json:"code,omitempty"`
+	Name                 string        `protobuf:"bytes,5,opt,name=name,proto3" json:"name,omitempty"`
+	Status               CarrierStatus `protobuf:"varint,6,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -185,7 +242,7 @@ func (m *ListCarrierReq) Reset()         { *m = ListCarrierReq{} }
 func (m *ListCarrierReq) String() string { return proto.CompactTextString(m) }
 func (*ListCarrierReq) ProtoMessage()    {}
 func (*ListCarrierReq) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d24829979d9c7c59, []int{2}
+	return fileDescriptor_d24829979d9c7c59, []int{3}
 }
 
 func (m *ListCarrierReq) XXX_Unmarshal(b []byte) error {
@@ -249,15 +306,15 @@ func (m *ListCarrierReq) GetStatus() CarrierStatus {
 }
 
 type CarrierDetail struct {
-	CarrierId            uint64        `protobuf:"varint,1,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id"`
-	Name                 string        `protobuf:"bytes,2,opt,name=name,proto3" json:"name"`
-	Code                 string        `protobuf:"bytes,3,opt,name=code,proto3" json:"code"`
-	Sort                 uint32        `protobuf:"varint,4,opt,name=sort,proto3" json:"sort"`
-	Status               CarrierStatus `protobuf:"varint,5,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status"`
-	CreatedBy            uint64        `protobuf:"varint,6,opt,name=created_by,json=createdBy,proto3" json:"created_by"`
-	UpdatedBy            uint64        `protobuf:"varint,7,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by"`
-	CreatedAt            string        `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at"`
-	UpdatedAt            string        `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at"`
+	CarrierId            uint64        `protobuf:"varint,1,opt,name=carrier_id,json=carrierId,proto3" json:"carrier_id,omitempty"`
+	Name                 string        `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Code                 string        `protobuf:"bytes,3,opt,name=code,proto3" json:"code,omitempty"`
+	Sort                 uint32        `protobuf:"varint,4,opt,name=sort,proto3" json:"sort,omitempty"`
+	Status               CarrierStatus `protobuf:"varint,5,opt,name=status,proto3,enum=shoppb.CarrierStatus" json:"status,omitempty"`
+	CreatedBy            uint64        `protobuf:"varint,6,opt,name=created_by,json=createdBy,proto3" json:"created_by,omitempty"`
+	UpdatedBy            uint64        `protobuf:"varint,7,opt,name=updated_by,json=updatedBy,proto3" json:"updated_by,omitempty"`
+	CreatedAt            string        `protobuf:"bytes,8,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt            string        `protobuf:"bytes,9,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -267,7 +324,7 @@ func (m *CarrierDetail) Reset()         { *m = CarrierDetail{} }
 func (m *CarrierDetail) String() string { return proto.CompactTextString(m) }
 func (*CarrierDetail) ProtoMessage()    {}
 func (*CarrierDetail) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d24829979d9c7c59, []int{3}
+	return fileDescriptor_d24829979d9c7c59, []int{4}
 }
 
 func (m *CarrierDetail) XXX_Unmarshal(b []byte) error {
@@ -352,8 +409,8 @@ func (m *CarrierDetail) GetUpdatedAt() string {
 }
 
 type ListCarrierRes struct {
-	Total                uint64           `protobuf:"varint,1,opt,name=total,proto3" json:"total"`
-	Carriers             []*CarrierDetail `protobuf:"bytes,2,rep,name=carriers,proto3" json:"carriers"`
+	Total                uint64           `protobuf:"varint,1,opt,name=total,proto3" json:"total,omitempty"`
+	Carriers             []*CarrierDetail `protobuf:"bytes,2,rep,name=carriers,proto3" json:"carriers,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
 	XXX_unrecognized     []byte           `json:"-"`
 	XXX_sizecache        int32            `json:"-"`
@@ -363,7 +420,7 @@ func (m *ListCarrierRes) Reset()         { *m = ListCarrierRes{} }
 func (m *ListCarrierRes) String() string { return proto.CompactTextString(m) }
 func (*ListCarrierRes) ProtoMessage()    {}
 func (*ListCarrierRes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_d24829979d9c7c59, []int{4}
+	return fileDescriptor_d24829979d9c7c59, []int{5}
 }
 
 func (m *ListCarrierRes) XXX_Unmarshal(b []byte) error {
@@ -400,6 +457,7 @@ func (m *ListCarrierRes) GetCarriers() []*CarrierDetail {
 
 func init() {
 	proto.RegisterEnum("shoppb.CarrierStatus", CarrierStatus_name, CarrierStatus_value)
+	proto.RegisterType((*EditCarrierStatusReq)(nil), "shoppb.EditCarrierStatusReq")
 	proto.RegisterType((*Carrier)(nil), "shoppb.Carrier")
 	proto.RegisterType((*DelCarrierReq)(nil), "shoppb.DelCarrierReq")
 	proto.RegisterType((*ListCarrierReq)(nil), "shoppb.ListCarrierReq")
@@ -410,39 +468,41 @@ func init() {
 func init() { proto.RegisterFile("shoppb/carrier.proto", fileDescriptor_d24829979d9c7c59) }
 
 var fileDescriptor_d24829979d9c7c59 = []byte{
-	// 504 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x54, 0xcb, 0x6e, 0xd3, 0x40,
-	0x14, 0xc5, 0xae, 0xe3, 0xd8, 0x37, 0xc4, 0x54, 0x43, 0x41, 0x26, 0x50, 0x61, 0x79, 0x65, 0x21,
-	0x61, 0x8b, 0xf6, 0x07, 0x48, 0x49, 0x05, 0x95, 0x58, 0x20, 0x77, 0x05, 0x9b, 0x68, 0xec, 0x19,
-	0x25, 0x23, 0x39, 0xb6, 0xf1, 0x4c, 0x90, 0xd2, 0xff, 0xe0, 0x1f, 0x58, 0xf1, 0x59, 0x7c, 0x07,
-	0x9a, 0x87, 0xd3, 0xa4, 0x45, 0x22, 0xcb, 0xae, 0x3c, 0x73, 0xce, 0x3d, 0x9a, 0x7b, 0xce, 0xd5,
-	0x35, 0x9c, 0xf0, 0x65, 0xd3, 0xb6, 0x45, 0x56, 0xe2, 0xae, 0x63, 0xb4, 0x4b, 0xdb, 0xae, 0x11,
-	0x0d, 0x72, 0x35, 0x3a, 0x79, 0x5a, 0x60, 0x4e, 0xdb, 0x22, 0xd3, 0x1f, 0x4d, 0xc6, 0xbf, 0x2d,
-	0x18, 0x7e, 0xd0, 0xe5, 0xe8, 0x14, 0xc0, 0x28, 0xe7, 0x8c, 0x84, 0x56, 0x64, 0x25, 0x4e, 0xee,
-	0x1b, 0xe4, 0x8a, 0x20, 0x04, 0x4e, 0x8d, 0x57, 0x34, 0xb4, 0x23, 0x2b, 0xf1, 0x73, 0x75, 0x96,
-	0x58, 0xd9, 0x10, 0x1a, 0x1e, 0x69, 0x4c, 0x9e, 0x25, 0xc6, 0x9b, 0x4e, 0x84, 0x4e, 0x64, 0x25,
-	0xe3, 0x5c, 0x9d, 0xd1, 0x5b, 0x70, 0xb9, 0xc0, 0x62, 0xcd, 0xc3, 0x41, 0x64, 0x25, 0xc1, 0xd9,
-	0xb3, 0x54, 0x37, 0x95, 0x9a, 0xb7, 0xaf, 0x15, 0x99, 0x9b, 0x22, 0xf4, 0x02, 0x3c, 0x4c, 0x56,
-	0xac, 0x96, 0x7d, 0xb8, 0xaa, 0x8f, 0xa1, 0xba, 0x5f, 0x91, 0x38, 0x85, 0xf1, 0x8c, 0x56, 0x46,
-	0x96, 0xd3, 0xef, 0xff, 0xe9, 0x3a, 0xfe, 0x65, 0x41, 0xf0, 0x99, 0x71, 0xb1, 0xa3, 0x40, 0xe0,
-	0xb4, 0x78, 0x41, 0x4d, 0xad, 0x3a, 0xa3, 0x97, 0xe0, 0xcb, 0xef, 0x9c, 0xb3, 0x1b, 0xed, 0xd0,
-	0xc9, 0x3d, 0x09, 0x5c, 0xb3, 0x1b, 0x8a, 0x02, 0xb0, 0x19, 0x51, 0x1e, 0x9d, 0xdc, 0x66, 0x64,
-	0xeb, 0xda, 0xd9, 0x77, 0xad, 0xd2, 0x19, 0xec, 0xa4, 0x73, 0xeb, 0xda, 0x3d, 0xc0, 0x75, 0xfc,
-	0xd3, 0x86, 0xb1, 0x61, 0x66, 0x54, 0x60, 0x56, 0x3d, 0xa0, 0x89, 0xc8, 0x4e, 0x3a, 0x8a, 0x05,
-	0x25, 0xf3, 0x62, 0x63, 0x66, 0xe2, 0x1b, 0xe4, 0x62, 0x23, 0xe9, 0x75, 0x4b, 0x7a, 0x7a, 0xa8,
-	0x69, 0x83, 0x68, 0xba, 0x57, 0x63, 0x11, 0x7a, 0xaa, 0xb5, 0x5e, 0x3d, 0x15, 0xbb, 0x6a, 0x2c,
-	0x42, 0x5f, 0xd3, 0x06, 0x99, 0x8a, 0xf8, 0xeb, 0x9d, 0x09, 0x72, 0x74, 0x02, 0x03, 0xd1, 0x08,
-	0x5c, 0x99, 0x48, 0xf4, 0x05, 0xbd, 0x03, 0xcf, 0x64, 0xc3, 0x43, 0x3b, 0x3a, 0x4a, 0x46, 0xf7,
-	0x4c, 0xe9, 0x58, 0xf3, 0x6d, 0xd9, 0x9b, 0x4f, 0xdb, 0xc4, 0xb5, 0x5f, 0xf4, 0x0a, 0xc2, 0x3d,
-	0xe0, 0x4b, 0x85, 0x4b, 0xba, 0x6c, 0x2a, 0x42, 0xbb, 0xe3, 0x47, 0x68, 0x04, 0xc3, 0xcb, 0x1a,
-	0x17, 0x15, 0x25, 0xc7, 0x16, 0x7a, 0x0c, 0xde, 0x8c, 0x71, 0x7d, 0xb3, 0xcf, 0xfe, 0x58, 0x10,
-	0xf4, 0x4a, 0xda, 0xfd, 0x60, 0xa5, 0x1c, 0x3f, 0x4c, 0x09, 0xe9, 0xb7, 0xeb, 0xc9, 0x9d, 0x5e,
-	0x26, 0x41, 0x6a, 0x36, 0x71, 0x5a, 0x6f, 0xa4, 0xa9, 0x14, 0x46, 0x97, 0x84, 0x89, 0x83, 0xeb,
-	0xcf, 0x01, 0x6e, 0x37, 0x01, 0x6d, 0xad, 0xee, 0x6d, 0xc7, 0x3d, 0xd1, 0x7b, 0x08, 0x3e, 0xd2,
-	0xfe, 0x0d, 0x99, 0x2a, 0x7a, 0xde, 0x0b, 0xf7, 0xb7, 0x64, 0xf2, 0x6f, 0x9c, 0x5f, 0xbc, 0xfe,
-	0x76, 0xba, 0x60, 0x62, 0xb9, 0x2e, 0xd2, 0xb2, 0x59, 0x65, 0x7c, 0xc9, 0xea, 0x15, 0x5b, 0x34,
-	0x59, 0x5b, 0x64, 0xba, 0xbe, 0x70, 0xd5, 0x9f, 0xe5, 0xfc, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff,
-	0x56, 0x2f, 0x1b, 0x46, 0x8e, 0x04, 0x00, 0x00,
+	// 538 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x54, 0xcd, 0x6e, 0xd3, 0x40,
+	0x10, 0xc6, 0x8e, 0xf3, 0xe3, 0x09, 0x31, 0x65, 0x09, 0xc8, 0x84, 0x56, 0x44, 0x39, 0x45, 0x48,
+	0x38, 0xa2, 0x7d, 0x01, 0x52, 0x52, 0x41, 0x25, 0x0e, 0xc8, 0x3d, 0xc1, 0x25, 0x5a, 0x7b, 0x57,
+	0xc9, 0x4a, 0x8e, 0x6d, 0xbc, 0x1b, 0xa4, 0xf4, 0xc2, 0x53, 0xf0, 0x0e, 0x70, 0xe1, 0x19, 0xd1,
+	0xfe, 0xd8, 0xb5, 0x93, 0x48, 0xc0, 0xad, 0xa7, 0xdd, 0xfd, 0x66, 0xbe, 0xf9, 0xf9, 0x56, 0x33,
+	0x30, 0xe4, 0xeb, 0x2c, 0xcf, 0xa3, 0x59, 0x8c, 0x8b, 0x82, 0xd1, 0x22, 0xc8, 0x8b, 0x4c, 0x64,
+	0xa8, 0xa3, 0xd1, 0xd1, 0x93, 0x08, 0x73, 0x9a, 0x47, 0x33, 0x7d, 0x68, 0xe3, 0xe4, 0x3b, 0x0c,
+	0xaf, 0x08, 0x13, 0xef, 0x34, 0xe3, 0x46, 0x60, 0xb1, 0xe5, 0x21, 0xfd, 0x8a, 0xce, 0x00, 0x4c,
+	0x94, 0x25, 0x23, 0xbe, 0x35, 0x6e, 0x4d, 0x9d, 0xd0, 0x35, 0xc8, 0x35, 0x41, 0xaf, 0xa1, 0xc3,
+	0x95, 0xaf, 0x6f, 0x8f, 0xad, 0xa9, 0x77, 0xfe, 0x34, 0xd0, 0x49, 0x82, 0x66, 0x20, 0xe3, 0x84,
+	0x9e, 0x43, 0x0f, 0x93, 0x0d, 0x4b, 0x65, 0xac, 0xd6, 0xd8, 0x9a, 0x3a, 0x61, 0x57, 0xbd, 0xaf,
+	0xc9, 0xe4, 0xb7, 0x05, 0x5d, 0x43, 0x3a, 0x48, 0x6a, 0x35, 0x93, 0x22, 0x70, 0x52, 0xbc, 0xa1,
+	0x2a, 0xa5, 0x1b, 0xaa, 0xbb, 0xc4, 0xe2, 0x8c, 0x50, 0x15, 0xd5, 0x0d, 0xd5, 0x5d, 0x62, 0x3c,
+	0x2b, 0x84, 0xef, 0x8c, 0xad, 0xe9, 0x20, 0x54, 0xf7, 0x5a, 0xc1, 0xed, 0xff, 0x2d, 0xb8, 0xd3,
+	0x2c, 0x38, 0x80, 0xc1, 0x82, 0x26, 0x86, 0x76, 0x4c, 0xaa, 0x66, 0xd5, 0x93, 0x9f, 0x16, 0x78,
+	0x1f, 0x19, 0x17, 0x35, 0x06, 0x02, 0x27, 0xc7, 0x2b, 0x6a, 0x7c, 0xd5, 0x1d, 0xbd, 0x00, 0x57,
+	0x9e, 0x4b, 0xce, 0x6e, 0x75, 0x87, 0x4e, 0xd8, 0x93, 0xc0, 0x0d, 0xbb, 0xa5, 0xc8, 0x03, 0xbb,
+	0x52, 0xce, 0x66, 0xa4, 0xea, 0xda, 0x69, 0x76, 0xad, 0xd4, 0x69, 0xd7, 0xd4, 0xb9, 0xeb, 0xba,
+	0xf3, 0x0f, 0x5d, 0x4f, 0x7e, 0xd8, 0x30, 0x30, 0x96, 0x05, 0x15, 0x98, 0x25, 0xf7, 0xe8, 0x47,
+	0x64, 0x25, 0x05, 0xc5, 0x82, 0x92, 0x65, 0xb4, 0x33, 0x7f, 0xe2, 0x1a, 0xe4, 0x72, 0x27, 0xcd,
+	0xdb, 0x9c, 0x94, 0xe6, 0xae, 0x36, 0x1b, 0x44, 0x9b, 0x4b, 0x36, 0x16, 0x7e, 0x4f, 0x95, 0x56,
+	0xb2, 0xe7, 0xa2, 0xce, 0xc6, 0xc2, 0x77, 0xb5, 0xd9, 0x20, 0x73, 0x31, 0xf9, 0xbc, 0xf7, 0x83,
+	0x1c, 0x0d, 0xa1, 0x2d, 0x32, 0x81, 0x13, 0x23, 0x89, 0x7e, 0xa0, 0x37, 0xd0, 0x33, 0xda, 0xc8,
+	0xb9, 0x68, 0x4d, 0xfb, 0x07, 0x4d, 0x69, 0x59, 0xc3, 0xca, 0xed, 0xd5, 0x87, 0x4a, 0x71, 0xdd,
+	0x2f, 0x3a, 0x05, 0xbf, 0x01, 0x7c, 0x4a, 0x70, 0x4c, 0xd7, 0x59, 0x42, 0x68, 0x71, 0xf2, 0x00,
+	0xf5, 0xa1, 0x7b, 0x95, 0xe2, 0x28, 0xa1, 0xe4, 0xc4, 0x42, 0x0f, 0xa1, 0xb7, 0x60, 0x5c, 0xbf,
+	0xec, 0xf3, 0x5f, 0x36, 0x78, 0x25, 0x93, 0x16, 0xdf, 0x58, 0x2c, 0xbf, 0x1f, 0xe6, 0x84, 0x94,
+	0xd3, 0xf5, 0x68, 0xaf, 0x96, 0x91, 0x17, 0x98, 0x55, 0x30, 0x4f, 0x77, 0xb2, 0xa9, 0x00, 0xfa,
+	0xb5, 0x5d, 0xf0, 0x77, 0xff, 0x0b, 0x80, 0xbb, 0x49, 0x40, 0x55, 0xab, 0x8d, 0xe9, 0x38, 0x20,
+	0xbd, 0x05, 0xef, 0x3d, 0x2d, 0x73, 0x48, 0x55, 0xd1, 0xb3, 0x92, 0xd8, 0x9c, 0x92, 0xd1, 0x71,
+	0x9c, 0xa3, 0x39, 0x3c, 0x3e, 0x58, 0x59, 0xe8, 0xb4, 0x74, 0x3e, 0xb6, 0xcd, 0xf6, 0x8b, 0xb8,
+	0x7c, 0xf9, 0xe5, 0x6c, 0xc5, 0xc4, 0x7a, 0x1b, 0x05, 0x71, 0xb6, 0x99, 0xf1, 0x35, 0x4b, 0x37,
+	0x6c, 0x95, 0xcd, 0xf2, 0x68, 0xa6, 0xa3, 0x44, 0x1d, 0xb5, 0x1d, 0x2f, 0xfe, 0x04, 0x00, 0x00,
+	0xff, 0xff, 0xbb, 0x94, 0x13, 0xcb, 0x52, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -461,6 +521,7 @@ type CarrierServiceClient interface {
 	EditCarrier(ctx context.Context, in *Carrier, opts ...grpc.CallOption) (*basepb.AnyRes, error)
 	DelCarrier(ctx context.Context, in *DelCarrierReq, opts ...grpc.CallOption) (*basepb.AnyRes, error)
 	GetCarrierList(ctx context.Context, in *ListCarrierReq, opts ...grpc.CallOption) (*ListCarrierRes, error)
+	EditCarrierStatus(ctx context.Context, in *EditCarrierStatusReq, opts ...grpc.CallOption) (*basepb.AnyRes, error)
 }
 
 type carrierServiceClient struct {
@@ -507,12 +568,42 @@ func (c *carrierServiceClient) GetCarrierList(ctx context.Context, in *ListCarri
 	return out, nil
 }
 
+func (c *carrierServiceClient) EditCarrierStatus(ctx context.Context, in *EditCarrierStatusReq, opts ...grpc.CallOption) (*basepb.AnyRes, error) {
+	out := new(basepb.AnyRes)
+	err := c.cc.Invoke(ctx, "/shoppb.CarrierService/EditCarrierStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CarrierServiceServer is the server API for CarrierService service.
 type CarrierServiceServer interface {
 	AddCarrier(context.Context, *Carrier) (*basepb.AnyRes, error)
 	EditCarrier(context.Context, *Carrier) (*basepb.AnyRes, error)
 	DelCarrier(context.Context, *DelCarrierReq) (*basepb.AnyRes, error)
 	GetCarrierList(context.Context, *ListCarrierReq) (*ListCarrierRes, error)
+	EditCarrierStatus(context.Context, *EditCarrierStatusReq) (*basepb.AnyRes, error)
+}
+
+// UnimplementedCarrierServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedCarrierServiceServer struct {
+}
+
+func (*UnimplementedCarrierServiceServer) AddCarrier(ctx context.Context, req *Carrier) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddCarrier not implemented")
+}
+func (*UnimplementedCarrierServiceServer) EditCarrier(ctx context.Context, req *Carrier) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditCarrier not implemented")
+}
+func (*UnimplementedCarrierServiceServer) DelCarrier(ctx context.Context, req *DelCarrierReq) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DelCarrier not implemented")
+}
+func (*UnimplementedCarrierServiceServer) GetCarrierList(ctx context.Context, req *ListCarrierReq) (*ListCarrierRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCarrierList not implemented")
+}
+func (*UnimplementedCarrierServiceServer) EditCarrierStatus(ctx context.Context, req *EditCarrierStatusReq) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditCarrierStatus not implemented")
 }
 
 func RegisterCarrierServiceServer(s *grpc.Server, srv CarrierServiceServer) {
@@ -591,6 +682,24 @@ func _CarrierService_GetCarrierList_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CarrierService_EditCarrierStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditCarrierStatusReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CarrierServiceServer).EditCarrierStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/shoppb.CarrierService/EditCarrierStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CarrierServiceServer).EditCarrierStatus(ctx, req.(*EditCarrierStatusReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _CarrierService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "shoppb.CarrierService",
 	HandlerType: (*CarrierServiceServer)(nil),
@@ -610,6 +719,10 @@ var _CarrierService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCarrierList",
 			Handler:    _CarrierService_GetCarrierList_Handler,
+		},
+		{
+			MethodName: "EditCarrierStatus",
+			Handler:    _CarrierService_EditCarrierStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
