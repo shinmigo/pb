@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -881,23 +879,6 @@ type ProductServiceServer interface {
 	EditProduct(context.Context, *Product) (*basepb.AnyRes, error)
 	DelProduct(context.Context, *DelProductReq) (*basepb.AnyRes, error)
 	GetProductList(context.Context, *ListProductReq) (*ListProductRes, error)
-}
-
-// UnimplementedProductServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedProductServiceServer struct {
-}
-
-func (*UnimplementedProductServiceServer) AddProduct(ctx context.Context, req *Product) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddProduct not implemented")
-}
-func (*UnimplementedProductServiceServer) EditProduct(ctx context.Context, req *Product) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditProduct not implemented")
-}
-func (*UnimplementedProductServiceServer) DelProduct(ctx context.Context, req *DelProductReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelProduct not implemented")
-}
-func (*UnimplementedProductServiceServer) GetProductList(ctx context.Context, req *ListProductReq) (*ListProductRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetProductList not implemented")
 }
 
 func RegisterProductServiceServer(s *grpc.Server, srv ProductServiceServer) {
