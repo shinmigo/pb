@@ -62,3 +62,9 @@ message ListParamRes {
   uint64 total = 1;
   repeated ParamDetail params = 2;
 }
+
+message ParamForKind {
+  uint64 param_id = 1;
+  string name = 2;
+  ParamType type = 3;
+}

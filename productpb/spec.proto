@@ -55,3 +55,8 @@ message ListSpecRes {
   uint64 total = 1;
   repeated SpecDetail specs = 2;
 }
+
+message SpecForKind {
+  uint64 spec_id = 1;
+  string name = 4;
+}
