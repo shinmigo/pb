@@ -13,6 +13,9 @@ service SpecService {
   rpc DelSpec (DelSpecReq) returns (basepb.AnyRes);
 
   rpc GetSpecList (ListSpecReq) returns (ListSpecRes);
+
+  // 获取可绑定规格列表
+  rpc GetBindSpecAll (BindSpecAllReq) returns (BindSpecAllRes);
 }
 
 message Spec {
@@ -54,4 +57,18 @@ message ListSpecReq {
 message ListSpecRes {
   uint64 total = 1;
   repeated SpecDetail specs = 2;
+}
+
+
+// 模糊查询名称， kind_id=0
+message BindSpecAllReq {
+  string name = 4;
+}
+
+message BindSpecAll {
+  uint64 spec_id = 1;
+  string name = 2;
+}
+message BindSpecAllRes {
+  repeated BindSpecAll data = 1;
 }

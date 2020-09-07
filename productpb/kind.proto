@@ -23,11 +23,13 @@ service KindService {
 message ParamRel {
   uint64 param_id = 1;
   string name = 2;
+  repeated string contents = 3;
 }
 
 message SpecRel {
   uint64 spec_id = 1;
   string name = 2;
+  repeated string contents = 3;
 }
 
 message Kind {

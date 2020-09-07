@@ -13,6 +13,9 @@ service ParamService {
   rpc DelParam (DelParamReq) returns (basepb.AnyRes);
 
   rpc GetParamList (ListParamReq) returns (ListParamRes);
+
+  // 获取可绑定参数列表
+  rpc GetBindParamAll (BindParamAllReq) returns (BindParamAllRes);
 }
 
 enum ParamType {
@@ -61,4 +64,17 @@ message ListParamReq {
 message ListParamRes {
   uint64 total = 1;
   repeated ParamDetail params = 2;
+}
+
+// 模糊查询名称， kind_id=0
+message BindParamAllReq {
+  string name = 4;
+}
+
+message BindParamAll {
+  uint64 param_id = 1;
+  string name = 2;
+}
+message BindParamAllRes {
+  repeated BindParamAll data = 1;
 }
