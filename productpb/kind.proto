@@ -5,6 +5,8 @@ package productpb;
 option go_package = "github.com/shinmigo/pb/productpb";
 
 import "basepb/basepb.proto";
+import "productpb/param.proto";
+import "productpb/spec.proto";
 
 service KindService {
   rpc AddKind (Kind) returns (basepb.AnyRes);
@@ -18,6 +20,8 @@ service KindService {
   rpc BindParam (BindParamReq) returns (basepb.AnyRes);
 
   rpc BindSpec (BindSpecReq) returns (basepb.AnyRes);
+
+  rpc GetParamAndSpecByKind (ListParamAndSpecReq) returns (ListParamAndSpecRes);
 }
 
 message ParamRel {
@@ -77,4 +81,14 @@ message BindParamReq {
 message BindSpecReq {
   uint64 kind_id = 1;
   repeated uint64 spec_ids = 2;
+}
+
+message ListParamAndSpecReq {
+  uint64 kind_id = 1;
+  uint64 store_id = 2;
+}
+
+message ListParamAndSpecRes {
+  repeated productpb.SpecForKind specs = 1;
+  repeated productpb.ParamForKind params = 2;
 }
