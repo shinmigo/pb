@@ -5,6 +5,7 @@ package productpb;
 option go_package = "github.com/shinmigo/pb/productpb";
 
 import "basepb/basepb.proto";
+import "productpb/param.proto";
 
 service KindService {
   rpc AddKind (Kind) returns (basepb.AnyRes);
@@ -23,7 +24,8 @@ service KindService {
 message ParamRel {
   uint64 param_id = 1;
   string name = 2;
-  repeated string contents = 3;
+  ParamType type = 3;
+  repeated string contents = 4;
 }
 
 message SpecRel {
