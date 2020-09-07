@@ -25,13 +25,23 @@ message ParamRel {
   uint64 param_id = 1;
   string name = 2;
   ParamType type = 3;
-  repeated string contents = 4;
+  repeated ParamRelContent contents = 4;
+}
+
+message ParamRelContent {
+  uint64 param_value_id = 1;
+  string content = 2;
 }
 
 message SpecRel {
   uint64 spec_id = 1;
   string name = 2;
-  repeated string contents = 3;
+  repeated SpecRelContent contents = 3;
+}
+
+message SpecRelContent {
+  uint64 spec_value_id = 1;
+  string content = 2;
 }
 
 message Kind {
