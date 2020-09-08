@@ -96,6 +96,7 @@ message ProductDetail {
     string category_name = 14;
     string kind_name = 15;
     double price = 16;
+    repeated string category_path = 17;
 }
 
 message ListProductRes {

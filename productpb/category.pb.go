@@ -9,6 +9,8 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -606,6 +608,26 @@ type CategoryServiceServer interface {
 	EditCategoryStatus(context.Context, *EditCategoryStatusReq) (*basepb.AnyRes, error)
 	DelCategory(context.Context, *DelCategoryReq) (*basepb.AnyRes, error)
 	GetCategoryList(context.Context, *ListCategoryReq) (*ListCategoryRes, error)
+}
+
+// UnimplementedCategoryServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedCategoryServiceServer struct {
+}
+
+func (*UnimplementedCategoryServiceServer) AddCategory(ctx context.Context, req *Category) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddCategory not implemented")
+}
+func (*UnimplementedCategoryServiceServer) EditCategory(ctx context.Context, req *Category) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditCategory not implemented")
+}
+func (*UnimplementedCategoryServiceServer) EditCategoryStatus(ctx context.Context, req *EditCategoryStatusReq) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditCategoryStatus not implemented")
+}
+func (*UnimplementedCategoryServiceServer) DelCategory(ctx context.Context, req *DelCategoryReq) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DelCategory not implemented")
+}
+func (*UnimplementedCategoryServiceServer) GetCategoryList(ctx context.Context, req *ListCategoryReq) (*ListCategoryRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCategoryList not implemented")
 }
 
 func RegisterCategoryServiceServer(s *grpc.Server, srv CategoryServiceServer) {
