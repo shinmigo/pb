@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package memberpb;
+
+option go_package = "github.com/shinmigo/pb/memberpb";
+
+import "basepb/basepb.proto";
+
+service CartService {
+  rpc AddCart (AddCartReq) returns (basepb.AnyRes);
+
+  rpc DelCart (DelCartReq) returns (basepb.AnyRes);
+
+  rpc GetCartListByMemberId (ListCartReq) returns (ListCartRes);
+
+  rpc SetCartNums (SetCartNumsReq) returns (basepb.AnyRes);
+}
+
+enum CartIsSelect {
+  Cancel = 0;
+  Select = 1;
+}
+
+message CartDetail {
+  uint64 cart_id = 1;
+  uint64 member_id = 2;
+  uint64 product_id = 3;
+  uint64 product_spec_id = 4;
+  CartIsSelect is_select = 5;
+  uint64 nums = 6;
+}
+
+message AddCartReq {
+  uint64 member_id = 2;
+  uint64 product_id = 3;
+  uint64 product_spec_id = 4;
+  CartIsSelect is_select = 5;
+  int64 nums = 6;
+  bool  is_plus = 7; // true: 相加  false: 覆盖
+}
+
+message DelCartReq {
+  repeated uint64 cart_ids = 1;
+  uint64 member_id = 2;
+}
+
+message ListCartReq {
+  uint64 member_id = 1;
+}
+
+message ListCartRes {
+  repeated CartDetail carts = 1;
+}
+
+message SetCartNumsReq {
+  uint64 cart_id = 1;
+  uint64 member_id = 2;
+  int64 nums = 3;  //存在负数
+  bool  is_plus = 4; // true: 相加  false: 覆盖
+}
+
