@@ -10,7 +10,7 @@ message AnyRes {
 
 // 根据主键id修改状态
 message EditStatusReq {
-  uint64 id = 1;
+  repeated uint64 id = 1;
   int32 status = 2;
   uint64 admin_id = 3;
 }
