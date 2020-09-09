@@ -37,7 +37,6 @@ message ProductSpec {
     double weight = 7;
     double volume = 8;
     repeated uint64 spec_value_id = 9;
-    uint64 product_spec_id = 10;
 }
 
 message ProductParam {
