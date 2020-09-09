@@ -13,7 +13,7 @@ service CartService {
 
   rpc GetCartListByMemberId (ListCartReq) returns (ListCartRes);
 
-  rpc SetCartNums (SetCartNumsReq) returns (basepb.AnyRes);
+  rpc SelectCart (SelectCartReq) returns (basepb.AnyRes);
 }
 
 enum CartIsSelect {
@@ -52,10 +52,9 @@ message ListCartRes {
   repeated CartDetail carts = 1;
 }
 
-message SetCartNumsReq {
-  uint64 cart_id = 1;
+message SelectCartReq {
+  repeated uint64 cart_ids = 1;
   uint64 member_id = 2;
-  int64 nums = 3;  //存在负数
-  bool  is_plus = 4; // true: 相加  false: 覆盖
+  CartIsSelect is_select = 3;
 }
 
