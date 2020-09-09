@@ -13,6 +13,8 @@ service ProductService {
     rpc DelProduct (DelProductReq) returns (basepb.AnyRes);
 
     rpc GetProductList (ListProductReq) returns (ListProductRes);
+
+    rpc GetProductListByProductSpecIds (ProductSpecIdsReq) returns (ListProductSpecRes);
 }
 
 enum ProductSpecType {
@@ -102,4 +104,41 @@ message ProductDetail {
 message ListProductRes {
     uint64 total = 1;
     repeated ProductDetail products = 2;
+}
+
+message ProductSpecIdsReq {
+    repeated uint64 product_spec_id = 1;
+}
+
+message ListProductSpecRes {
+    message Product {
+        uint64 product_id = 1;
+        uint64 category_id = 2;
+        uint64 store_id = 3;
+        uint64 kind_id = 4;
+        string name = 5;
+        string short_description = 6;
+        string unit = 7;
+        repeated string images = 8;
+        ProductSpecType spec_type = 9;
+        ProductStatus status = 10;
+        repeated uint64 tags = 11;
+        uint64 admin_id = 12;
+        repeated ProductParam param = 14;
+        string description = 15;
+    }
+    message ProductSpec {
+        uint64 product_spec_id = 1;
+        uint64 product_id = 2;
+        string image = 3;
+        double price = 4;
+        double old_price = 5;
+        double cost_price = 6;
+        uint64 stock = 7;
+        string sku = 8;
+        double weight = 9;
+        double volume = 10;
+        Product product = 11;
+    }
+    repeated ProductSpec product_specs = 1;
 }

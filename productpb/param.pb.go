@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -682,26 +680,6 @@ type ParamServiceServer interface {
 	GetParamList(context.Context, *ListParamReq) (*ListParamRes, error)
 	// 获取可绑定参数列表
 	GetBindParamAll(context.Context, *BindParamAllReq) (*BindParamAllRes, error)
-}
-
-// UnimplementedParamServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedParamServiceServer struct {
-}
-
-func (*UnimplementedParamServiceServer) AddParam(ctx context.Context, req *Param) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddParam not implemented")
-}
-func (*UnimplementedParamServiceServer) EditParam(ctx context.Context, req *Param) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditParam not implemented")
-}
-func (*UnimplementedParamServiceServer) DelParam(ctx context.Context, req *DelParamReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelParam not implemented")
-}
-func (*UnimplementedParamServiceServer) GetParamList(ctx context.Context, req *ListParamReq) (*ListParamRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetParamList not implemented")
-}
-func (*UnimplementedParamServiceServer) GetBindParamAll(ctx context.Context, req *BindParamAllReq) (*BindParamAllRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBindParamAll not implemented")
 }
 
 func RegisterParamServiceServer(s *grpc.Server, srv ParamServiceServer) {

@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -865,29 +863,6 @@ type KindServiceServer interface {
 	GetKindList(context.Context, *ListKindReq) (*ListKindRes, error)
 	BindParam(context.Context, *BindParamReq) (*basepb.AnyRes, error)
 	BindSpec(context.Context, *BindSpecReq) (*basepb.AnyRes, error)
-}
-
-// UnimplementedKindServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedKindServiceServer struct {
-}
-
-func (*UnimplementedKindServiceServer) AddKind(ctx context.Context, req *Kind) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddKind not implemented")
-}
-func (*UnimplementedKindServiceServer) EditKind(ctx context.Context, req *Kind) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditKind not implemented")
-}
-func (*UnimplementedKindServiceServer) DelKind(ctx context.Context, req *DelKindReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelKind not implemented")
-}
-func (*UnimplementedKindServiceServer) GetKindList(ctx context.Context, req *ListKindReq) (*ListKindRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetKindList not implemented")
-}
-func (*UnimplementedKindServiceServer) BindParam(ctx context.Context, req *BindParamReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BindParam not implemented")
-}
-func (*UnimplementedKindServiceServer) BindSpec(ctx context.Context, req *BindSpecReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BindSpec not implemented")
 }
 
 func RegisterKindServiceServer(s *grpc.Server, srv KindServiceServer) {

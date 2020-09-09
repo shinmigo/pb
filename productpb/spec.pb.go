@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -645,26 +643,6 @@ type SpecServiceServer interface {
 	GetSpecList(context.Context, *ListSpecReq) (*ListSpecRes, error)
 	// 获取可绑定规格列表
 	GetBindSpecAll(context.Context, *BindSpecAllReq) (*BindSpecAllRes, error)
-}
-
-// UnimplementedSpecServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedSpecServiceServer struct {
-}
-
-func (*UnimplementedSpecServiceServer) AddSpec(ctx context.Context, req *Spec) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddSpec not implemented")
-}
-func (*UnimplementedSpecServiceServer) EditSpec(ctx context.Context, req *Spec) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditSpec not implemented")
-}
-func (*UnimplementedSpecServiceServer) DelSpec(ctx context.Context, req *DelSpecReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelSpec not implemented")
-}
-func (*UnimplementedSpecServiceServer) GetSpecList(ctx context.Context, req *ListSpecReq) (*ListSpecRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSpecList not implemented")
-}
-func (*UnimplementedSpecServiceServer) GetBindSpecAll(ctx context.Context, req *BindSpecAllReq) (*BindSpecAllRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBindSpecAll not implemented")
 }
 
 func RegisterSpecServiceServer(s *grpc.Server, srv SpecServiceServer) {

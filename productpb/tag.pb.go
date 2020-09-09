@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -432,23 +430,6 @@ type TagServiceServer interface {
 	EditTag(context.Context, *Tag) (*basepb.AnyRes, error)
 	DelTag(context.Context, *DelTagReq) (*basepb.AnyRes, error)
 	GetTagList(context.Context, *ListTagReq) (*ListTagRes, error)
-}
-
-// UnimplementedTagServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedTagServiceServer struct {
-}
-
-func (*UnimplementedTagServiceServer) AddTag(ctx context.Context, req *Tag) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddTag not implemented")
-}
-func (*UnimplementedTagServiceServer) EditTag(ctx context.Context, req *Tag) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditTag not implemented")
-}
-func (*UnimplementedTagServiceServer) DelTag(ctx context.Context, req *DelTagReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelTag not implemented")
-}
-func (*UnimplementedTagServiceServer) GetTagList(ctx context.Context, req *ListTagReq) (*ListTagRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTagList not implemented")
 }
 
 func RegisterTagServiceServer(s *grpc.Server, srv TagServiceServer) {
