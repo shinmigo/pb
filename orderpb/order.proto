@@ -133,6 +133,7 @@ message OrderDetail {
     OrderAddress order_address = 22;
     OrderPayment order_payment = 23;
     OrderShipment order_shipment = 24;
+    string created_at = 25;
 }
 
 message ListOrderRes {
