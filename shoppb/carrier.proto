@@ -39,7 +39,7 @@ message Carrier {
 }
 
 message DelCarrierReq {
-    uint64 carrier_id = 1;
+    repeated uint64 carrier_id = 1;
 }
 
 message ListCarrierReq {
