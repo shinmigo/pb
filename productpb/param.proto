@@ -51,7 +51,7 @@ message ParamDetail {
 }
 
 message DelParamReq {
-  uint64 param_id = 1;
+  repeated uint64 param_id = 1;
 }
 
 message ListParamReq {

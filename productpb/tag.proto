@@ -33,7 +33,7 @@ message TagDetail {
 }
 
 message DelTagReq {
-  uint64 tag_id = 1;
+  repeated uint64 tag_id = 1;
 }
 
 message ListTagReq {
