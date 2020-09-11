@@ -6,6 +6,8 @@ option go_package = "github.com/shinmigo/pb/orderpb";
 
 service OrderService {
     rpc GetOrderList (ListOrderReq) returns (ListOrderRes);
+
+    rpc GetOrderStatus (GetOrderStatusReq) returns (ListOrderStatusRes);
 }
 
 enum OrderPaymentType {
@@ -139,4 +141,16 @@ message OrderDetail {
 message ListOrderRes {
     uint64 total = 1;
     repeated OrderDetail orders = 2;
+}
+
+message GetOrderStatusReq {
+    uint64 store_id = 1;
+}
+
+message ListOrderStatusRes {
+    message OrderStatistics {
+        uint64 order_status = 1;
+        uint64 count = 2;
+    }
+    repeated OrderStatistics order_statistics = 1;
 }
