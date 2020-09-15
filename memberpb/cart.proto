@@ -40,8 +40,9 @@ message AddCartReq {
 }
 
 message DelCartReq {
-  repeated uint64 cart_ids = 1;
-  uint64 member_id = 2;
+  int32 is_all = 1;
+  repeated uint64 cart_ids = 2;
+  uint64 member_id = 3;
 }
 
 message ListCartReq {
@@ -52,9 +53,12 @@ message ListCartRes {
   repeated CartDetail carts = 1;
 }
 
+message SelectCart {
+  uint64 cart_id = 1;
+  CartIsSelect is_select = 2;
+}
 message SelectCartReq {
-  repeated uint64 cart_ids = 1;
+  repeated  SelectCart select_cart = 1;
   uint64 member_id = 2;
-  CartIsSelect is_select = 3;
 }
 
