@@ -28,6 +28,11 @@ message Spec {
   repeated string contents = 7;
 }
 
+message SpecValue {
+  uint64 spec_value_id = 1;
+  string content = 2;
+}
+
 message SpecDetail {
   uint64 spec_id = 1;
   uint64 store_id = 2;
@@ -38,14 +43,10 @@ message SpecDetail {
   uint64 updated_by = 7;
   string created_at = 8;
   string updated_at = 9;
-  repeated string contents = 10;
+  repeated SpecValue contents = 10;
 }
 
 message EditSpecReq {
-  message SpecValue {
-    uint64 spec_value_id = 1;
-    string content = 2;
-  }
   uint64 spec_id = 1;
   uint64 store_id = 2;
   uint64 kind_id = 3;

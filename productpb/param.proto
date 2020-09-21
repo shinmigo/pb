@@ -36,6 +36,11 @@ message Param {
   repeated string contents = 8;
 }
 
+message ParamValue {
+  uint64 param_value_id = 1;
+  string content = 2;
+}
+
 message ParamDetail {
   uint64 param_id = 1;
   uint64 store_id = 2;
@@ -47,14 +52,10 @@ message ParamDetail {
   uint64 updated_by = 8;
   string created_at = 9;
   string updated_at = 10;
-  repeated string contents = 11;
+  repeated ParamValue contents = 11;
 }
 
 message EditParamReq {
-  message ParamValue {
-    uint64 param_value_id = 1;
-    string content = 2;
-  }
   uint64 param_id = 1;
   uint64 store_id = 2;
   uint64 kind_id = 3;
