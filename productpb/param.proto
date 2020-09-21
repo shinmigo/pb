@@ -8,7 +8,7 @@ import "basepb/basepb.proto";
 service ParamService {
   rpc AddParam (Param) returns (basepb.AnyRes);
 
-  rpc EditParam (Param) returns (basepb.AnyRes);
+  rpc EditParam (EditParamReq) returns (basepb.AnyRes);
 
   rpc DelParam (DelParamReq) returns (basepb.AnyRes);
 
@@ -48,6 +48,21 @@ message ParamDetail {
   string created_at = 9;
   string updated_at = 10;
   repeated string contents = 11;
+}
+
+message EditParamReq {
+  message ParamValue {
+    uint64 param_value_id = 1;
+    string content = 2;
+  }
+  uint64 param_id = 1;
+  uint64 store_id = 2;
+  uint64 kind_id = 3;
+  string name = 4;
+  ParamType type = 5;
+  uint64 sort = 6;
+  uint64 admin_id = 7;
+  repeated ParamValue contents = 8;
 }
 
 message DelParamReq {

@@ -8,7 +8,7 @@ import "basepb/basepb.proto";
 service SpecService {
   rpc AddSpec (Spec) returns (basepb.AnyRes);
 
-  rpc EditSpec (Spec) returns (basepb.AnyRes);
+  rpc EditSpec (EditSpecReq) returns (basepb.AnyRes);
 
   rpc DelSpec (DelSpecReq) returns (basepb.AnyRes);
 
@@ -39,6 +39,20 @@ message SpecDetail {
   string created_at = 8;
   string updated_at = 9;
   repeated string contents = 10;
+}
+
+message EditSpecReq {
+  message SpecValue {
+    uint64 spec_value_id = 1;
+    string content = 2;
+  }
+  uint64 spec_id = 1;
+  uint64 store_id = 2;
+  uint64 kind_id = 3;
+  string name = 4;
+  uint64 sort = 5;
+  uint64 admin_id = 6;
+  repeated SpecValue contents = 7;
 }
 
 message DelSpecReq {
