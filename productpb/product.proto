@@ -48,21 +48,23 @@ message ProductParam {
 }
 
 message Product {
-  uint64 product_id = 1;
-  uint64 category_id = 2;
-  uint64 store_id = 3;
-  uint64 kind_id = 4;
-  string name = 5;
-  string short_description = 6;
-  string unit = 7;
-  repeated string images = 8;
-  ProductSpecType spec_type = 9;
-  ProductStatus status = 10;
-  repeated uint64 tags = 11;
-  uint64 admin_id = 12;
-  repeated ProductSpec spec = 13;
-  repeated ProductParam param = 14;
-  string description = 15;
+    uint64 product_id = 1;
+    uint64 category_id = 2;
+    uint64 store_id = 3;
+    uint64 kind_id = 4;
+    string name = 5;
+    string short_description = 6;
+    string unit = 7;
+    repeated string images = 8;
+    ProductSpecType spec_type = 9;
+    ProductStatus status = 10;
+    repeated uint64 tags = 11;
+    uint64 admin_id = 12;
+    repeated ProductSpec spec = 13;
+    repeated ProductParam param = 14;
+    string description = 15;
+    string spec_description =16;
+    string param_description = 17;
 }
 
 message DelProductReq {
