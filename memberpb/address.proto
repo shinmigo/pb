@@ -16,13 +16,7 @@ service AddressService {
   // 根据会员id获取收货地址，会员id必传
   rpc GetAddressListByMemberId (ListAddressReq) returns (ListAddressRes);
 
-  rpc GetAddressDetail (basepb.GetOneReq) returns (AddressDetail);
-}
-
-enum AddressCategory {
-  Placeholder = 0;
-  Home = 1;
-  Company = 2;
+  rpc GetAddressDetail (basepb.GetOneReq) returns (Address);
 }
 
 enum AddressIsDefault {
@@ -33,42 +27,17 @@ enum AddressIsDefault {
 message Address {
   uint64 address_id = 1;
   uint64 member_id = 2;
-  AddressCategory category = 3;
-  string name = 4;
-  string mobile = 5;
-  string tel = 6;
-  string postcode = 7;
-  string address = 8;
-  uint64 code_prov = 9;
-  uint64 code_city = 10;
-  uint64 code_coun = 11;
-  uint64 code_town = 12;
-  AddressIsDefault is_default = 13;
-  string longitude = 14;
-  string latitude = 15;
-  uint64 admin_id = 16;
-}
-
-message AddressDetail {
-  uint64 address_id = 1;
-  uint64 member_id = 2;
-  AddressCategory category = 3;
-  string name = 4;
-  string mobile = 5;
-  string tel = 6;
-  string postcode = 7;
-  string address = 8;
-  uint64 code_prov = 9;
-  uint64 code_city = 10;
-  uint64 code_coun = 11;
-  uint64 code_town = 12;
-  AddressIsDefault is_default = 13;
-  string longitude = 14;
-  string latitude = 15;
-  uint64 created_by = 16;
-  uint64 updated_by = 17;
-  string created_at = 18;
-  string updated_at = 19;
+  string name = 3;
+  string mobile = 4;
+  uint64 code_prov = 5;
+  uint64 code_city = 6;
+  uint64 code_coun = 7;
+  uint64 code_town = 8;
+  string address = 9;
+  string room_number = 10;
+  AddressIsDefault is_default = 11;
+  string longitude = 12;
+  string latitude = 13;
 }
 
 message ListAddressReq {
@@ -79,5 +48,5 @@ message ListAddressReq {
 
 message ListAddressRes {
   uint64 total = 1;
-  repeated AddressDetail addresses = 2;
+  repeated Address addresses = 2;
 }
