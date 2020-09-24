@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package shoppb;
+
+option go_package = "github.com/shinmigo/pb/shoppb";
+
+service AreaService {
+  rpc GetAreaList (ListAreaReq) returns (ListAreaRes);
+}
+
+//省
+message Prov {
+  string label = 1;
+  uint64 value = 2;
+  repeated City children = 3;
+}
+
+//市
+message City {
+  string label = 1;
+  uint64 value = 2;
+  repeated Coun children = 3;
+}
+
+// 区
+message Coun {
+  string label = 1;
+  uint64 value = 2;
+}
+
+message ListAreaReq {
+}
+
+message ListAreaRes {
+  repeated Prov areas = 1;
+}
+

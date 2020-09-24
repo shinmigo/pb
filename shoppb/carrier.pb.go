@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -584,26 +582,6 @@ type CarrierServiceServer interface {
 	DelCarrier(context.Context, *DelCarrierReq) (*basepb.AnyRes, error)
 	GetCarrierList(context.Context, *ListCarrierReq) (*ListCarrierRes, error)
 	EditCarrierStatus(context.Context, *EditCarrierStatusReq) (*basepb.AnyRes, error)
-}
-
-// UnimplementedCarrierServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedCarrierServiceServer struct {
-}
-
-func (*UnimplementedCarrierServiceServer) AddCarrier(ctx context.Context, req *Carrier) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddCarrier not implemented")
-}
-func (*UnimplementedCarrierServiceServer) EditCarrier(ctx context.Context, req *Carrier) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditCarrier not implemented")
-}
-func (*UnimplementedCarrierServiceServer) DelCarrier(ctx context.Context, req *DelCarrierReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelCarrier not implemented")
-}
-func (*UnimplementedCarrierServiceServer) GetCarrierList(ctx context.Context, req *ListCarrierReq) (*ListCarrierRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCarrierList not implemented")
-}
-func (*UnimplementedCarrierServiceServer) EditCarrierStatus(ctx context.Context, req *EditCarrierStatusReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditCarrierStatus not implemented")
 }
 
 func RegisterCarrierServiceServer(s *grpc.Server, srv CarrierServiceServer) {
