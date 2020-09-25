@@ -6,6 +6,7 @@ option go_package = "github.com/shinmigo/pb/shoppb";
 
 service AreaService {
   rpc GetAreaList (ListAreaReq) returns (ListAreaRes);
+  rpc GetAreaNameByCodes(AreaCodeReq) returns (AreaNameRes);
 }
 
 //省
@@ -35,3 +36,15 @@ message ListAreaRes {
   repeated Prov areas = 1;
 }
 
+message AreaCodeReq {
+  repeated uint64 codes = 1;
+}
+
+message AreaNameCode {
+  string name = 1;
+  uint64 code = 2;
+}
+
+message AreaNameRes {
+  repeated AreaNameCode codes = 1;
+}
