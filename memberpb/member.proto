@@ -7,6 +7,9 @@ option go_package = "github.com/shinmigo/pb/memberpb";
 import "basepb/basepb.proto";
 
 service MemberService {
+  rpc RegisterByMobile (MobilePasswdReq) returns (LoginRes);
+  rpc LoginByMobile (MobilePasswdReq) returns (LoginRes);
+
   rpc AddMember (Member) returns (basepb.AnyRes);
 
   rpc EditMember (Member) returns (basepb.AnyRes);
@@ -16,6 +19,12 @@ service MemberService {
   rpc GetMemberList (GetMemberReq) returns (ListMemberRes);
 
   rpc GetMemberDetail (basepb.GetOneReq) returns (MemberDetail);
+}
+
+message MobilePasswdReq {
+  string mobile = 1;
+  string password = 2;
+  string ip = 3;
 }
 
 enum MemberGender {
@@ -28,6 +37,21 @@ enum MemberStatus {
   Placeholder = 0;
   Normal = 1;
   Freeze = 2;
+}
+
+message LoginRes {
+  uint64 member_id = 1;
+  string nickname = 2;
+  string mobile = 3;
+  string name = 5;
+  MemberGender gender = 6;
+  string  id_card = 7;
+  string birthday = 8;
+  string avatar = 9;
+  string email = 10;
+  uint64 member_level_id = 13;
+  int64 point = 14;
+  double balance = 15;
 }
 
 message Member {
