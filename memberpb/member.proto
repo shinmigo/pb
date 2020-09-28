@@ -9,6 +9,7 @@ import "basepb/basepb.proto";
 service MemberService {
   rpc RegisterByMobile (MobilePasswdReq) returns (LoginRes);
   rpc LoginByMobile (MobilePasswdReq) returns (LoginRes);
+  rpc GetMemberForLogin (MemberIdReq) returns (LoginRes);
 
   rpc AddMember (Member) returns (basepb.AnyRes);
 
@@ -19,6 +20,10 @@ service MemberService {
   rpc GetMemberList (GetMemberReq) returns (ListMemberRes);
 
   rpc GetMemberDetail (basepb.GetOneReq) returns (MemberDetail);
+}
+
+message MemberIdReq {
+  uint64 member_id = 1;
 }
 
 message MobilePasswdReq {
