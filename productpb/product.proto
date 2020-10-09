@@ -82,6 +82,7 @@ message ListProductReq {
   string name = 5;
   ProductStatus status = 6;
   uint64 category_id = 7;
+  uint64 tag_id = 8;
 }
 
 message ProductDetail {

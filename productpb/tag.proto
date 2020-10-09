@@ -15,11 +15,19 @@ service TagService {
   rpc GetTagList (ListTagReq) returns (ListTagRes);
 }
 
+enum TagDisplay {
+  None = 0;
+  Show = 1;
+  Close = 2;
+}
+
 message Tag {
   uint64 tag_id = 1;
   uint64 store_id = 2;
   string name = 3;
   uint64 admin_id = 4;
+  TagDisplay display = 5;
+  uint64 sort = 6;
 }
 
 message TagDetail {
@@ -30,6 +38,8 @@ message TagDetail {
   uint64 updated_by = 5;
   string created_at = 6;
   string updated_at = 7;
+  TagDisplay display = 8;
+  uint64 sort = 9;
 }
 
 message DelTagReq {
@@ -41,6 +51,7 @@ message ListTagReq {
   uint64 page_size = 2;
   uint64 id = 3;
   string name = 4;
+  TagDisplay display = 5;
 }
 
 message ListTagRes {
