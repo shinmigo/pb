@@ -9,6 +9,8 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -950,6 +952,35 @@ type MemberServiceServer interface {
 	EditMemberStatus(context.Context, *basepb.EditStatusReq) (*basepb.AnyRes, error)
 	GetMemberList(context.Context, *GetMemberReq) (*ListMemberRes, error)
 	GetMemberDetail(context.Context, *basepb.GetOneReq) (*MemberDetail, error)
+}
+
+// UnimplementedMemberServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedMemberServiceServer struct {
+}
+
+func (*UnimplementedMemberServiceServer) RegisterByMobile(ctx context.Context, req *MobilePasswdReq) (*LoginRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterByMobile not implemented")
+}
+func (*UnimplementedMemberServiceServer) LoginByMobile(ctx context.Context, req *MobilePasswdReq) (*LoginRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LoginByMobile not implemented")
+}
+func (*UnimplementedMemberServiceServer) GetMemberForLogin(ctx context.Context, req *MemberIdReq) (*LoginRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMemberForLogin not implemented")
+}
+func (*UnimplementedMemberServiceServer) AddMember(ctx context.Context, req *Member) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddMember not implemented")
+}
+func (*UnimplementedMemberServiceServer) EditMember(ctx context.Context, req *Member) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditMember not implemented")
+}
+func (*UnimplementedMemberServiceServer) EditMemberStatus(ctx context.Context, req *basepb.EditStatusReq) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditMemberStatus not implemented")
+}
+func (*UnimplementedMemberServiceServer) GetMemberList(ctx context.Context, req *GetMemberReq) (*ListMemberRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMemberList not implemented")
+}
+func (*UnimplementedMemberServiceServer) GetMemberDetail(ctx context.Context, req *basepb.GetOneReq) (*MemberDetail, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetMemberDetail not implemented")
 }
 
 func RegisterMemberServiceServer(s *grpc.Server, srv MemberServiceServer) {

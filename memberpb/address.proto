@@ -38,6 +38,10 @@ message Address {
   AddressIsDefault is_default = 11;
   string longitude = 12;
   string latitude = 13;
+  string prov_name = 14;
+  string city_name = 15;
+  string coun_name = 16;
+  string town_name = 17;
 }
 
 message ListAddressReq {
