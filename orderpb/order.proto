@@ -4,10 +4,14 @@ package orderpb;
 
 option go_package = "github.com/shinmigo/pb/orderpb";
 
+import "basepb/basepb.proto";
+
 service OrderService {
     rpc GetOrderList (ListOrderReq) returns (ListOrderRes);
 
     rpc GetOrderStatus (GetOrderStatusReq) returns (ListOrderStatusRes);
+
+    rpc AddOrder (Order) returns (basepb.AnyRes);
 }
 
 enum OrderPaymentType {
@@ -126,7 +130,7 @@ message OrderDetail {
     OrderShippingStatus shipping_status = 13;
     string shipping_time = 14;
     OrderConfirm confirm = 15;
-    string config_time = 16;
+    string confirm_time = 16;
     OrderStatus order_status = 17;
     OrderRefundStatus refund_status = 18;
     OrderReturnStatus return_status = 19;
@@ -153,4 +157,24 @@ message ListOrderStatusRes {
         uint64 count = 2;
     }
     repeated OrderStatistics order_statistics = 1;
+}
+
+enum PaymentCode {
+    PaymentCodePlaceholder = 0;
+    Wechat = 1;
+    Alipay = 2;
+}
+
+message Order {
+    message Products {
+        uint64 product_id = 1;
+        uint64 product_spec_id = 2;
+        uint64 qty = 3;
+    }
+    uint64 store_id = 1;
+    uint64 member_id = 2;
+    uint64 address_id = 3;
+    PaymentCode payment_code = 4;
+    string user_node = 5;
+    repeated Products products = 6;
 }
