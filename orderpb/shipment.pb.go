@@ -9,6 +9,8 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -155,6 +157,14 @@ func (c *shipmentServiceClient) AddShipment(ctx context.Context, in *Shipment, o
 // ShipmentServiceServer is the server API for ShipmentService service.
 type ShipmentServiceServer interface {
 	AddShipment(context.Context, *Shipment) (*basepb.AnyRes, error)
+}
+
+// UnimplementedShipmentServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedShipmentServiceServer struct {
+}
+
+func (*UnimplementedShipmentServiceServer) AddShipment(ctx context.Context, req *Shipment) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddShipment not implemented")
 }
 
 func RegisterShipmentServiceServer(s *grpc.Server, srv ShipmentServiceServer) {

@@ -149,6 +149,7 @@ message ListOrderRes {
 
 message GetOrderStatusReq {
     uint64 store_id = 1;
+    uint64 member_id = 2;
 }
 
 message ListOrderStatusRes {
