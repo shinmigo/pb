@@ -140,6 +140,7 @@ message OrderDetail {
     OrderPayment order_payment = 23;
     OrderShipment order_shipment = 24;
     string created_at = 25;
+    uint64 total_qty_ordered = 26;
 }
 
 message ListOrderRes {
