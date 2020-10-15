@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -449,26 +447,6 @@ type AddressServiceServer interface {
 	// 根据会员id获取收货地址，会员id必传
 	GetAddressListByMemberId(context.Context, *ListAddressReq) (*ListAddressRes, error)
 	GetAddressDetail(context.Context, *basepb.GetOneReq) (*Address, error)
-}
-
-// UnimplementedAddressServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedAddressServiceServer struct {
-}
-
-func (*UnimplementedAddressServiceServer) AddAddress(ctx context.Context, req *Address) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddAddress not implemented")
-}
-func (*UnimplementedAddressServiceServer) EditAddress(ctx context.Context, req *Address) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EditAddress not implemented")
-}
-func (*UnimplementedAddressServiceServer) DelAddress(ctx context.Context, req *basepb.DelReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelAddress not implemented")
-}
-func (*UnimplementedAddressServiceServer) GetAddressListByMemberId(ctx context.Context, req *ListAddressReq) (*ListAddressRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAddressListByMemberId not implemented")
-}
-func (*UnimplementedAddressServiceServer) GetAddressDetail(ctx context.Context, req *basepb.GetOneReq) (*Address, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAddressDetail not implemented")
 }
 
 func RegisterAddressServiceServer(s *grpc.Server, srv AddressServiceServer) {

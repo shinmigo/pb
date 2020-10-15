@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package memberpb;
+
+option go_package = "github.com/shinmigo/pb/memberpb";
+
+import "basepb/basepb.proto";
+
+service PaymentService {
+  rpc AddPay (ToAdd) returns (basepb.AnyRes);
+  rpc EditPay (ToEdit) returns (basepb.AnyRes);
+}
+
+enum PaymentCode {
+  CodeNone = 0;
+  Wechat = 1;
+  Alipay = 2;
+}
+
+enum PaymentType {
+  TypeNone = 0;
+  Order = 1;
+  Recharge = 2;
+}
+
+message PaymentParams {
+  string source_id = 1;
+  double money = 2;
+}
+
+message ToAdd {
+  uint64 member_id = 1;
+  PaymentType type = 2;
+  PaymentCode payment_code = 3;
+  string ip = 4;
+  repeated PaymentParams params = 5;
+}
+
+enum PaymentStatus {
+  StatusNone = 0;
+  Unpaid = 1;
+  PaySuccess = 2;
+  StatusOther = 3;
+}
+
+message ToEdit {
+  string payment_id = 1;
+  PaymentStatus status = 2; //支付单状态
+  PaymentCode payment_code = 3; //支付方式编码
+  double money = 4; //支付的金额
+  string payed_msg = 5; //支付回调后的状态描述
+  string trade_no = 6; //第三方支付单号
+}

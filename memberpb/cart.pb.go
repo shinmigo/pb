@@ -9,8 +9,6 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -551,23 +549,6 @@ type CartServiceServer interface {
 	DelCart(context.Context, *DelCartReq) (*basepb.AnyRes, error)
 	GetCartListByMemberId(context.Context, *ListCartReq) (*ListCartRes, error)
 	SelectCart(context.Context, *SelectCartReq) (*basepb.AnyRes, error)
-}
-
-// UnimplementedCartServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedCartServiceServer struct {
-}
-
-func (*UnimplementedCartServiceServer) AddCart(ctx context.Context, req *AddCartReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddCart not implemented")
-}
-func (*UnimplementedCartServiceServer) DelCart(ctx context.Context, req *DelCartReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DelCart not implemented")
-}
-func (*UnimplementedCartServiceServer) GetCartListByMemberId(ctx context.Context, req *ListCartReq) (*ListCartRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCartListByMemberId not implemented")
-}
-func (*UnimplementedCartServiceServer) SelectCart(ctx context.Context, req *SelectCartReq) (*basepb.AnyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SelectCart not implemented")
 }
 
 func RegisterCartServiceServer(s *grpc.Server, srv CartServiceServer) {
