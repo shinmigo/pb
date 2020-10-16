@@ -4,11 +4,9 @@ package memberpb;
 
 option go_package = "github.com/shinmigo/pb/memberpb";
 
-import "basepb/basepb.proto";
-
 service PaymentService {
-  rpc AddPay (ToAdd) returns (basepb.AnyRes);
-  rpc EditPay (ToEdit) returns (basepb.AnyRes);
+  rpc AddPay (ToAdd) returns (PaymentRes);
+  rpc EditPay (ToEdit) returns (PaymentRes);
 }
 
 enum PaymentCode {
@@ -50,4 +48,10 @@ message ToEdit {
   double money = 4; //支付的金额
   string payed_msg = 5; //支付回调后的状态描述
   string trade_no = 6; //第三方支付单号
+}
+
+message PaymentRes{
+  string payment_id = 1;
+  double money = 3;
+  uint32 state = 2;
 }
