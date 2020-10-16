@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package shoppb;
+
+option go_package = "github.com/shinmigo/pb/shoppb";
+
+service PaymentService {
+  rpc GetPaymentList (ListPaymentReq) returns (ListPaymentRes);
+
+  rpc GetPaymentDetail (PaymentCodeReq) returns (Payment);
+}
+
+
+enum PaymentCode {
+  CodeNone = 0;
+  Wechat = 1;
+  Alipay = 2;
+}
+
+enum PaymentStatus {
+  StatusNone = 0;
+  Open = 1;
+  Close = 2;
+}
+
+message ListPaymentReq{
+  PaymentStatus status = 1;
+}
+
+message Payment{
+  uint64 id = 1;
+  string code = 2;
+  string name = 3;
+  string params = 4;
+  PaymentStatus status = 5;
+}
+
+message ListPaymentRes {
+  repeated Payment payments = 1;
+}
+
+message PaymentCodeReq {
+  string code = 1;
+}
