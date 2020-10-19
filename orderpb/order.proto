@@ -110,11 +110,6 @@ message OrderDetail {
     string region = 6;
     string street = 7;
   }
-  message OrderPayment {
-    uint64 order_payment_id = 1;
-    string payment_code = 2;
-    string payment_name = 3;
-  }
   message OrderShipment {
     string carrier_name = 1;
     string tracking_number = 2;
@@ -141,7 +136,6 @@ message OrderDetail {
   string user_note = 20;
   repeated OrderItems order_items = 21;
   OrderAddress order_address = 22;
-  OrderPayment order_payment = 23;
   OrderShipment order_shipment = 24;
   string created_at = 25;
   uint64 total_qty_ordered = 26;
@@ -165,12 +159,6 @@ message ListOrderStatusRes {
   repeated OrderStatistics order_statistics = 1;
 }
 
-enum PaymentCode {
-  PaymentCodePlaceholder = 0;
-  Wechat = 1;
-  Alipay = 2;
-}
-
 message Order {
   message Products {
     uint64 product_id = 1;
@@ -180,7 +168,6 @@ message Order {
   uint64 store_id = 1;
   uint64 member_id = 2;
   uint64 address_id = 3;
-  PaymentCode payment_code = 4;
   string user_node = 5;
   repeated Products products = 6;
 }
