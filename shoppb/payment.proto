@@ -3,11 +3,15 @@ syntax = "proto3";
 package shoppb;
 
 option go_package = "github.com/shinmigo/pb/shoppb";
+import "basepb/basepb.proto";
 
 service PaymentService {
   rpc GetPaymentList (ListPaymentReq) returns (ListPaymentRes);
 
   rpc GetPaymentDetail (PaymentCodeReq) returns (Payment);
+  rpc DeletePayment(DeletePaymentReq) returns (basepb.AnyRes);
+  rpc AddPayment(Payment) returns (basepb.AnyRes);
+  rpc EditPayment(Payment) returns (basepb.AnyRes);
 }
 
 
@@ -41,4 +45,8 @@ message ListPaymentRes {
 
 message PaymentCodeReq {
   string code = 1;
+}
+
+message DeletePaymentReq {
+  uint64 id = 1;
 }

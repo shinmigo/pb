@@ -7,7 +7,10 @@ import (
 	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -79,7 +82,7 @@ func (PaymentStatus) EnumDescriptor() ([]byte, []int) {
 }
 
 type ListPaymentReq struct {
-	Status               PaymentStatus `protobuf:"varint,1,opt,name=status,proto3,enum=shoppb.PaymentStatus" json:"status"`
+	Status               PaymentStatus `protobuf:"varint,1,opt,name=status,proto3,enum=shoppb.PaymentStatus" json:"status,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -118,11 +121,11 @@ func (m *ListPaymentReq) GetStatus() PaymentStatus {
 }
 
 type Payment struct {
-	Id                   uint64        `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
-	Code                 string        `protobuf:"bytes,2,opt,name=code,proto3" json:"code"`
-	Name                 string        `protobuf:"bytes,3,opt,name=name,proto3" json:"name"`
-	Params               string        `protobuf:"bytes,4,opt,name=params,proto3" json:"params"`
-	Status               PaymentStatus `protobuf:"varint,5,opt,name=status,proto3,enum=shoppb.PaymentStatus" json:"status"`
+	Id                   uint64        `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Code                 string        `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
+	Name                 string        `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Params               string        `protobuf:"bytes,4,opt,name=params,proto3" json:"params,omitempty"`
+	Status               PaymentStatus `protobuf:"varint,5,opt,name=status,proto3,enum=shoppb.PaymentStatus" json:"status,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -189,7 +192,7 @@ func (m *Payment) GetStatus() PaymentStatus {
 }
 
 type ListPaymentRes struct {
-	Payments             []*Payment `protobuf:"bytes,1,rep,name=payments,proto3" json:"payments"`
+	Payments             []*Payment `protobuf:"bytes,1,rep,name=payments,proto3" json:"payments,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
 	XXX_unrecognized     []byte     `json:"-"`
 	XXX_sizecache        int32      `json:"-"`
@@ -228,7 +231,7 @@ func (m *ListPaymentRes) GetPayments() []*Payment {
 }
 
 type PaymentCodeReq struct {
-	Code                 string   `protobuf:"bytes,1,opt,name=code,proto3" json:"code"`
+	Code                 string   `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -266,6 +269,45 @@ func (m *PaymentCodeReq) GetCode() string {
 	return ""
 }
 
+type DeletePaymentReq struct {
+	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeletePaymentReq) Reset()         { *m = DeletePaymentReq{} }
+func (m *DeletePaymentReq) String() string { return proto.CompactTextString(m) }
+func (*DeletePaymentReq) ProtoMessage()    {}
+func (*DeletePaymentReq) Descriptor() ([]byte, []int) {
+	return fileDescriptor_a9ad8d900087ce41, []int{4}
+}
+
+func (m *DeletePaymentReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeletePaymentReq.Unmarshal(m, b)
+}
+func (m *DeletePaymentReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeletePaymentReq.Marshal(b, m, deterministic)
+}
+func (m *DeletePaymentReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeletePaymentReq.Merge(m, src)
+}
+func (m *DeletePaymentReq) XXX_Size() int {
+	return xxx_messageInfo_DeletePaymentReq.Size(m)
+}
+func (m *DeletePaymentReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeletePaymentReq.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeletePaymentReq proto.InternalMessageInfo
+
+func (m *DeletePaymentReq) GetId() uint64 {
+	if m != nil {
+		return m.Id
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterEnum("shoppb.PaymentCode", PaymentCode_name, PaymentCode_value)
 	proto.RegisterEnum("shoppb.PaymentStatus", PaymentStatus_name, PaymentStatus_value)
@@ -273,34 +315,40 @@ func init() {
 	proto.RegisterType((*Payment)(nil), "shoppb.Payment")
 	proto.RegisterType((*ListPaymentRes)(nil), "shoppb.ListPaymentRes")
 	proto.RegisterType((*PaymentCodeReq)(nil), "shoppb.PaymentCodeReq")
+	proto.RegisterType((*DeletePaymentReq)(nil), "shoppb.DeletePaymentReq")
 }
 
 func init() { proto.RegisterFile("shoppb/payment.proto", fileDescriptor_a9ad8d900087ce41) }
 
 var fileDescriptor_a9ad8d900087ce41 = []byte{
-	// 352 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0x4d, 0x4b, 0xeb, 0x40,
-	0x14, 0x7d, 0x93, 0xa6, 0x79, 0xed, 0xed, 0x7b, 0x31, 0x5c, 0xb4, 0x84, 0x82, 0x58, 0x8a, 0x8b,
-	0x52, 0x31, 0x81, 0xd6, 0x9d, 0x88, 0x1f, 0x15, 0xdc, 0x88, 0x4a, 0xba, 0x10, 0xdc, 0x4d, 0x92,
-	0xa1, 0x19, 0x68, 0x32, 0x63, 0x67, 0x2a, 0xf4, 0x1f, 0xb8, 0xf3, 0x2f, 0x4b, 0x3e, 0xfa, 0x89,
-	0x0b, 0x57, 0x73, 0xe6, 0xdc, 0x73, 0x2f, 0xe7, 0xdc, 0x19, 0x38, 0x54, 0x89, 0x90, 0x32, 0xf4,
-	0x25, 0x5d, 0xa6, 0x2c, 0xd3, 0x9e, 0x9c, 0x0b, 0x2d, 0xd0, 0x2a, 0xd9, 0xde, 0x35, 0xd8, 0x8f,
-	0x5c, 0xe9, 0x97, 0xb2, 0x18, 0xb0, 0x77, 0x3c, 0x07, 0x4b, 0x69, 0xaa, 0x17, 0xca, 0x25, 0x5d,
-	0xd2, 0xb7, 0x87, 0x47, 0x5e, 0x29, 0xf5, 0x2a, 0xcd, 0xa4, 0x28, 0x06, 0x95, 0xa8, 0xf7, 0x49,
-	0xe0, 0x6f, 0x55, 0x41, 0x1b, 0x0c, 0x1e, 0x17, 0x6d, 0x66, 0x60, 0xf0, 0x18, 0x11, 0xcc, 0x48,
-	0xc4, 0xcc, 0x35, 0xba, 0xa4, 0xdf, 0x0c, 0x0a, 0x9c, 0x73, 0x19, 0x4d, 0x99, 0x5b, 0x2b, 0xb9,
-	0x1c, 0x63, 0x1b, 0x2c, 0x49, 0xe7, 0x34, 0x55, 0xae, 0x59, 0xb0, 0xd5, 0x6d, 0xcb, 0x4a, 0xfd,
-	0x37, 0x56, 0xae, 0xf6, 0xb2, 0x28, 0x3c, 0x83, 0x46, 0x15, 0x3b, 0x4f, 0x53, 0xeb, 0xb7, 0x86,
-	0x07, 0x7b, 0x23, 0x82, 0xb5, 0xa0, 0x77, 0x0a, 0x76, 0x45, 0x8e, 0x45, 0xcc, 0xf2, 0x55, 0xac,
-	0xfc, 0x93, 0x8d, 0xff, 0xc1, 0x08, 0x5a, 0x5b, 0x2a, 0xfc, 0x07, 0x8d, 0xfc, 0x7c, 0x12, 0x19,
-	0x73, 0xfe, 0x20, 0x80, 0xf5, 0xca, 0xa2, 0x84, 0x6a, 0x87, 0xe4, 0xf8, 0x76, 0xc6, 0x25, 0x5d,
-	0x3a, 0xc6, 0xe0, 0x02, 0xfe, 0xef, 0x58, 0x46, 0x1b, 0xa0, 0x44, 0x55, 0x63, 0x03, 0xcc, 0x67,
-	0xc9, 0x32, 0x87, 0x60, 0x13, 0xea, 0xe3, 0x99, 0x50, 0xcc, 0x31, 0x86, 0x5f, 0x64, 0xed, 0x68,
-	0xc2, 0xe6, 0x1f, 0x3c, 0x62, 0x78, 0x03, 0xf6, 0x03, 0x5b, 0x25, 0xcc, 0xc3, 0x62, 0x7b, 0x15,
-	0x68, 0xf7, 0x19, 0x3b, 0x3f, 0xf3, 0x0a, 0x2f, 0xc1, 0xd9, 0x4c, 0xb8, 0x67, 0x9a, 0xf2, 0xd9,
-	0x66, 0xc6, 0x6e, 0xfe, 0xce, 0xfe, 0xb2, 0xee, 0x4e, 0xde, 0x8e, 0xa7, 0x5c, 0x27, 0x8b, 0xd0,
-	0x8b, 0x44, 0xea, 0xab, 0x84, 0x67, 0x29, 0x9f, 0x0a, 0x5f, 0x86, 0x7e, 0x29, 0x0c, 0xad, 0xe2,
-	0x77, 0x8d, 0xbe, 0x03, 0x00, 0x00, 0xff, 0xff, 0x85, 0x44, 0x8d, 0xe1, 0x75, 0x02, 0x00, 0x00,
+	// 417 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x53, 0xc1, 0x6e, 0xd3, 0x40,
+	0x10, 0xc5, 0x6e, 0x6a, 0xd2, 0x09, 0x35, 0xd6, 0x00, 0x95, 0x15, 0x09, 0x51, 0x59, 0x1c, 0xa2,
+	0xa2, 0xda, 0x52, 0xca, 0x05, 0x21, 0x04, 0xa1, 0x45, 0x5c, 0x10, 0x20, 0xf7, 0x80, 0xc4, 0x6d,
+	0x1d, 0x8f, 0x9a, 0x95, 0x6c, 0xef, 0x92, 0xdd, 0x22, 0xe5, 0x0f, 0xf8, 0x15, 0xfe, 0x12, 0xad,
+	0x77, 0xdd, 0xc4, 0xa6, 0x87, 0x9c, 0x76, 0xfc, 0xe6, 0xbd, 0xf1, 0xbc, 0x67, 0x2f, 0x3c, 0x55,
+	0x2b, 0x21, 0x65, 0x91, 0x49, 0xb6, 0xa9, 0xa9, 0xd1, 0xa9, 0x5c, 0x0b, 0x2d, 0x30, 0xb0, 0xe8,
+	0xf4, 0x49, 0xc1, 0x14, 0xc9, 0x22, 0xb3, 0x87, 0x6d, 0x26, 0xef, 0x21, 0xfc, 0xc2, 0x95, 0xfe,
+	0x6e, 0x15, 0x39, 0xfd, 0xc2, 0x73, 0x08, 0x94, 0x66, 0xfa, 0x56, 0xc5, 0xde, 0xa9, 0x37, 0x0b,
+	0xe7, 0xcf, 0x52, 0xab, 0x4f, 0x1d, 0xe7, 0xba, 0x6d, 0xe6, 0x8e, 0x94, 0xfc, 0xf1, 0xe0, 0xa1,
+	0xeb, 0x60, 0x08, 0x3e, 0x2f, 0x5b, 0xd9, 0x28, 0xf7, 0x79, 0x89, 0x08, 0xa3, 0xa5, 0x28, 0x29,
+	0xf6, 0x4f, 0xbd, 0xd9, 0x51, 0xde, 0xd6, 0x06, 0x6b, 0x58, 0x4d, 0xf1, 0x81, 0xc5, 0x4c, 0x8d,
+	0x27, 0x10, 0x48, 0xb6, 0x66, 0xb5, 0x8a, 0x47, 0x2d, 0xea, 0x9e, 0x76, 0x56, 0x39, 0xdc, 0x67,
+	0x95, 0x77, 0x03, 0x2f, 0x0a, 0x5f, 0xc1, 0xd8, 0x65, 0x61, 0xdc, 0x1c, 0xcc, 0x26, 0xf3, 0xc7,
+	0x83, 0x11, 0xf9, 0x1d, 0x21, 0x79, 0x09, 0xa1, 0x03, 0x2f, 0x45, 0x49, 0x26, 0x8a, 0x6e, 0x7f,
+	0x6f, 0xbb, 0x7f, 0x92, 0x40, 0x74, 0x45, 0x15, 0x69, 0xda, 0x89, 0x6c, 0xe0, 0xfb, 0xec, 0x02,
+	0x26, 0x3b, 0x93, 0xf0, 0x11, 0x8c, 0xcd, 0xf9, 0x55, 0x34, 0x14, 0x3d, 0x40, 0x80, 0xe0, 0x07,
+	0x2d, 0x57, 0x4c, 0x47, 0x9e, 0xa9, 0x17, 0x15, 0x97, 0x6c, 0x13, 0xf9, 0x67, 0xaf, 0xe1, 0xb8,
+	0x67, 0x0b, 0x43, 0x00, 0x5b, 0x39, 0xe1, 0x18, 0x46, 0xdf, 0x24, 0x35, 0x91, 0x87, 0x47, 0x70,
+	0x78, 0x59, 0x09, 0x45, 0x91, 0x3f, 0xff, 0xeb, 0xdf, 0x6d, 0x7d, 0x4d, 0xeb, 0xdf, 0x7c, 0x49,
+	0xf8, 0x01, 0xc2, 0xcf, 0xd4, 0xa5, 0x60, 0x02, 0xc1, 0x93, 0xce, 0x74, 0xff, 0x53, 0x4f, 0xef,
+	0xc7, 0x15, 0xbe, 0x85, 0x68, 0x3b, 0xe1, 0x8a, 0x34, 0xe3, 0xd5, 0x76, 0x46, 0x3f, 0xa3, 0xe9,
+	0x30, 0x50, 0x7c, 0x03, 0xc7, 0xbd, 0x80, 0x30, 0xee, 0x18, 0xc3, 0xdc, 0xa6, 0x61, 0xea, 0xfe,
+	0xc5, 0x45, 0xb3, 0x31, 0xef, 0x3d, 0x07, 0x58, 0x94, 0x65, 0xa7, 0x1b, 0x4e, 0xfe, 0x8f, 0x9e,
+	0xc2, 0xe4, 0x53, 0xc9, 0xf5, 0xbe, 0xfc, 0x8f, 0x2f, 0x7e, 0x3e, 0xbf, 0xe1, 0x7a, 0x75, 0x5b,
+	0xa4, 0x4b, 0x51, 0x67, 0x6a, 0xc5, 0x9b, 0x9a, 0xdf, 0x88, 0x4c, 0x16, 0x99, 0x15, 0x16, 0x41,
+	0x7b, 0x27, 0x2e, 0xfe, 0x05, 0x00, 0x00, 0xff, 0xff, 0x3a, 0x02, 0x6a, 0xb5, 0x48, 0x03, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -317,6 +365,9 @@ const _ = grpc.SupportPackageIsVersion4
 type PaymentServiceClient interface {
 	GetPaymentList(ctx context.Context, in *ListPaymentReq, opts ...grpc.CallOption) (*ListPaymentRes, error)
 	GetPaymentDetail(ctx context.Context, in *PaymentCodeReq, opts ...grpc.CallOption) (*Payment, error)
+	DeletePayment(ctx context.Context, in *DeletePaymentReq, opts ...grpc.CallOption) (*basepb.AnyRes, error)
+	AddPayment(ctx context.Context, in *Payment, opts ...grpc.CallOption) (*basepb.AnyRes, error)
+	EditPayment(ctx context.Context, in *Payment, opts ...grpc.CallOption) (*basepb.AnyRes, error)
 }
 
 type paymentServiceClient struct {
@@ -345,10 +396,60 @@ func (c *paymentServiceClient) GetPaymentDetail(ctx context.Context, in *Payment
 	return out, nil
 }
 
+func (c *paymentServiceClient) DeletePayment(ctx context.Context, in *DeletePaymentReq, opts ...grpc.CallOption) (*basepb.AnyRes, error) {
+	out := new(basepb.AnyRes)
+	err := c.cc.Invoke(ctx, "/shoppb.PaymentService/DeletePayment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentServiceClient) AddPayment(ctx context.Context, in *Payment, opts ...grpc.CallOption) (*basepb.AnyRes, error) {
+	out := new(basepb.AnyRes)
+	err := c.cc.Invoke(ctx, "/shoppb.PaymentService/AddPayment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentServiceClient) EditPayment(ctx context.Context, in *Payment, opts ...grpc.CallOption) (*basepb.AnyRes, error) {
+	out := new(basepb.AnyRes)
+	err := c.cc.Invoke(ctx, "/shoppb.PaymentService/EditPayment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PaymentServiceServer is the server API for PaymentService service.
 type PaymentServiceServer interface {
 	GetPaymentList(context.Context, *ListPaymentReq) (*ListPaymentRes, error)
 	GetPaymentDetail(context.Context, *PaymentCodeReq) (*Payment, error)
+	DeletePayment(context.Context, *DeletePaymentReq) (*basepb.AnyRes, error)
+	AddPayment(context.Context, *Payment) (*basepb.AnyRes, error)
+	EditPayment(context.Context, *Payment) (*basepb.AnyRes, error)
+}
+
+// UnimplementedPaymentServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedPaymentServiceServer struct {
+}
+
+func (*UnimplementedPaymentServiceServer) GetPaymentList(ctx context.Context, req *ListPaymentReq) (*ListPaymentRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPaymentList not implemented")
+}
+func (*UnimplementedPaymentServiceServer) GetPaymentDetail(ctx context.Context, req *PaymentCodeReq) (*Payment, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPaymentDetail not implemented")
+}
+func (*UnimplementedPaymentServiceServer) DeletePayment(ctx context.Context, req *DeletePaymentReq) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePayment not implemented")
+}
+func (*UnimplementedPaymentServiceServer) AddPayment(ctx context.Context, req *Payment) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddPayment not implemented")
+}
+func (*UnimplementedPaymentServiceServer) EditPayment(ctx context.Context, req *Payment) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditPayment not implemented")
 }
 
 func RegisterPaymentServiceServer(s *grpc.Server, srv PaymentServiceServer) {
@@ -391,6 +492,60 @@ func _PaymentService_GetPaymentDetail_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PaymentService_DeletePayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeletePaymentReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).DeletePayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/shoppb.PaymentService/DeletePayment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).DeletePayment(ctx, req.(*DeletePaymentReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PaymentService_AddPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Payment)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).AddPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/shoppb.PaymentService/AddPayment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).AddPayment(ctx, req.(*Payment))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PaymentService_EditPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Payment)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).EditPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/shoppb.PaymentService/EditPayment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).EditPayment(ctx, req.(*Payment))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _PaymentService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "shoppb.PaymentService",
 	HandlerType: (*PaymentServiceServer)(nil),
@@ -402,6 +557,18 @@ var _PaymentService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPaymentDetail",
 			Handler:    _PaymentService_GetPaymentDetail_Handler,
+		},
+		{
+			MethodName: "DeletePayment",
+			Handler:    _PaymentService_DeletePayment_Handler,
+		},
+		{
+			MethodName: "AddPayment",
+			Handler:    _PaymentService_AddPayment_Handler,
+		},
+		{
+			MethodName: "EditPayment",
+			Handler:    _PaymentService_EditPayment_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
