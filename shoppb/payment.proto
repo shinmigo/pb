@@ -37,6 +37,7 @@ message Payment{
   string name = 3;
   string params = 4;
   PaymentStatus status = 5;
+  uint64 sort = 6;
 }
 
 message ListPaymentRes {
