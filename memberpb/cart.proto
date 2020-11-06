@@ -13,6 +13,8 @@ service CartService {
 
   rpc GetCartListByMemberId (ListCartReq) returns (ListCartRes);
 
+  rpc GetCartCountByMemberId (ListCartReq) returns (CartCountRes);
+
   rpc SelectCart (SelectCartReq) returns (basepb.AnyRes);
 }
 
@@ -60,5 +62,9 @@ message SelectCart {
 message SelectCartReq {
   repeated  SelectCart select_cart = 1;
   uint64 member_id = 2;
+}
+
+message CartCountRes {
+  uint64 count = 2;
 }
 
