@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package shoppb;
+option go_package = "github.com/shinmigo/pb/shoppb";
+
+service ImageSevice {
+  rpc Upload(UploadReq) returns(UploadRes);
+  rpc GetImage(GetImageReq) returns(ImageContent);
+}
+
+message UploadReq {
+  bytes Content = 1;
+  string Name = 2;
+}
+
+message UploadRes {
+  string ImageId = 1;
+}
+
+message GetImageReq {
+  string ImageId = 1;
+}
+
+message ImageContent {
+  bytes Content = 1;
+  string ImageId = 2;
+}
+
