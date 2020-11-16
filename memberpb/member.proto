@@ -7,8 +7,10 @@ option go_package = "github.com/shinmigo/pb/memberpb";
 import "basepb/basepb.proto";
 
 service MemberService {
-  rpc RegisterByMobile (MobilePasswdReq) returns (LoginRes);
-  rpc LoginByMobile (MobilePasswdReq) returns (LoginRes);
+  rpc RegisterByMobile (MobileReq) returns (LoginRes);
+  rpc LoginByMobile (MobileReq) returns (LoginRes);
+  rpc LoginByThird (LoginThirdReq) returns (LoginRes);
+
   rpc GetMemberForLogin (MemberIdReq) returns (LoginRes);
 
   rpc AddMember (Member) returns (basepb.AnyRes);
@@ -26,12 +28,17 @@ message MemberIdReq {
   uint64 member_id = 1;
 }
 
-message MobilePasswdReq {
+message MobileReq {
   string mobile = 1;
-  string password = 2;
-  string ip = 3;
 }
 
+message LoginThirdReq {
+  string mobile = 1;
+  uint32 type = 2;
+  string open_id = 3;
+  string session_key = 4;
+  string unionid = 5;
+}
 enum MemberGender {
   Unknown = 0;
   Woman = 1;
