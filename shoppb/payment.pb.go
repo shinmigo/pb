@@ -82,7 +82,7 @@ func (PaymentStatus) EnumDescriptor() ([]byte, []int) {
 }
 
 type ListPaymentReq struct {
-	Status               PaymentStatus `protobuf:"varint,1,opt,name=status,proto3,enum=shoppb.PaymentStatus" json:"status,omitempty"`
+	Status               PaymentStatus `protobuf:"varint,1,opt,name=status,proto3,enum=shoppb.PaymentStatus" json:"status"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -121,12 +121,12 @@ func (m *ListPaymentReq) GetStatus() PaymentStatus {
 }
 
 type Payment struct {
-	Id                   uint64        `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Code                 string        `protobuf:"bytes,2,opt,name=code,proto3" json:"code,omitempty"`
-	Name                 string        `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	Params               string        `protobuf:"bytes,4,opt,name=params,proto3" json:"params,omitempty"`
-	Status               PaymentStatus `protobuf:"varint,5,opt,name=status,proto3,enum=shoppb.PaymentStatus" json:"status,omitempty"`
-	Sort                 uint64        `protobuf:"varint,6,opt,name=sort,proto3" json:"sort,omitempty"`
+	Id                   uint64        `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
+	Code                 string        `protobuf:"bytes,2,opt,name=code,proto3" json:"code"`
+	Name                 string        `protobuf:"bytes,3,opt,name=name,proto3" json:"name"`
+	Params               string        `protobuf:"bytes,4,opt,name=params,proto3" json:"params"`
+	Status               PaymentStatus `protobuf:"varint,5,opt,name=status,proto3,enum=shoppb.PaymentStatus" json:"status"`
+	Sort                 uint64        `protobuf:"varint,6,opt,name=sort,proto3" json:"sort"`
 	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
 	XXX_unrecognized     []byte        `json:"-"`
 	XXX_sizecache        int32         `json:"-"`
@@ -200,7 +200,7 @@ func (m *Payment) GetSort() uint64 {
 }
 
 type ListPaymentRes struct {
-	Payments             []*Payment `protobuf:"bytes,1,rep,name=payments,proto3" json:"payments,omitempty"`
+	Payments             []*Payment `protobuf:"bytes,1,rep,name=payments,proto3" json:"payments"`
 	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
 	XXX_unrecognized     []byte     `json:"-"`
 	XXX_sizecache        int32      `json:"-"`
@@ -239,7 +239,7 @@ func (m *ListPaymentRes) GetPayments() []*Payment {
 }
 
 type PaymentCodeReq struct {
-	Code                 string   `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	Code                 string   `protobuf:"bytes,1,opt,name=code,proto3" json:"code"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -278,7 +278,7 @@ func (m *PaymentCodeReq) GetCode() string {
 }
 
 type DeletePaymentReq struct {
-	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Id                   uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`

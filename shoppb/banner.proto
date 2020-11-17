@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package shoppb;
+option go_package = "github.com/shinmigo/pb/shoppb";
+
+import "basepb/basepb.proto";
+
+service BannerAdService {
+  rpc GetBannerAdList(ListBannerAdReq) returns (ListBannerAdRes);
+
+  rpc AddBannerAd(BannerAd) returns (basepb.AnyRes);
+
+  rpc EditBannerAd(BannerAd) returns(basepb.AnyRes);
+
+  rpc EditBannerAdStatus(EditBannerAdStatusReq) returns(basepb.AnyRes);
+
+  rpc DelBannerAd(DelBannerAdReq) returns(basepb.AnyRes);
+}
+
+message BannerAd {
+  uint64 id = 1;
+  uint32 ele_type = 2;
+  string image_url = 3;
+  string redirect_url = 4;
+  uint32 sort = 5;
+  BannerAdStatus status = 6;
+  uint64 admin_id = 7;
+}
+
+message EditBannerAdStatusReq{
+  repeated uint64 id = 1;
+  BannerAdStatus status = 2;
+  uint64 admin_id = 3;
+}
+
+message DelBannerAdReq{
+  repeated uint64 id = 1;
+}
+
+enum BannerAdStatus {
+  BannerAdStatusPlaceholder = 0;
+  Enabled = 1;    //启用
+  Disabled = 2;   //禁用
+}
+
+message ListBannerAdReq{
+  uint64 page = 1;
+  uint64 page_size = 2;
+  uint64 id = 3;
+  uint32 ele_type = 4;
+  BannerAdStatus status = 5;
+}
+
+message BannerAdDetail{
+  uint64 id = 1;
+  uint32 ele_type = 2;
+  string image_url = 3;
+  string redirect_url = 4;
+  uint32 sort = 5;
+  BannerAdStatus status = 6;
+  uint64 created_by = 7;
+  uint64 updated_by = 8;
+  string created_at = 9;
+  string updated_at = 10;
+}
+
+message ListBannerAdRes{
+  uint64 total = 1;
+  repeated BannerAdDetail banner_ads = 2;
+}

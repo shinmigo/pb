@@ -8,6 +8,8 @@ import (
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -461,6 +463,17 @@ func (c *areaServiceClient) GetAreaNameByCodes(ctx context.Context, in *AreaCode
 type AreaServiceServer interface {
 	GetAreaList(context.Context, *ListAreaReq) (*ListAreaRes, error)
 	GetAreaNameByCodes(context.Context, *AreaCodeReq) (*AreaNameRes, error)
+}
+
+// UnimplementedAreaServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedAreaServiceServer struct {
+}
+
+func (*UnimplementedAreaServiceServer) GetAreaList(ctx context.Context, req *ListAreaReq) (*ListAreaRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAreaList not implemented")
+}
+func (*UnimplementedAreaServiceServer) GetAreaNameByCodes(ctx context.Context, req *AreaCodeReq) (*AreaNameRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAreaNameByCodes not implemented")
 }
 
 func RegisterAreaServiceServer(s *grpc.Server, srv AreaServiceServer) {

@@ -9,6 +9,8 @@ import (
 	proto "github.com/golang/protobuf/proto"
 	basepb "github.com/shinmigo/pb/basepb"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	math "math"
 )
 
@@ -263,6 +265,17 @@ func (c *userServiceClient) EditUser(ctx context.Context, in *EditUserReq, opts 
 type UserServiceServer interface {
 	Login(context.Context, *LoginReq) (*UserRes, error)
 	EditUser(context.Context, *EditUserReq) (*basepb.AnyRes, error)
+}
+
+// UnimplementedUserServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedUserServiceServer struct {
+}
+
+func (*UnimplementedUserServiceServer) Login(ctx context.Context, req *LoginReq) (*UserRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
+}
+func (*UnimplementedUserServiceServer) EditUser(ctx context.Context, req *EditUserReq) (*basepb.AnyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditUser not implemented")
 }
 
 func RegisterUserServiceServer(s *grpc.Server, srv UserServiceServer) {
