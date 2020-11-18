@@ -25,6 +25,7 @@ message BannerAd {
   uint32 sort = 5;
   BannerAdStatus status = 6;
   uint64 admin_id = 7;
+  string tag_name = 8;
 }
 
 message EditBannerAdStatusReq{
@@ -49,6 +50,7 @@ message ListBannerAdReq{
   uint64 id = 3;
   uint32 ele_type = 4;
   BannerAdStatus status = 5;
+  string tag_name = 6;
 }
 
 message BannerAdDetail{
@@ -62,6 +64,7 @@ message BannerAdDetail{
   uint64 updated_by = 8;
   string created_at = 9;
   string updated_at = 10;
+  string tag_name = 11;
 }
 
 message ListBannerAdRes{
