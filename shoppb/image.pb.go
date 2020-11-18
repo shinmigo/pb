@@ -25,8 +25,8 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type UploadReq struct {
-	Content              []byte   `protobuf:"bytes,1,opt,name=Content,proto3" json:"Content,omitempty"`
-	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name,omitempty"`
+	Content              []byte   `protobuf:"bytes,1,opt,name=Content,proto3" json:"Content"`
+	Name                 string   `protobuf:"bytes,2,opt,name=Name,proto3" json:"Name"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -72,7 +72,7 @@ func (m *UploadReq) GetName() string {
 }
 
 type UploadRes struct {
-	ImageId              string   `protobuf:"bytes,1,opt,name=ImageId,proto3" json:"ImageId,omitempty"`
+	ImageId              string   `protobuf:"bytes,1,opt,name=ImageId,proto3" json:"ImageId"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -111,7 +111,7 @@ func (m *UploadRes) GetImageId() string {
 }
 
 type GetImageReq struct {
-	ImageId              string   `protobuf:"bytes,1,opt,name=ImageId,proto3" json:"ImageId,omitempty"`
+	ImageId              string   `protobuf:"bytes,1,opt,name=ImageId,proto3" json:"ImageId"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -150,8 +150,8 @@ func (m *GetImageReq) GetImageId() string {
 }
 
 type ImageContent struct {
-	Content              []byte   `protobuf:"bytes,1,opt,name=Content,proto3" json:"Content,omitempty"`
-	ImageId              string   `protobuf:"bytes,2,opt,name=ImageId,proto3" json:"ImageId,omitempty"`
+	Content              []byte   `protobuf:"bytes,1,opt,name=Content,proto3" json:"Content"`
+	ImageId              string   `protobuf:"bytes,2,opt,name=ImageId,proto3" json:"ImageId"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
