@@ -9,7 +9,9 @@ import "basepb/basepb.proto";
 service MemberService {
   rpc RegisterByMobile (MobileReq) returns (LoginRes);
   rpc LoginByMobile (MobileReq) returns (LoginRes);
-  rpc LoginByThird (LoginThirdReq) returns (LoginRes);
+
+  rpc SaveSessionKey(SessionKey)returns (SessionKey);
+  rpc BindMobileForOpenId(BindMobileReq)returns (LoginRes);
 
   rpc GetMemberForLogin (MemberIdReq) returns (LoginRes);
 
@@ -32,13 +34,17 @@ message MobileReq {
   string mobile = 1;
 }
 
-message LoginThirdReq {
-  string mobile = 1;
-  uint32 type = 2;
-  string open_id = 3;
-  string session_key = 4;
-  string unionid = 5;
+message SessionKey{
+  string open_id = 1;
+  string session_key = 2;
+  string unionid = 3;
 }
+
+message BindMobileReq {
+  string open_id = 1;
+  string mobile = 2;
+}
+
 enum MemberGender {
   Unknown = 0;
   Woman = 1;
