@@ -20,12 +20,10 @@ service BannerAdService {
 message BannerAd {
   uint64 id = 1;
   uint32 ele_type = 2;
-  string image_url = 3;
-  string redirect_url = 4;
-  uint32 sort = 5;
-  BannerAdStatus status = 6;
-  uint64 admin_id = 7;
-  string tag_name = 8;
+  string tag_name = 3;
+  string ele_info = 4;
+  BannerAdStatus status = 5;
+  uint64 admin_id = 6;
 }
 
 message EditBannerAdStatusReq{
@@ -56,15 +54,13 @@ message ListBannerAdReq{
 message BannerAdDetail{
   uint64 id = 1;
   uint32 ele_type = 2;
-  string image_url = 3;
-  string redirect_url = 4;
-  uint32 sort = 5;
-  BannerAdStatus status = 6;
-  uint64 created_by = 7;
-  uint64 updated_by = 8;
-  string created_at = 9;
-  string updated_at = 10;
-  string tag_name = 11;
+  string tag_name = 3;
+  string ele_info = 4;
+  BannerAdStatus status = 5;
+  uint64 created_by = 6;
+  uint64 updated_by = 7;
+  string created_at = 8;
+  string updated_at = 9;
 }
 
 message ListBannerAdRes{
