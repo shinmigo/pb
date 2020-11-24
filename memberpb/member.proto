@@ -24,10 +24,19 @@ service MemberService {
   rpc GetMemberList (GetMemberReq) returns (ListMemberRes);
 
   rpc GetMemberDetail (basepb.GetOneReq) returns (MemberDetail);
+
+  rpc GetMemberOpenid (MemberIdReq) returns (MemberOpenidRes);
 }
 
 message MemberIdReq {
   uint64 member_id = 1;
+}
+
+message MemberOpenidRes{
+  uint64 member_id = 1;
+  string open_id = 2;
+  string session_key = 3;
+  string unionid = 4;
 }
 
 message MobileReq {
