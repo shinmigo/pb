@@ -13,6 +13,8 @@ service OrderService {
 
   rpc AddOrder (Order) returns (basepb.AnyRes);
 
+  rpc PayOrder (PayOrderReq) returns (basepb.AnyRes);
+
   rpc CancelOrder(CancelOrderReq) returns (basepb.AnyRes);
 
   rpc DeleteOrder(DeleteOrderReq) returns (basepb.AnyRes);
@@ -170,6 +172,10 @@ message Order {
   uint64 address_id = 3;
   string user_node = 5;
   repeated Products products = 6;
+}
+
+message PayOrderReq {
+  repeated uint64 order_id = 1;
 }
 
 message CancelOrderReq {

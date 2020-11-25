@@ -5,6 +5,7 @@ package memberpb;
 option go_package = "github.com/shinmigo/pb/memberpb";
 
 service PaymentService {
+  rpc GetPay (PaymentIdReq) returns (PaymentRelList);
   rpc AddPay (ToAdd) returns (PaymentRes);
   rpc EditPay (ToEdit) returns (PaymentRes);
 }
@@ -21,10 +22,18 @@ enum PaymentType {
   Recharge = 2;
 }
 
+message PaymentIdReq {
+  string payment_id = 1;
+}
+
 message PaymentParams {
   string source_id = 1;
   double money = 2;
 }
+message PaymentRelList {
+  repeated PaymentParams list = 1;
+}
+
 
 message ToAdd {
   uint64 member_id = 1;
