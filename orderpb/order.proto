@@ -83,7 +83,7 @@ message ListOrderReq {
   uint64 order_id = 5;
   string start_created_at = 6;
   string end_created_at = 7;
-  OrderStatus order_status = 8;
+  repeated OrderStatus order_status = 8;
 }
 
 message OrderDetail {
